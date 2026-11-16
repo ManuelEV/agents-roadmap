@@ -1,0 +1,382 @@
+/* ========================================================================== */
+/* Guía (artículos MDX): reinicio acotado + ajuste al sistema visual           */
+/*                                                                            */
+/* Los estilos portados (guide-ported.css, walkthrough.css) se escribieron      */
+/* sobre un reinicio global de estilos. Aquí se aplica ese reinicio SOLO       */
+/* dentro de .guide-scope y de los diagramas, para no tocar los laboratorios.  */
+/* ========================================================================== */
+.guide-scope :where(.gprose, .post-refs, .refs-table, .refs-toolbar) :where(h1, h2, h3, h4, h5, h6),
+.iso-figure :where(h1, h2, h3, h4, h5, h6),
+.roadmap :where(h1, h2, h3, h4, h5, h6) {
+  font-size: inherit;
+  font-weight: inherit;
+  margin: 0;
+}
+.guide-scope :where(.gprose, .post-refs) :where(p, figure, blockquote, pre, dl, dd, hr),
+.iso-figure :where(p, figure, blockquote, pre, dl, dd, hr),
+.iso-figure {
+  margin: 0;
+}
+.guide-scope :where(.gprose, .post-refs, .toc, .refs-table) :where(ol, ul, menu),
+.guide-scope :where(.toc, .refs-table),
+.iso-figure :where(ol, ul, menu),
+.roadmap :where(ol, ul, menu) {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.iso-figure :where(button),
+.roadmap :where(button),
+.codeblock :where(button),
+.codetabs :where(button),
+.refs-toolbar :where(button) {
+  background: transparent;
+  border: 0;
+  padding: 0;
+  font: inherit;
+  color: inherit;
+  cursor: pointer;
+}
+.iso-figure :where(a),
+.roadmap :where(a),
+.toc :where(a),
+.refs-table :where(a) {
+  color: inherit;
+  text-decoration: inherit;
+}
+.iso-figure :where(svg, img, canvas),
+.gprose :where(img) {
+  display: block;
+}
+.guide-scope :where(table) {
+  border-collapse: collapse;
+}
+.guide-scope :where(input) {
+  font: inherit;
+  color: inherit;
+  background: transparent;
+  border: 0;
+  outline: 0;
+}
+
+/* --- disposición del artículo --- */
+.post-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 0;
+  max-width: none;
+}
+@media (min-width: 1400px) {
+  .post-layout {
+    grid-template-columns: minmax(0, 1fr) 232px;
+  }
+}
+.post-layout > .lesson {
+  width: 100%;
+  max-width: 920px;
+  margin: 0 auto;
+}
+@media (min-width: 1180px) {
+  .post-layout > .lesson {
+    padding-left: 28px;
+  }
+  .post-layout .lesson-hero .eyebrow .stop-badge {
+    position: static;
+    width: 34px;
+    height: 34px;
+    font-size: 12.5px;
+  }
+}
+.post-aside {
+  display: none;
+}
+@media (min-width: 1400px) {
+  .post-aside {
+    display: block;
+    padding: 44px 16px 0 0;
+  }
+}
+.toc {
+  position: sticky;
+  top: calc(var(--header-h) + 12px);
+  max-height: calc(100vh - var(--header-h) - 32px);
+  overflow-y: auto;
+  scrollbar-width: thin;
+}
+.toc ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.toc a {
+  color: inherit;
+  text-decoration: none;
+}
+.toc-title {
+  font-size: 12.5px;
+  font-weight: 600;
+  color: var(--text-3);
+  text-transform: none;
+  letter-spacing: 0;
+}
+.toc li.is-active > a {
+  color: var(--text);
+  font-weight: 600;
+}
+
+/* --- prosa --- */
+.gprose {
+  font-size: 16.5px;
+  line-height: 1.7;
+}
+.gprose h2 {
+  font-size: 28px;
+  font-weight: 560;
+  letter-spacing: -0.02em;
+  line-height: 1.16;
+}
+.gprose h3 {
+  font-size: 20px;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+}
+.gprose p,
+.gprose li {
+  color: var(--text-2);
+  text-wrap: pretty;
+}
+.gprose strong {
+  color: var(--text);
+  font-weight: 600;
+}
+.gprose :where(p, li, td) a:not(.gcard):not(.btn) {
+  color: var(--accent);
+  text-decoration: underline;
+  text-decoration-color: color-mix(in srgb, var(--accent) 35%, transparent);
+  text-underline-offset: 0.18em;
+}
+.gprose :where(p, li, td) a:hover {
+  text-decoration-color: var(--accent);
+}
+.gprose .callout {
+  max-width: none;
+}
+.gprose .callout-body > * + * {
+  margin-top: 0.6em;
+}
+.gprose .table-wrap {
+  border-radius: var(--radius);
+  background: var(--bg-elev);
+}
+.gprose th {
+  font-size: 12.5px;
+  font-weight: 600;
+  color: var(--text-3);
+  text-transform: none;
+  letter-spacing: 0;
+  background: transparent;
+}
+
+/* --- tarjetas, insignias, ideas clave --- */
+.gcards {
+  display: grid;
+  gap: 12px;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+.gcards-3 {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+@media (max-width: 760px) {
+  .gcards,
+  .gcards-3 {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+.gcard {
+  display: grid;
+  gap: 6px;
+  align-content: start;
+  padding: 16px 18px;
+  border: 1px solid var(--border);
+  border-radius: 18px;
+  background: var(--bg-elev);
+  color: var(--text);
+  text-decoration: none;
+}
+.gcard-link {
+  transition:
+    transform 0.18s,
+    box-shadow 0.18s,
+    border-color 0.18s;
+}
+.gcard-link:hover {
+  transform: translateY(-1px);
+  border-color: var(--border-strong);
+  box-shadow: var(--shadow);
+}
+.gcard-link:active {
+  transform: scale(0.99);
+}
+.gcard-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+.gcard-title {
+  font-family: var(--font-display);
+  font-variation-settings: 'ROND' 60;
+  font-weight: 600;
+  font-size: 16.5px;
+  letter-spacing: -0.008em;
+}
+.gcard-body {
+  color: var(--text-2);
+  font-size: 14.5px;
+  line-height: 1.55;
+}
+.gcard-body > * + * {
+  margin-top: 0.5em;
+}
+.gcard-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  margin-top: 4px;
+  font-size: 13.5px;
+  font-weight: 500;
+  color: var(--accent);
+}
+.gbadge {
+  display: inline-flex;
+  align-items: center;
+  padding: 3px 9px;
+  border-radius: 999px;
+  font-size: 11.5px;
+  font-weight: 600;
+  line-height: 1.2;
+  background: var(--bg-inset);
+  color: var(--text-2);
+  white-space: nowrap;
+}
+.gbadge-ga {
+  color: var(--c-ok);
+  background: color-mix(in srgb, var(--c-ok) 12%, transparent);
+}
+.gbadge-preview {
+  color: var(--c-guard);
+  background: color-mix(in srgb, var(--c-guard) 13%, transparent);
+}
+.gbadge-deprecated {
+  color: var(--c-error);
+  background: color-mix(in srgb, var(--c-error) 12%, transparent);
+}
+.keypoints {
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  background: var(--bg-elev);
+  padding: 20px 24px;
+}
+.keypoints-title {
+  font-family: var(--font-display);
+  font-variation-settings: 'ROND' 60;
+  font-weight: 600;
+  font-size: 18px;
+  text-transform: none;
+  letter-spacing: -0.01em;
+  color: var(--text);
+}
+
+/* --- código --- */
+.codeblock {
+  border-radius: var(--radius);
+}
+.codeblock-head {
+  background: transparent;
+  font-family: var(--font-mono);
+  font-size: 12px;
+}
+.codeblock-copy {
+  border-radius: 999px;
+  font-family: var(--font-sans);
+}
+.codeblock pre {
+  font-size: 13px;
+  line-height: 1.65;
+}
+.codetabs-bar button {
+  font-weight: 500;
+}
+
+/* --- referencias --- */
+.post-refs h2 {
+  font-size: 24px;
+  font-weight: 560;
+  letter-spacing: -0.018em;
+}
+.page-wide {
+  max-width: 1120px;
+  margin: 0 auto;
+  padding: 36px 28px 60px;
+}
+.page-wide .post-kicker {
+  text-transform: none;
+  letter-spacing: 0;
+  color: var(--text-3);
+  font-size: 13.5px;
+}
+.page-wide .post-head h1 {
+  font-size: clamp(34px, 4.6vw, 52px);
+  font-weight: 560;
+  letter-spacing: -0.03em;
+  line-height: 1.05;
+  margin: 10px 0 12px;
+}
+.page-wide .post-desc {
+  color: var(--text-2);
+  font-size: 18px;
+  max-width: 760px;
+  margin: 0;
+}
+.refs-search {
+  border-radius: 999px;
+}
+.refs-orgs button {
+  border-radius: 999px;
+}
+
+/* --- diagramas paso a paso --- */
+.iso-figure {
+  border-radius: var(--radius-lg);
+}
+.roadmap-card {
+  border-radius: var(--radius-lg);
+}
+@media (max-width: 640px) {
+  .page-wide {
+    padding: 18px 16px 44px;
+  }
+}
+
+/* rutas y comandos largos en línea no deben desbordar la página en móvil */
+.gprose :where(p, li, td, th) code,
+.gprose :where(p, li) a {
+  overflow-wrap: anywhere;
+}
+
+/* contenidos anchos dentro de tarjetas y callouts no deben empujar la página */
+.gcard {
+  min-width: 0;
+}
+.gcard-head {
+  flex-wrap: wrap;
+}
+.gcard .gbadge {
+  white-space: normal;
+}
+.callout {
+  grid-template-columns: auto minmax(0, 1fr);
+}
+.callout > div {
+  min-width: 0;
+}

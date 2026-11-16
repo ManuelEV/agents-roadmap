@@ -1,0 +1,855 @@
+/* vercel/interfaz — todas las clases con prefijo .vc-ui- */
+
+.vc-ui-ctl {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px 16px;
+  margin-bottom: 14px;
+}
+.vc-ui-col-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  min-height: 26px;
+  margin-bottom: 8px;
+}
+.vc-ui-wide {
+  max-width: 100%;
+  width: 100%;
+  gap: 6px;
+}
+.vc-ui-wide .chat-bubble {
+  align-self: flex-start;
+  max-width: 92%;
+}
+
+/* ---------------------------------------------------------------------- */
+/* Lab 1 · línea con estaciones                                            */
+/* ---------------------------------------------------------------------- */
+.vc-ui-line {
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 8px;
+  margin-bottom: 16px;
+}
+.vc-ui-line::before {
+  content: '';
+  position: absolute;
+  left: 8%;
+  right: 8%;
+  top: 20px;
+  height: 3px;
+  border-radius: 3px;
+  background: var(--border-strong);
+}
+.vc-ui-stop {
+  position: relative;
+  display: grid;
+  justify-items: center;
+  gap: 6px;
+  padding: 6px 4px 8px;
+  border: 0;
+  border-radius: 12px;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  cursor: pointer;
+  text-align: center;
+  min-width: 0;
+}
+.vc-ui-stop:active {
+  transform: scale(0.97);
+}
+.vc-ui-stop-dot {
+  display: grid;
+  place-items: center;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  border: 3px solid var(--tone);
+  background: var(--bg-elev);
+  color: var(--tone);
+  font-family: var(--font-mono);
+  font-size: 12px;
+  font-weight: 600;
+}
+.vc-ui-stop.is-active .vc-ui-stop-dot {
+  background: var(--tone);
+  color: var(--bg-elev);
+  box-shadow: 0 0 0 5px color-mix(in srgb, var(--tone) 18%, transparent);
+}
+.vc-ui-stop-txt {
+  display: grid;
+  gap: 1px;
+  min-width: 0;
+  max-width: 100%;
+}
+.vc-ui-stop .k {
+  font-family: var(--font-mono);
+  font-size: 12.5px;
+  font-weight: 600;
+  color: var(--text-2);
+  overflow-wrap: anywhere;
+}
+.vc-ui-stop.is-active .k {
+  color: var(--tone);
+}
+.vc-ui-stop .d {
+  font-size: 11.5px;
+  color: var(--text-3);
+}
+.vc-ui-station {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 12px;
+  align-items: start;
+  border: 1px solid color-mix(in srgb, var(--tone) 34%, var(--border));
+  background: color-mix(in srgb, var(--tone) 6%, var(--bg-elev));
+  border-radius: 14px;
+  padding: 14px;
+}
+.vc-ui-station p {
+  margin: 0;
+  font-size: 14.5px;
+  color: var(--text-2);
+  line-height: 1.55;
+}
+@media (max-width: 760px) {
+  .vc-ui-line {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 2px;
+  }
+  .vc-ui-line::before {
+    left: 24px;
+    right: auto;
+    top: 20px;
+    bottom: 20px;
+    width: 3px;
+    height: auto;
+  }
+  .vc-ui-stop {
+    grid-template-columns: auto minmax(0, 1fr);
+    justify-items: start;
+    align-items: center;
+    gap: 10px;
+    text-align: left;
+    padding: 5px 10px;
+  }
+}
+
+/* ---------------------------------------------------------------------- */
+/* Ventana de chat simulada                                                */
+/* ---------------------------------------------------------------------- */
+.vc-ui-win {
+  border: 1px solid var(--border-strong);
+  border-radius: 14px;
+  background: var(--bg-elev);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+.vc-ui-win-top {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 6px 10px;
+  padding: 8px 12px;
+  border-bottom: 1px solid var(--border);
+  background: var(--bg-sunken);
+}
+.vc-ui-win-title {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text-2);
+}
+.vc-ui-win-body {
+  padding: 12px;
+  min-height: 190px;
+  flex: 1;
+}
+.vc-ui-win-foot {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  padding: 10px 12px;
+  border-top: 1px solid var(--border);
+  background: var(--bg-sunken);
+}
+.vc-ui-win-foot .btn {
+  height: auto;
+  min-height: 30px;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  text-align: left;
+  white-space: normal;
+}
+.vc-ui-state {
+  font-size: 11.5px;
+  padding: 3px 8px;
+  border-radius: 99px;
+  background: var(--bg-inset);
+  color: var(--text-3);
+}
+.vc-ui-state[data-on='true'] {
+  color: var(--c-guard);
+  background: color-mix(in srgb, var(--c-guard) 12%, var(--bg-elev));
+}
+
+/* ---------------------------------------------------------------------- */
+/* Tarjeta de pedido                                                       */
+/* ---------------------------------------------------------------------- */
+.vc-ui-card {
+  --tone: var(--c-tool);
+  width: 100%;
+  max-width: 360px;
+  border: 1px solid color-mix(in srgb, var(--tone) 34%, var(--border));
+  border-radius: 14px;
+  background: var(--bg-elev);
+  overflow: hidden;
+  font-size: 13.5px;
+}
+.vc-ui-card[data-state='output-available'] {
+  --tone: var(--c-data);
+}
+.vc-ui-card[data-state='output-error'] {
+  --tone: var(--c-error);
+}
+.vc-ui-card-head {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 11px;
+  background: color-mix(in srgb, var(--tone) 9%, var(--bg-elev));
+  border-bottom: 1px solid color-mix(in srgb, var(--tone) 22%, var(--border));
+}
+.vc-ui-card-ico {
+  display: grid;
+  place-items: center;
+  color: var(--tone);
+}
+.vc-ui-card-title {
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+}
+.vc-ui-card-status {
+  margin-left: auto;
+  font-size: 11.5px;
+  font-weight: 600;
+  color: var(--tone);
+  border: 1px solid color-mix(in srgb, var(--tone) 40%, transparent);
+  border-radius: 99px;
+  padding: 1px 8px;
+}
+.vc-ui-spin {
+  margin-left: auto;
+  color: var(--tone);
+  animation: vc-ui-spin 0.9s linear infinite;
+}
+@keyframes vc-ui-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+.vc-ui-card-body {
+  display: grid;
+  gap: 8px;
+  padding: 10px 11px 11px;
+}
+.vc-ui-card-item {
+  font-weight: 500;
+  color: var(--text);
+}
+.vc-ui-card-note {
+  font-size: 12.5px;
+  color: var(--text-3);
+}
+.vc-ui-card-err {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--c-error);
+  overflow-wrap: anywhere;
+}
+.vc-ui-skel {
+  display: block;
+  height: 10px;
+  border-radius: 6px;
+  background: var(--bg-inset);
+  animation: vc-ui-pulse 1.1s ease-in-out infinite alternate;
+}
+@keyframes vc-ui-pulse {
+  from {
+    opacity: 0.45;
+  }
+  to {
+    opacity: 1;
+  }
+}
+.vc-ui-track {
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  font-size: 11.5px;
+  color: var(--text-3);
+}
+.vc-ui-track::before {
+  content: '';
+  position: absolute;
+  left: 16.6%;
+  right: 16.6%;
+  top: 5px;
+  height: 2px;
+  background: var(--border-strong);
+}
+.vc-ui-track-stop {
+  position: relative;
+  display: grid;
+  justify-items: center;
+  gap: 4px;
+}
+.vc-ui-track-stop i {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  border: 2px solid var(--border-strong);
+  background: var(--bg-elev);
+}
+.vc-ui-track-stop.is-done i {
+  border-color: var(--tone);
+  background: var(--tone);
+}
+.vc-ui-track-stop.is-now i {
+  border-color: var(--tone);
+  background: var(--tone);
+  box-shadow: 0 0 0 4px color-mix(in srgb, var(--tone) 22%, transparent);
+}
+.vc-ui-track-stop.is-now {
+  color: var(--text);
+  font-weight: 600;
+}
+.vc-ui-card-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 12px;
+  font-size: 12.5px;
+  color: var(--text-2);
+}
+.vc-ui-card-meta span {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+.vc-ui-card.is-compact {
+  font-size: 12.5px;
+}
+
+/* ---------------------------------------------------------------------- */
+/* Lab 2 · el cable                                                        */
+/* ---------------------------------------------------------------------- */
+.vc-ui-wire {
+  display: grid;
+  grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.15fr) minmax(0, 1.05fr);
+  gap: 14px;
+  align-items: start;
+  margin: 14px 0 12px;
+}
+@media (max-width: 1080px) {
+  .vc-ui-wire {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+.vc-ui-col {
+  min-width: 0;
+}
+.vc-ui-stages {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 4px;
+}
+.vc-ui-stages li {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  gap: 9px;
+  align-items: start;
+  padding: 7px 9px;
+  border-radius: 10px;
+  border: 1px solid transparent;
+  opacity: 0.45;
+  transition: opacity 0.25s;
+}
+.vc-ui-stages li.is-done {
+  opacity: 0.8;
+}
+.vc-ui-stages li.is-now {
+  opacity: 1;
+  border-color: color-mix(in srgb, var(--tone) 40%, var(--border));
+  background: color-mix(in srgb, var(--tone) 9%, var(--bg-elev));
+}
+.vc-ui-stage-dot {
+  display: grid;
+  place-items: center;
+  width: 16px;
+  height: 16px;
+  margin-top: 2px;
+  border-radius: 50%;
+  border: 2px solid var(--tone);
+  color: var(--bg-elev);
+}
+.vc-ui-stages li.is-done .vc-ui-stage-dot,
+.vc-ui-stages li.is-now .vc-ui-stage-dot {
+  background: var(--tone);
+}
+.vc-ui-stage-txt {
+  display: grid;
+  min-width: 0;
+}
+.vc-ui-stage-txt .k {
+  font-family: var(--font-mono);
+  font-size: 11.5px;
+  font-weight: 600;
+  color: var(--text);
+  overflow-wrap: anywhere;
+}
+.vc-ui-stage-txt .d {
+  font-size: 12px;
+  color: var(--text-3);
+  line-height: 1.35;
+}
+.vc-ui-stream {
+  height: 372px;
+  overflow-y: auto;
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  background: var(--code-bg, var(--bg-sunken));
+  padding: 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+.vc-ui-chunk {
+  font-family: var(--font-mono);
+  font-size: 11.5px;
+  line-height: 1.5;
+  padding: 3px 7px;
+  border-radius: 7px;
+  color: var(--text-3);
+  overflow-wrap: anywhere;
+  border: 1px solid transparent;
+}
+.vc-ui-chunk .p {
+  opacity: 0.7;
+}
+.vc-ui-chunk b {
+  font-weight: 600;
+  color: var(--tone);
+}
+.vc-ui-chunk.is-new {
+  color: var(--text);
+  background: color-mix(in srgb, var(--tone) 10%, var(--bg-elev));
+  border-color: color-mix(in srgb, var(--tone) 30%, var(--border));
+  animation: fade-in 0.35s ease both;
+}
+.vc-ui-req {
+  border: 1px dashed color-mix(in srgb, var(--c-user) 45%, var(--border));
+  border-radius: 10px;
+  padding: 8px 10px;
+  background: color-mix(in srgb, var(--c-user) 7%, var(--bg-elev));
+  display: grid;
+  gap: 5px;
+}
+.vc-ui-req-head {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--c-user);
+}
+.vc-ui-req code {
+  font-size: 11.5px;
+  background: transparent;
+  border: 0;
+  padding: 0;
+  color: var(--text-2);
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+.vc-ui-req-wait {
+  font-size: 12px;
+  color: var(--text-3);
+}
+.vc-ui-wire .vc-ui-win-body {
+  min-height: 236px;
+}
+.vc-ui-partlist {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 5px;
+  margin-top: 9px;
+  min-height: 52px;
+  align-content: flex-start;
+}
+.vc-ui-partlist .label {
+  width: 100%;
+}
+.vc-ui-part {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  max-width: 100%;
+  font-size: 11.5px;
+  padding: 2px 8px;
+  border-radius: 8px;
+  color: var(--tone);
+  border: 1px solid color-mix(in srgb, var(--tone) 34%, var(--border));
+  background: color-mix(in srgb, var(--tone) 8%, var(--bg-elev));
+  overflow-wrap: anywhere;
+}
+.vc-ui-part .st {
+  color: var(--text-2);
+}
+
+/* ---------------------------------------------------------------------- */
+/* Lab 3 · estados de la parte                                             */
+/* ---------------------------------------------------------------------- */
+.vc-ui-parts {
+  display: grid;
+  grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
+  gap: 16px;
+  align-items: start;
+}
+@media (max-width: 960px) {
+  .vc-ui-parts {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+.vc-ui-rawpart {
+  margin: 0;
+  width: 100%;
+  font-family: var(--font-mono);
+  font-size: 11.5px;
+  line-height: 1.5;
+  color: var(--text-2);
+  background: var(--bg-inset);
+  border-radius: 10px;
+  padding: 9px 11px;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+.vc-ui-note {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px 12px;
+  margin-top: 14px;
+  padding: 10px 13px;
+  border-radius: 12px;
+  font-size: 14px;
+  color: var(--text-2);
+  background: color-mix(in srgb, var(--tone) 8%, var(--bg-elev));
+  border: 1px solid color-mix(in srgb, var(--tone) 28%, var(--border));
+}
+.vc-ui-note > span:last-child {
+  flex: 1 1 260px;
+  min-width: 0;
+}
+
+/* ---------------------------------------------------------------------- */
+/* Lab 4 · aprobación                                                      */
+/* ---------------------------------------------------------------------- */
+.vc-ui-appr,
+.vc-ui-persist {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr);
+  gap: 16px;
+  align-items: start;
+}
+@media (max-width: 960px) {
+  .vc-ui-appr,
+  .vc-ui-persist {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+.vc-ui-evcol {
+  min-width: 0;
+}
+.vc-ui-evempty {
+  margin: 0;
+  padding: 14px 4px;
+}
+.vc-ui-evwait {
+  margin: 10px 0 0;
+  color: var(--c-guard);
+  font-weight: 500;
+}
+.vc-ui-empty {
+  display: grid;
+  gap: 10px;
+  justify-items: start;
+  padding: 6px 2px;
+}
+.vc-ui-empty p {
+  margin: 0;
+  font-size: 13px;
+  color: var(--text-3);
+}
+.vc-ui-empty blockquote {
+  margin: 0;
+  padding: 9px 13px;
+  border-radius: 18px 18px 6px 18px;
+  background: color-mix(in srgb, var(--c-user) 12%, var(--bg-elev));
+  font-size: 14px;
+}
+.vc-ui-refund {
+  --tone: var(--c-guard);
+  width: 100%;
+  max-width: 380px;
+  border: 1px solid color-mix(in srgb, var(--tone) 40%, var(--border));
+  border-radius: 14px;
+  background: var(--bg-elev);
+  overflow: hidden;
+  font-size: 13.5px;
+}
+.vc-ui-refund[data-phase='approved'],
+.vc-ui-refund[data-phase='auto'] {
+  --tone: var(--c-ok);
+}
+.vc-ui-refund[data-phase='denied'] {
+  --tone: var(--c-error);
+}
+.vc-ui-refund-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 4px 8px;
+  padding: 8px 11px;
+  font-family: var(--font-mono);
+  font-size: 12.5px;
+  font-weight: 600;
+  color: var(--tone);
+  background: color-mix(in srgb, var(--tone) 9%, var(--bg-elev));
+  border-bottom: 1px solid color-mix(in srgb, var(--tone) 22%, var(--border));
+}
+.vc-ui-refund-head .st {
+  margin-left: auto;
+  font-weight: 500;
+  font-size: 11.5px;
+}
+.vc-ui-refund-args {
+  margin: 0;
+  padding: 9px 11px;
+  display: grid;
+  gap: 4px;
+}
+.vc-ui-refund-args div {
+  display: grid;
+  grid-template-columns: 92px minmax(0, 1fr);
+  gap: 8px;
+}
+.vc-ui-refund-args dt {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--text-3);
+}
+.vc-ui-refund-args dd {
+  margin: 0;
+  font-variant-numeric: tabular-nums;
+}
+.vc-ui-refund-actions {
+  display: grid;
+  gap: 8px;
+  padding: 10px 11px;
+  border-top: 1px solid var(--border);
+  background: color-mix(in srgb, var(--tone) 6%, var(--bg-elev));
+}
+.vc-ui-refund-res {
+  padding: 8px 11px;
+  border-top: 1px solid var(--border);
+  font-size: 12.5px;
+  font-weight: 600;
+  color: var(--tone);
+}
+
+/* ---------------------------------------------------------------------- */
+/* Lab 5 · persistencia                                                    */
+/* ---------------------------------------------------------------------- */
+.vc-ui-persist .vc-ui-win-body {
+  min-height: 250px;
+}
+.vc-ui-db {
+  --tone: var(--c-memory);
+  border: 1px solid var(--border-strong);
+  border-radius: 14px;
+  background: var(--bg-elev);
+  overflow: hidden;
+}
+.vc-ui-db[data-filled='true'] {
+  border-color: color-mix(in srgb, var(--tone) 45%, var(--border));
+}
+.vc-ui-db-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 4px 8px;
+  padding: 8px 12px;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--tone);
+  border-bottom: 1px solid var(--border);
+  background: color-mix(in srgb, var(--tone) 7%, var(--bg-elev));
+}
+.vc-ui-db-head .small {
+  margin-left: auto;
+  font-weight: 500;
+  font-size: 11.5px;
+  color: var(--text-2);
+}
+.vc-ui-db-empty {
+  padding: 18px 12px;
+  font-size: 13px;
+  color: var(--text-3);
+}
+.vc-ui-db-rows {
+  padding: 8px 10px 10px;
+  display: grid;
+  gap: 5px;
+}
+.vc-ui-db-id {
+  font-size: 11.5px;
+  color: var(--text-3);
+}
+.vc-ui-db-row {
+  display: grid;
+  grid-template-columns: 62px 74px minmax(0, 1fr);
+  gap: 8px;
+  align-items: start;
+  font-size: 11.5px;
+  padding: 5px 7px;
+  border-radius: 8px;
+  background: var(--bg-sunken);
+}
+.vc-ui-db-row .id {
+  color: var(--text-2);
+}
+.vc-ui-db-row .role {
+  color: var(--tone);
+}
+.vc-ui-db-row .parts {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  min-width: 0;
+}
+@media (max-width: 480px) {
+  .vc-ui-db-row {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  }
+  .vc-ui-db-row .parts {
+    grid-column: 1 / -1;
+  }
+}
+
+/* ---------------------------------------------------------------------- */
+/* Lab 6 · código                                                          */
+/* ---------------------------------------------------------------------- */
+.vc-ui-steps-pick {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 6px;
+  margin-bottom: 14px;
+}
+@media (max-width: 860px) {
+  .vc-ui-steps-pick {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+@media (max-width: 460px) {
+  .vc-ui-steps-pick {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+.vc-ui-steps-pick button {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  gap: 8px;
+  align-items: center;
+  text-align: left;
+  font: inherit;
+  font-size: 12.5px;
+  line-height: 1.3;
+  color: var(--text-2);
+  padding: 7px 10px;
+  border-radius: 12px;
+  border: 1px solid var(--border);
+  background: var(--bg-elev);
+  cursor: pointer;
+}
+.vc-ui-steps-pick button:active {
+  transform: scale(0.97);
+}
+.vc-ui-steps-pick .n {
+  display: grid;
+  place-items: center;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: var(--bg-inset);
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 600;
+}
+.vc-ui-steps-pick button.is-active {
+  color: var(--text);
+  border-color: var(--accent);
+  background: var(--accent-soft);
+}
+.vc-ui-steps-pick button.is-active .n {
+  background: var(--accent);
+  color: var(--on-accent);
+}
+.vc-ui-codes {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr);
+  gap: 16px;
+  align-items: start;
+  margin: 14px 0;
+}
+.lab .vc-ui-codes {
+  margin: 0;
+}
+@media (max-width: 960px) {
+  .vc-ui-codes {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+.lab .vc-ui-codes .code {
+  font-size: 11.5px;
+}
+.vc-ui-win .chat-msg:not(.is-user) {
+  align-items: flex-start;
+}
+.vc-ui-station p {
+  max-width: 760px;
+}
+.vc-ui-chunk b {
+  white-space: nowrap;
+}
+.vc-ui-part {
+  flex-wrap: wrap;
+  row-gap: 0;
+}
+.vc-ui-part .mono {
+  white-space: nowrap;
+}
+.vc-ui-evcol .ev-text,
+.vc-ui-evcol .ev-head,
+.vc-ui-persist .ev-head {
+  overflow-wrap: anywhere;
+  flex-wrap: wrap;
+}

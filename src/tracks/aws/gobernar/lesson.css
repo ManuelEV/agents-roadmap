@@ -1,0 +1,446 @@
+/* Gobernar al agente (AWS) · prefijo .aws-gob- */
+
+.aws-gob-scen {
+  margin-bottom: 10px;
+  max-width: 100%;
+  overflow-x: auto;
+}
+
+/* ---- Lab 1 · pipeline ---------------------------------------------------- */
+.flow-node.aws-gob-n-bad rect.box {
+  stroke: var(--c-error);
+  stroke-width: 2;
+  fill: color-mix(in srgb, var(--c-error) 10%, var(--bg-elev));
+}
+.flow-node.aws-gob-n-bad .badge rect {
+  fill: var(--c-error);
+}
+.flow-node.aws-gob-n-ok .badge rect {
+  fill: var(--c-ok);
+}
+.aws-gob-pipe-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr);
+  gap: 14px;
+  align-items: start;
+  margin-top: 12px;
+}
+.aws-gob-layers {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 8px;
+  margin-top: 14px;
+}
+.aws-gob-layer {
+  --st: var(--text-3);
+  display: grid;
+  gap: 3px;
+  align-content: start;
+  padding: 10px 12px;
+  border-radius: 12px;
+  border: 1px solid color-mix(in srgb, var(--st) 34%, var(--border));
+  background: color-mix(in srgb, var(--st) 7%, var(--bg-elev));
+  font-size: 13.5px;
+}
+.aws-gob-layer[data-status='stop'] {
+  --st: var(--c-ok);
+}
+.aws-gob-layer[data-status='backup'] {
+  --st: var(--c-guard);
+}
+.aws-gob-layer[data-status='blind'] {
+  background: var(--bg-sunken);
+  border-style: dashed;
+}
+.aws-gob-layer-st {
+  justify-self: start;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--st);
+}
+.aws-gob-layer[data-status='blind'] strong {
+  color: var(--text-2);
+}
+.aws-gob-layer-why {
+  color: var(--text-2);
+  font-size: 12.5px;
+  line-height: 1.4;
+}
+
+/* ---- Lab 2 · identity ---------------------------------------------------- */
+.aws-gob-id-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.25fr);
+  gap: 14px;
+  align-items: start;
+  margin-top: 12px;
+}
+.aws-gob-ledger {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 8px;
+}
+.aws-gob-ledger-row {
+  display: grid;
+  gap: 4px;
+  padding: 10px 12px;
+  border-radius: 12px;
+  border: 1px solid color-mix(in srgb, var(--tone) 34%, var(--border));
+  background: color-mix(in srgb, var(--tone) 7%, var(--bg-elev));
+  overflow-wrap: anywhere;
+}
+
+/* ---- Lab 3 · policy ------------------------------------------------------ */
+.aws-gob-pol {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.35fr);
+  gap: 16px;
+  align-items: start;
+}
+.aws-gob-pol-rules {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 8px;
+}
+.aws-gob-rule {
+  display: grid;
+  gap: 4px;
+  padding: 10px 12px;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  background: var(--bg-sunken);
+}
+.aws-gob-rule[data-on='true'] {
+  background: color-mix(in srgb, var(--c-ok) 7%, var(--bg-elev));
+  border-color: color-mix(in srgb, var(--c-ok) 34%, var(--border));
+}
+.aws-gob-rule[data-kind='forbid'][data-on='true'] {
+  background: color-mix(in srgb, var(--c-error) 7%, var(--bg-elev));
+  border-color: color-mix(in srgb, var(--c-error) 38%, var(--border));
+}
+.aws-gob-rule .slider {
+  margin-top: 4px;
+}
+.aws-gob-calls td {
+  vertical-align: top;
+}
+.aws-gob-call {
+  display: block;
+  font-size: 12.5px;
+  overflow-wrap: anywhere;
+}
+.aws-gob-call-who {
+  display: block;
+}
+.aws-gob-dec {
+  display: inline-block;
+  font-family: var(--font-mono);
+  font-size: 11.5px;
+  font-weight: 700;
+  padding: 2px 9px;
+  border-radius: 99px;
+  color: var(--c-error);
+  background: color-mix(in srgb, var(--c-error) 12%, transparent);
+  animation: aws-gob-pop 0.25s ease-out;
+}
+.aws-gob-dec[data-allow='true'] {
+  color: var(--c-ok);
+  background: color-mix(in srgb, var(--c-ok) 13%, transparent);
+}
+@keyframes aws-gob-pop {
+  from {
+    transform: scale(0.85);
+    opacity: 0.3;
+  }
+}
+.aws-gob-pol-code {
+  display: grid;
+  grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr);
+  gap: 14px;
+  align-items: start;
+  margin-top: 14px;
+}
+
+/* ---- Lab 4 · guardrails -------------------------------------------------- */
+.aws-gob-g {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.3fr);
+  gap: 18px;
+  align-items: start;
+}
+.aws-gob-samples {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 6px;
+  margin-top: 6px;
+}
+.aws-gob-sample {
+  display: grid;
+  gap: 3px;
+  justify-items: start;
+  text-align: left;
+  font: inherit;
+  font-size: 13px;
+  line-height: 1.25;
+  color: var(--text);
+  padding: 8px 10px;
+  border-radius: 12px;
+  border: 1px solid var(--border);
+  background: var(--bg-elev);
+  cursor: pointer;
+}
+.aws-gob-sample:active {
+  transform: scale(0.97);
+}
+.aws-gob-sample.is-active {
+  border-color: var(--accent);
+  background: var(--accent-soft);
+}
+.aws-gob-src {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  font-weight: 700;
+  color: var(--c-user);
+}
+.aws-gob-src[data-src='OUTPUT'] {
+  color: var(--c-model);
+}
+.aws-gob-src[data-src='TOOL'] {
+  color: var(--c-tool);
+}
+.aws-gob-tier {
+  margin: 6px 0 0;
+}
+.aws-gob-gpols {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 6px;
+  margin-top: 6px;
+}
+.aws-gob-gpol {
+  display: grid;
+  gap: 2px;
+  padding: 8px 12px;
+  border-radius: 12px;
+  border: 1px solid var(--border);
+  background: var(--bg-sunken);
+}
+.aws-gob-gpol[data-on='true'] {
+  background: color-mix(in srgb, var(--c-guard) 7%, var(--bg-elev));
+  border-color: color-mix(in srgb, var(--c-guard) 34%, var(--border));
+}
+.aws-gob-price {
+  font-size: 11px;
+  color: var(--text-3);
+}
+.aws-gob-g-right {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 10px;
+  min-width: 0;
+}
+.aws-gob-req,
+.aws-gob-res {
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  background: var(--bg-elev);
+  overflow: hidden;
+}
+.aws-gob-req-head,
+.aws-gob-res-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 6px;
+  padding: 8px 12px;
+  font-size: 12px;
+  color: var(--text-2);
+  background: var(--bg-sunken);
+  border-bottom: 1px solid var(--border);
+  overflow-wrap: anywhere;
+}
+.aws-gob-res {
+  --st: var(--c-ok);
+  border-color: color-mix(in srgb, var(--st) 40%, var(--border));
+}
+.aws-gob-res[data-state='hit'] {
+  --st: var(--c-guard);
+}
+.aws-gob-res[data-state='blind'] {
+  --st: var(--c-error);
+  border-style: dashed;
+}
+.aws-gob-action {
+  font-family: var(--font-mono);
+  font-weight: 700;
+  font-size: 12px;
+  color: var(--st);
+  background: color-mix(in srgb, var(--st) 13%, transparent);
+  padding: 2px 10px;
+  border-radius: 99px;
+}
+.aws-gob-kv {
+  display: grid;
+  grid-template-columns: 150px minmax(0, 1fr);
+  gap: 7px 12px;
+  padding: 10px 12px;
+  font-size: 13px;
+}
+.aws-gob-kv .k {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--text-3);
+  overflow-wrap: anywhere;
+}
+.aws-gob-kv .v {
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+.aws-gob-text {
+  background: var(--bg-sunken);
+  border-radius: 8px;
+  padding: 5px 9px;
+}
+.aws-gob-assess {
+  display: grid;
+  gap: 4px;
+}
+.aws-gob-assess-row {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 2px 12px;
+  padding: 4px 8px;
+  border-radius: 8px;
+  font-size: 12.5px;
+  color: var(--text-3);
+  background: var(--bg-sunken);
+}
+.aws-gob-assess-row .mono {
+  font-size: 11.5px;
+  overflow-wrap: anywhere;
+}
+.aws-gob-assess-row[data-hit='true'] {
+  color: var(--text);
+  background: color-mix(in srgb, var(--c-guard) 14%, var(--bg-elev));
+  box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--c-guard) 45%, transparent);
+}
+.aws-gob-blind {
+  margin: 0;
+  padding: 12px;
+  font-size: 13.5px;
+  color: var(--text-2);
+}
+.aws-gob-g-notes p {
+  margin: 0 0 6px;
+}
+
+/* ---- Lab 5 · trazas ------------------------------------------------------ */
+.aws-gob-obs {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 12px;
+  margin-top: 12px;
+}
+.aws-gob-obs-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr);
+  gap: 14px;
+  align-items: start;
+}
+.aws-gob-wf {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 6px;
+}
+.aws-gob-wf-row {
+  display: grid;
+  grid-template-columns: minmax(0, 210px) minmax(0, 1fr) 62px;
+  gap: 10px;
+  align-items: center;
+  font-size: 12.5px;
+}
+.aws-gob-wf-name {
+  display: grid;
+  line-height: 1.25;
+}
+.aws-gob-wf-detail {
+  font-family: var(--font-mono);
+  font-size: 10.5px;
+  color: var(--text-3);
+  overflow-wrap: anywhere;
+}
+.aws-gob-wf-track {
+  position: relative;
+  height: 14px;
+  border-radius: 7px;
+  background: var(--bg-sunken);
+}
+.aws-gob-wf-bar {
+  position: absolute;
+  top: 2px;
+  bottom: 2px;
+  border-radius: 5px;
+  background: var(--tone);
+  transform-origin: left;
+  animation: aws-gob-grow 0.5s ease-out both;
+}
+@keyframes aws-gob-grow {
+  from {
+    transform: scaleX(0);
+    opacity: 0.4;
+  }
+}
+.aws-gob-wf-ms {
+  font-size: 11.5px;
+  color: var(--text-2);
+  text-align: right;
+}
+.aws-gob-evals {
+  opacity: 0.55;
+  transition: opacity 0.3s;
+}
+.aws-gob-evals.is-live {
+  opacity: 1;
+}
+.aws-gob-eval {
+  display: grid;
+  gap: 1px;
+  margin-bottom: 8px;
+}
+
+@media (max-width: 900px) {
+  .aws-gob-pipe-grid,
+  .aws-gob-id-grid,
+  .aws-gob-pol,
+  .aws-gob-pol-code,
+  .aws-gob-g,
+  .aws-gob-obs-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .aws-gob-layers {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+@media (max-width: 560px) {
+  .aws-gob-layers,
+  .aws-gob-samples {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .aws-gob-kv {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 2px 0;
+  }
+  .aws-gob-kv .v {
+    margin-bottom: 6px;
+  }
+  .aws-gob-wf-row {
+    grid-template-columns: minmax(0, 1fr) 62px;
+  }
+  .aws-gob-wf-track {
+    grid-column: 1 / -1;
+    order: 3;
+  }
+}

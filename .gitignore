@@ -1,0 +1,11 @@
+node_modules
+dist
+*.local
+.DS_Store
+.env
+.wrangler
+examples/**/.env
+examples/**/__pycache__/
+examples/**/.venv/
+examples/**/*.egg-info/
+scripts/shots/

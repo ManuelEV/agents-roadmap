@@ -1,0 +1,28 @@
+[project]
+name = "andes-workshop-examples"
+version = "0.1.0"
+description = "Andi, el agente de soporte de Andes Market, contra la API real de Claude (ejemplos del Agents Workshop)"
+requires-python = ">=3.11"
+dependencies = [
+  "anthropic>=1.1",
+  "pydantic>=2.7",
+  "python-dotenv>=1.0",
+]
+
+[project.optional-dependencies]
+# Módulo 05 (computer use sobre un navegador y generación del PDF de ejemplo)
+navegador = ["playwright>=1.48"]
+dev = ["pytest>=8"]
+
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools]
+packages = ["andes"]
+
+[tool.setuptools.package-data]
+andes = ["kb.json"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]

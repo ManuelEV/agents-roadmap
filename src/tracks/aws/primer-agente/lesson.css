@@ -1,0 +1,309 @@
+/* Lab 1 · anatomía */
+.aws-pa-anatomy {
+  display: grid;
+  grid-template-columns: minmax(0, 1.45fr) minmax(0, 1fr);
+  gap: 16px;
+  align-items: start;
+}
+.aws-pa-parts {
+  display: grid;
+  gap: 6px;
+}
+.aws-pa-part {
+  text-align: left;
+  font: inherit;
+  color: inherit;
+  border: 1px solid color-mix(in srgb, var(--tone) 30%, var(--border));
+  border-radius: 12px;
+  background: var(--bg-elev);
+  padding: 8px 12px;
+  cursor: pointer;
+  display: grid;
+  gap: 4px;
+  min-width: 0;
+}
+.aws-pa-part:active {
+  transform: scale(0.985);
+}
+.aws-pa-part.is-active {
+  background: color-mix(in srgb, var(--tone) 9%, var(--bg-elev));
+  border-color: var(--tone);
+}
+.aws-pa-part .k {
+  font-family: var(--font-mono);
+  font-weight: 600;
+  font-size: 12.5px;
+  color: var(--tone);
+  overflow-wrap: anywhere;
+}
+.aws-pa-part .d {
+  font-size: 13.5px;
+  color: var(--text-2);
+  line-height: 1.45;
+}
+
+/* controles compartidos por los labs 2 y 4 */
+.aws-pa-ctl {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px 22px;
+  align-items: flex-end;
+  margin-bottom: 14px;
+}
+.aws-pa-ctl > div {
+  display: grid;
+  gap: 4px;
+  min-width: 0;
+  max-width: 100%;
+}
+.aws-pa-ctl .segmented {
+  flex-wrap: wrap;
+  max-width: 100%;
+}
+
+/* Lab 2 · pistas */
+.aws-pa-clues {
+  display: grid;
+  grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr);
+  gap: 14px;
+  margin-top: 14px;
+  align-items: start;
+}
+.aws-pa-cluelist {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 8px;
+  font-size: 13.5px;
+  line-height: 1.45;
+}
+.aws-pa-cluelist li {
+  display: grid;
+  grid-template-columns: 22px minmax(0, 1fr);
+  gap: 8px;
+  align-items: start;
+  color: var(--text-2);
+}
+.aws-pa-cluelist svg {
+  margin-top: 2px;
+  border-radius: 50%;
+  padding: 2px;
+  width: 19px;
+  height: 19px;
+}
+.aws-pa-cluelist .is-ok svg {
+  color: var(--c-ok);
+  background: color-mix(in srgb, var(--c-ok) 14%, transparent);
+}
+.aws-pa-cluelist .is-bad svg {
+  color: var(--c-error);
+  background: color-mix(in srgb, var(--c-error) 14%, transparent);
+}
+.aws-pa-cluelist .is-bad {
+  color: var(--text);
+}
+.aws-pa-input {
+  display: block;
+  font-size: 12.5px;
+  padding: 7px 10px;
+  border-radius: 8px;
+  border: 1px solid color-mix(in srgb, var(--c-tool) 30%, var(--border));
+  background: color-mix(in srgb, var(--c-tool) 8%, var(--bg-elev));
+  overflow-wrap: anywhere;
+}
+.aws-pa-input.is-err {
+  margin-top: 6px;
+  border-color: color-mix(in srgb, var(--c-error) 40%, var(--border));
+  background: color-mix(in srgb, var(--c-error) 8%, var(--bg-elev));
+  color: var(--c-error);
+}
+
+/* Lab 3 · invocación */
+.aws-pa-hooks {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px;
+  margin: 10px 0 14px;
+  min-height: 28px;
+}
+.aws-pa-stop {
+  margin-left: auto;
+}
+.aws-pa-run {
+  display: grid;
+  grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr);
+  gap: 14px;
+  align-items: start;
+}
+.aws-pa-evs {
+  max-height: 430px;
+  overflow-y: auto;
+  padding: 2px;
+}
+.aws-pa-evs .ev-head {
+  flex-wrap: wrap;
+}
+.aws-pa-chunks {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+}
+.aws-pa-chunks code {
+  font-size: 11.5px;
+  padding: 2px 6px;
+  border-radius: 6px;
+  background: color-mix(in srgb, var(--tone) 10%, transparent);
+  border: 0;
+  color: var(--text-2);
+  overflow-wrap: anywhere;
+  transition: opacity 0.25s ease;
+}
+.aws-pa-chunks code.is-pending {
+  opacity: 0.28;
+}
+
+/* Lab 4 · modelo */
+.aws-pa-model {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: 14px;
+  align-items: start;
+}
+.aws-pa-ladder {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 4px;
+  font-size: 13px;
+}
+.aws-pa-ladder li {
+  display: grid;
+  grid-template-columns: 24px minmax(0, 1fr);
+  gap: 8px;
+  align-items: center;
+  padding: 6px 10px;
+  border-radius: 10px;
+  border: 1px solid var(--border);
+  background: var(--bg-elev);
+  color: var(--text-3);
+}
+.aws-pa-ladder b {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  text-align: center;
+}
+.aws-pa-ladder li.is-gap {
+  border-style: dashed;
+  background: transparent;
+}
+.aws-pa-ladder li.is-win {
+  color: var(--text);
+  border-color: var(--accent);
+  background: var(--accent-soft);
+}
+.aws-pa-ladder li.is-win b {
+  color: var(--accent);
+}
+.aws-pa-res {
+  display: grid;
+  grid-template-columns: 76px minmax(0, 1fr);
+  gap: 6px 12px;
+  margin: 0;
+  font-size: 13.5px;
+}
+.aws-pa-res dt {
+  color: var(--text-3);
+  font-size: 12px;
+  padding-top: 2px;
+}
+.aws-pa-res dd {
+  margin: 0;
+  overflow-wrap: anywhere;
+}
+.aws-pa-res dd.mono {
+  font-size: 12.5px;
+}
+.aws-pa-why {
+  margin-top: 12px;
+  padding-top: 10px;
+  border-top: 1px solid var(--border);
+  font-size: 13.5px;
+  line-height: 1.5;
+  color: var(--text-2);
+}
+
+/* Lab 6 · claves del stream */
+.aws-pa-stream {
+  display: grid;
+  grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr);
+  gap: 16px;
+  align-items: start;
+}
+.aws-pa-keys {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 4px;
+}
+.aws-pa-key {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--text-2);
+  border: 1px solid color-mix(in srgb, var(--tone) 28%, var(--border));
+  border-radius: 999px;
+  background: var(--bg-elev);
+  padding: 4px 10px;
+  cursor: pointer;
+  max-width: 100%;
+  overflow-wrap: anywhere;
+}
+.aws-pa-key:active {
+  transform: scale(0.97);
+}
+.aws-pa-key.is-used {
+  color: var(--tone);
+  font-weight: 600;
+}
+.aws-pa-key.is-active {
+  border-color: var(--tone);
+  background: color-mix(in srgb, var(--tone) 10%, var(--bg-elev));
+  color: var(--tone);
+}
+.aws-pa-keydesc {
+  border: 1px solid color-mix(in srgb, var(--tone) 30%, var(--border));
+  background: color-mix(in srgb, var(--tone) 7%, var(--bg-elev));
+  border-radius: 12px;
+  padding: 10px 12px;
+  font-size: 13.5px;
+}
+.aws-pa-keydesc code {
+  font-size: 12.5px;
+  overflow-wrap: anywhere;
+}
+.aws-pa-keydesc p {
+  margin: 6px 0;
+  color: var(--text-2);
+  line-height: 1.45;
+}
+
+.aws-pa-stops {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+@media (max-width: 900px) {
+  .aws-pa-anatomy,
+  .aws-pa-clues,
+  .aws-pa-run,
+  .aws-pa-model,
+  .aws-pa-stream {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .aws-pa-stop {
+    margin-left: 0;
+  }
+}

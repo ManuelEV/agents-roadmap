@@ -1,0 +1,464 @@
+/* AWS · Desplegar en AgentCore Runtime */
+
+.aws-dep-note {
+  background: var(--bg-sunken);
+  border-radius: 10px;
+  padding: 9px 12px;
+  font-size: 13.5px;
+  line-height: 1.5;
+  color: var(--text-2);
+  margin: 0;
+}
+.aws-dep-note strong {
+  color: var(--text);
+}
+
+/* ---- Lab 1 · antes / después ---- */
+.aws-dep-wrap {
+  display: grid;
+  grid-template-columns: minmax(0, 1.45fr) minmax(0, 1fr);
+  gap: 16px;
+  align-items: start;
+}
+.aws-dep-parts {
+  display: grid;
+  gap: 6px;
+}
+.aws-dep-part {
+  text-align: left;
+  font: inherit;
+  color: inherit;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  background: var(--bg-elev);
+  padding: 8px 12px;
+  cursor: pointer;
+  display: grid;
+  gap: 2px;
+  transition: transform 0.12s ease;
+}
+.aws-dep-part:active {
+  transform: scale(0.98);
+}
+.aws-dep-part.is-active {
+  background: var(--accent-soft);
+  border-color: var(--accent);
+}
+.aws-dep-part .k {
+  font-family: var(--font-mono);
+  font-weight: 600;
+  font-size: 13px;
+  color: var(--accent);
+}
+.aws-dep-part .d {
+  font-size: 13px;
+  color: var(--text-2);
+  line-height: 1.42;
+}
+.aws-dep-part:not(.is-active) .d {
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.aws-dep-facts,
+.aws-dep-limits {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 8px;
+  margin-top: 10px;
+}
+.aws-dep-facts > div,
+.aws-dep-limits > div {
+  display: grid;
+  gap: 2px;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  background: var(--bg-elev);
+  padding: 8px 12px;
+  min-width: 0;
+}
+.aws-dep-facts .v,
+.aws-dep-limits .v {
+  font-size: 13.5px;
+  font-weight: 600;
+  overflow-wrap: anywhere;
+}
+.aws-dep-limits {
+  margin-top: 14px;
+}
+
+/* ---- Lab 2 · CLI ---- */
+.aws-dep-cli {
+  display: grid;
+  grid-template-columns: minmax(0, 1.7fr) minmax(0, 1fr);
+  gap: 16px;
+  align-items: start;
+}
+.aws-dep-res-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 12px;
+  margin: 16px 0 4px;
+}
+.aws-dep-fresh {
+  animation: aws-dep-pop 0.45s ease-out;
+}
+@keyframes aws-dep-pop {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+.aws-dep-two {
+  display: grid;
+  grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr);
+  gap: 16px;
+  align-items: start;
+  margin: 16px 0;
+}
+.aws-dep-two .callout {
+  margin: 0;
+}
+
+.aws-dep-arnseg {
+  display: inline-flex;
+  flex-wrap: wrap;
+  gap: 3px;
+  font-family: var(--font-mono);
+  font-size: 12.5px;
+}
+.aws-dep-arnseg span {
+  padding: 2px 7px;
+  border-radius: 6px;
+  background: var(--bg-inset);
+  overflow-wrap: anywhere;
+}
+.aws-dep-arnseg .is-id {
+  background: color-mix(in srgb, var(--c-system) 16%, transparent);
+  color: var(--text);
+  font-weight: 700;
+}
+.aws-dep-arn {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  overflow-wrap: anywhere;
+  word-break: break-all;
+}
+
+/* ---- Lab 3 · sesiones ---- */
+.aws-dep-sess-ctl {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: end;
+  gap: 12px 20px;
+  padding: 12px 14px;
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  background: var(--bg-elev);
+}
+.aws-dep-clock,
+.aws-dep-idle {
+  display: grid;
+  gap: 4px;
+  min-width: 0;
+}
+.aws-dep-idle {
+  max-width: 100%;
+  overflow-x: auto;
+}
+.aws-dep-clock .t {
+  font-size: 24px;
+  font-weight: 600;
+  line-height: 1.1;
+}
+.aws-dep-lanes {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+  margin-top: 12px;
+}
+.aws-dep-lane {
+  display: grid;
+  gap: 8px;
+  align-content: start;
+  min-width: 0;
+}
+.aws-dep-lane .who {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 0 8px;
+  padding: 8px 12px;
+  border-radius: 12px;
+  border: 1px solid color-mix(in srgb, var(--c-user) 34%, var(--border));
+  background: color-mix(in srgb, var(--c-user) 8%, var(--bg-elev));
+}
+.aws-dep-lane .who .n {
+  font-weight: 600;
+  font-size: 14px;
+}
+.aws-dep-lane .who .i {
+  grid-column: 1;
+  font-size: 12px;
+  color: var(--text-3);
+}
+.aws-dep-lane .who .btn {
+  grid-column: 2;
+  grid-row: 1 / span 2;
+}
+.aws-dep-lane .vms {
+  display: grid;
+  gap: 8px;
+}
+.aws-dep-vm {
+  display: grid;
+  gap: 6px;
+  padding: 10px 12px;
+  border-radius: 12px;
+  border: 1px solid color-mix(in srgb, var(--c-system) 40%, var(--border));
+  background: var(--bg-elev);
+  min-width: 0;
+}
+.aws-dep-vm.is-active {
+  border-color: var(--c-ok);
+  background: color-mix(in srgb, var(--c-ok) 8%, var(--bg-elev));
+}
+.aws-dep-vm.is-stopped {
+  border-style: dashed;
+  border-color: color-mix(in srgb, var(--c-error) 45%, var(--border));
+  background: color-mix(in srgb, var(--c-error) 6%, var(--bg-elev));
+  color: var(--text-2);
+}
+.aws-dep-vm.is-empty {
+  border-style: dashed;
+  border-color: var(--border-strong);
+  background: transparent;
+  color: var(--text-3);
+  font-size: 13px;
+}
+.aws-dep-vm-head {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12.5px;
+  font-weight: 600;
+  min-width: 0;
+}
+.aws-dep-vm-name {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.aws-dep-idlabel {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--text-3);
+}
+.aws-dep-vm-head svg {
+  flex-shrink: 0;
+}
+.aws-dep-vm-state {
+  flex-shrink: 0;
+  margin-left: auto;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  padding: 2px 7px;
+  border-radius: 99px;
+  background: var(--bg-inset);
+  color: var(--text-2);
+}
+.aws-dep-vm.is-active .aws-dep-vm-state {
+  background: color-mix(in srgb, var(--c-ok) 18%, transparent);
+  color: var(--c-ok);
+}
+.aws-dep-vm.is-stopped .aws-dep-vm-state {
+  background: color-mix(in srgb, var(--c-error) 16%, transparent);
+  color: var(--c-error);
+}
+.aws-dep-vm-sid {
+  font-family: var(--font-mono);
+  font-size: 11.5px;
+  color: var(--text-2);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.aws-dep-meter {
+  display: grid;
+  grid-template-columns: 56px minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 8px;
+  font-size: 12px;
+}
+.aws-dep-meter .k {
+  color: var(--text-3);
+}
+.aws-dep-meter .v {
+  font-family: var(--font-mono);
+  font-size: 11.5px;
+  color: var(--text-2);
+  white-space: nowrap;
+}
+.aws-dep-meter .track {
+  height: 7px;
+  border-radius: 99px;
+  background: var(--bg-inset);
+  overflow: hidden;
+}
+.aws-dep-meter .fill {
+  display: block;
+  height: 100%;
+  border-radius: 99px;
+  background: var(--c-system);
+  transform-origin: left center;
+  transition: transform 0.35s ease;
+}
+.aws-dep-meter .fill[data-hot] {
+  background: var(--c-guard);
+}
+
+.aws-dep-sess-foot {
+  display: grid;
+  grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr);
+  gap: 12px;
+  margin-top: 12px;
+  align-items: start;
+}
+.aws-dep-log,
+.aws-dep-idcheck {
+  display: grid;
+  gap: 6px;
+  padding: 10px 12px;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  background: var(--bg-elev);
+  min-width: 0;
+}
+.aws-dep-log {
+  min-height: 132px;
+  align-content: start;
+}
+.aws-dep-log .line {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  gap: 8px;
+  font-size: 13px;
+  line-height: 1.4;
+  color: var(--text-2);
+}
+.aws-dep-log .line .t {
+  font-size: 11.5px;
+  padding-top: 1px;
+  color: var(--tone, var(--text-3));
+  font-weight: 600;
+}
+.aws-dep-log .line[data-tone='ok'] {
+  --tone: var(--c-ok);
+}
+.aws-dep-log .line[data-tone='error'] {
+  --tone: var(--c-error);
+}
+.aws-dep-log .line[data-tone='user'] {
+  --tone: var(--c-user);
+}
+.aws-dep-idcheck label {
+  display: grid;
+  gap: 4px;
+}
+.aws-dep-input {
+  font-family: var(--font-mono);
+  font-size: 12.5px;
+  width: 100%;
+  min-width: 0;
+  padding: 7px 10px;
+  border-radius: 8px;
+  border: 1px solid var(--border-strong);
+  background: var(--bg-sunken);
+  color: var(--text);
+}
+.aws-dep-input:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 1px;
+}
+.aws-dep-idcheck .verdict {
+  font-size: 13px;
+  color: var(--c-error);
+}
+.aws-dep-idcheck[data-ok] .verdict {
+  color: var(--c-ok);
+}
+
+/* ---- Lab 4 · invoke ---- */
+.aws-dep-invoke {
+  display: grid;
+  grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr);
+  gap: 16px;
+  align-items: start;
+  margin-top: 8px;
+}
+.aws-dep-pre {
+  margin: 0;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  line-height: 1.55;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+  color: var(--text-2);
+}
+
+/* ---- Lab 5 · consola ---- */
+.aws-dep-console {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  overflow-wrap: anywhere;
+  gap: 12px;
+  margin-top: 12px;
+}
+.aws-dep-form {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px 14px;
+}
+
+/* ---- Lab 6 · costo ---- */
+.aws-dep-cost {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: 20px;
+  align-items: start;
+}
+.aws-dep-stats {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+}
+
+@media (max-width: 960px) {
+  .aws-dep-wrap,
+  .aws-dep-cli,
+  .aws-dep-two,
+  .aws-dep-invoke,
+  .aws-dep-cost,
+  .aws-dep-sess-foot {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .aws-dep-lanes {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .aws-dep-facts,
+  .aws-dep-limits {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+@media (max-width: 520px) {
+  .aws-dep-form {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}

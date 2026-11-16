@@ -1,0 +1,12 @@
+{
+  // Worker de solo assets estáticos (sin código de servidor).
+  // `name` debe coincidir con el nombre del proyecto en el dashboard de Cloudflare.
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "agents-roadmap",
+  "compatibility_date": "2026-11-01",
+  "assets": {
+    "directory": "./dist",
+    // SPA: cualquier ruta desconocida (/google/primer-agente, /guia/mcp…) devuelve index.html
+    "not_found_handling": "single-page-application"
+  }
+}

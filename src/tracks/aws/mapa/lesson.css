@@ -1,0 +1,724 @@
+/* ------------------------------------------------------------------ */
+/* Lab 1 · mapa de piezas                                              */
+/* ------------------------------------------------------------------ */
+.aws-mapa-filter {
+  margin-bottom: 14px;
+  gap: 10px;
+}
+.aws-mapa-map {
+  display: grid;
+  grid-template-columns: minmax(0, 1.55fr) minmax(0, 1fr);
+  gap: 16px;
+  align-items: start;
+}
+@media (max-width: 980px) {
+  .aws-mapa-map {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+.aws-mapa-layers {
+  display: grid;
+  gap: 8px;
+  position: relative;
+}
+.aws-mapa-layer {
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  background: var(--bg-sunken);
+  padding: 10px 12px 12px;
+}
+.aws-mapa-layer[data-layer='alrededor'] {
+  border-style: dashed;
+  background: transparent;
+}
+.aws-mapa-layer-head {
+  display: flex;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: 2px 10px;
+  margin-bottom: 8px;
+}
+.aws-mapa-layer-head .t {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 15px;
+  color: var(--text);
+}
+.aws-mapa-layer-head .b {
+  font-size: 12.5px;
+  color: var(--text-3);
+}
+.aws-mapa-pieces {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+.aws-mapa-piece {
+  font: inherit;
+  text-align: left;
+  display: grid;
+  gap: 3px;
+  padding: 7px 11px;
+  border-radius: 10px;
+  border: 1px solid color-mix(in srgb, var(--tone) 30%, var(--border));
+  background: var(--bg-elev);
+  color: var(--text);
+  cursor: pointer;
+  transition:
+    opacity 0.18s,
+    transform 0.12s;
+}
+.aws-mapa-piece:active {
+  transform: scale(0.97);
+}
+.aws-mapa-piece:hover {
+  border-color: var(--tone);
+}
+.aws-mapa-piece.is-off {
+  opacity: 0.32;
+}
+.aws-mapa-piece.is-active {
+  opacity: 1;
+  border-color: var(--tone);
+  background: color-mix(in srgb, var(--tone) 11%, var(--bg-elev));
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--tone) 20%, transparent);
+}
+.aws-mapa-piece .n {
+  font-size: 13.5px;
+  font-weight: 600;
+  line-height: 1.2;
+}
+.aws-mapa-piece .s {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 11px;
+  color: var(--text-3);
+  line-height: 1;
+}
+.aws-mapa-piece .s i,
+.aws-mapa-chip i,
+.aws-mapa-codelayer .k i,
+.aws-mapa-eq-row .m i {
+  width: 7px;
+  height: 7px;
+  border-radius: 99px;
+  background: var(--tone);
+  flex: none;
+  display: inline-block;
+}
+
+.aws-mapa-detail {
+  border: 1px solid color-mix(in srgb, var(--tone) 38%, var(--border));
+  border-radius: 14px;
+  background: color-mix(in srgb, var(--tone) 6%, var(--bg-elev));
+  padding: 16px 18px;
+  display: grid;
+  gap: 9px;
+  position: sticky;
+  top: 84px;
+}
+@media (max-width: 980px) {
+  .aws-mapa-detail {
+    position: static;
+  }
+}
+.aws-mapa-detail-layer {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--text-3);
+}
+.aws-mapa-detail h4 {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: 21px;
+  line-height: 1.2;
+  color: var(--text);
+}
+.aws-mapa-detail p {
+  margin: 0;
+  font-size: 14px;
+  line-height: 1.55;
+  color: var(--text-2);
+}
+.aws-mapa-detail p.what {
+  color: var(--text);
+  font-weight: 600;
+  font-size: 14.5px;
+}
+.aws-mapa-detail dl {
+  margin: 2px 0 0;
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  gap: 6px 12px;
+  font-size: 13px;
+  border-top: 1px solid color-mix(in srgb, var(--tone) 22%, var(--border));
+  padding-top: 10px;
+}
+.aws-mapa-detail dt {
+  color: var(--text-3);
+  font-weight: 600;
+}
+.aws-mapa-detail dd {
+  margin: 0;
+  color: var(--text-2);
+  line-height: 1.45;
+}
+.aws-mapa-detail-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px 16px;
+  font-size: 13px;
+  align-items: center;
+}
+
+/* ------------------------------------------------------------------ */
+/* Lab 2 · recorrido                                                   */
+/* ------------------------------------------------------------------ */
+.aws-mapa-path {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.3fr);
+  gap: 18px;
+  align-items: start;
+  margin-top: 6px;
+}
+@media (max-width: 900px) {
+  .aws-mapa-path {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+.aws-mapa-path .narration {
+  min-height: 150px;
+}
+.aws-mapa-path-pieces {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 8px;
+}
+.aws-mapa-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12.5px;
+  font-weight: 600;
+  padding: 5px 10px;
+  border-radius: 99px;
+  color: var(--text);
+  text-decoration: none;
+  border: 1px solid color-mix(in srgb, var(--tone) 34%, var(--border));
+  background: color-mix(in srgb, var(--tone) 8%, var(--bg-elev));
+}
+.aws-mapa-chip span {
+  font-weight: 500;
+  color: var(--text-3);
+}
+a.aws-mapa-chip:hover {
+  border-color: var(--tone);
+}
+
+/* ------------------------------------------------------------------ */
+/* Lab 3 · modelos y costo                                             */
+/* ------------------------------------------------------------------ */
+.aws-mapa-roles {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 8px;
+  margin-bottom: 14px;
+}
+@media (max-width: 900px) {
+  .aws-mapa-roles {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+@media (max-width: 480px) {
+  .aws-mapa-role .d {
+    display: none;
+  }
+}
+.aws-mapa-role {
+  font: inherit;
+  text-align: left;
+  display: grid;
+  gap: 2px;
+  align-content: start;
+  padding: 10px 12px;
+  border-radius: 12px;
+  border: 1px solid var(--border);
+  background: var(--bg-elev);
+  color: var(--text);
+  cursor: pointer;
+  transition: transform 0.12s;
+}
+.aws-mapa-role:active {
+  transform: scale(0.97);
+}
+.aws-mapa-role:hover {
+  border-color: var(--border-strong);
+}
+.aws-mapa-role.is-active {
+  border-color: var(--c-model);
+  background: color-mix(in srgb, var(--c-model) 9%, var(--bg-elev));
+}
+.aws-mapa-role .k {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--text-3);
+}
+.aws-mapa-role.is-active .k {
+  color: var(--c-model);
+}
+.aws-mapa-role .v {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 15px;
+}
+.aws-mapa-role .d {
+  font-size: 12.5px;
+  color: var(--text-2);
+  line-height: 1.4;
+}
+.aws-mapa-cost {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.2fr);
+  gap: 18px;
+  align-items: start;
+}
+@media (max-width: 900px) {
+  .aws-mapa-cost {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+.aws-mapa-cost-controls {
+  display: grid;
+  gap: 14px;
+}
+.aws-mapa-cost-out {
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  background: var(--bg-sunken);
+  padding: 14px 16px;
+  display: grid;
+  gap: 10px;
+}
+.aws-mapa-model-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 10px;
+}
+.aws-mapa-model-name {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 20px;
+  line-height: 1.2;
+}
+.aws-mapa-price {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 16px;
+  font-size: 13px;
+  color: var(--text-2);
+}
+.aws-mapa-price b {
+  font-family: var(--font-mono);
+  font-weight: 600;
+  color: var(--text);
+}
+.aws-mapa-flag {
+  font-size: 13px;
+  line-height: 1.45;
+  padding: 8px 12px;
+  border-radius: 10px;
+  color: var(--text);
+  border: 1px solid color-mix(in srgb, var(--tone) 38%, var(--border));
+  background: color-mix(in srgb, var(--tone) 10%, var(--bg-elev));
+}
+.aws-mapa-stats {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 8px;
+}
+.aws-mapa-stats > div {
+  min-width: 0 !important;
+  padding: 9px 11px !important;
+}
+.aws-mapa-stats .mono {
+  font-size: 15px !important;
+  white-space: nowrap;
+  overflow-wrap: anywhere;
+}
+@media (max-width: 520px) {
+  .aws-mapa-stats {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+.aws-mapa-bars {
+  display: grid;
+  gap: 3px;
+  margin: 18px 0 16px;
+}
+.aws-mapa-bars .label {
+  margin-bottom: 4px;
+}
+.aws-mapa-bar {
+  font: inherit;
+  display: grid;
+  grid-template-columns: 138px minmax(0, 1fr) 150px;
+  align-items: center;
+  gap: 10px;
+  padding: 5px 8px;
+  border: 0;
+  border-radius: 8px;
+  background: transparent;
+  color: var(--text-2);
+  cursor: pointer;
+  text-align: left;
+}
+.aws-mapa-bar:hover {
+  background: var(--bg-sunken);
+}
+.aws-mapa-bar.is-active {
+  background: color-mix(in srgb, var(--c-model) 9%, var(--bg-elev));
+  color: var(--text);
+}
+.aws-mapa-bar .n {
+  font-size: 13px;
+  font-weight: 600;
+}
+.aws-mapa-bar .t {
+  height: 10px;
+  border-radius: 99px;
+  background: var(--bg-inset);
+  overflow: hidden;
+}
+.aws-mapa-bar .f {
+  display: block;
+  height: 100%;
+  width: 100%;
+  border-radius: 99px;
+  background: var(--text-3);
+  transform-origin: left center;
+  transition: transform 0.25s ease-out;
+}
+.aws-mapa-bar.is-active .f {
+  background: var(--c-model);
+}
+.aws-mapa-bar.is-nofit .f {
+  opacity: 0.25;
+}
+.aws-mapa-bar .v {
+  font-family: var(--font-mono);
+  font-size: 12.5px;
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+.aws-mapa-bar .v em {
+  font-style: normal;
+  font-family: var(--font-sans);
+  font-size: 11px;
+  color: var(--c-guard);
+}
+.aws-mapa-bar.is-nofit .v {
+  color: var(--c-error);
+}
+@media (max-width: 560px) {
+  .aws-mapa-bar {
+    grid-template-columns: minmax(0, 1fr) auto;
+  }
+  .aws-mapa-bar .t {
+    grid-column: 1 / -1;
+    grid-row: 2;
+  }
+}
+
+/* ------------------------------------------------------------------ */
+/* Lab 4 · línea de tiempo                                             */
+/* ------------------------------------------------------------------ */
+.aws-mapa-time {
+  list-style: none;
+  margin: 0;
+  padding: 0 0 0 64px;
+  position: relative;
+}
+.aws-mapa-time::before {
+  content: '';
+  position: absolute;
+  left: 69px;
+  top: 8px;
+  bottom: 8px;
+  width: 3px;
+  border-radius: 3px;
+  background: var(--border-strong);
+}
+.aws-mapa-time li {
+  position: relative;
+  display: grid;
+  grid-template-columns: 13px 150px minmax(0, 1fr);
+  gap: 12px;
+  align-items: baseline;
+  padding: 6px 0;
+  font-size: 14px;
+}
+.aws-mapa-time .y {
+  position: absolute;
+  left: -64px;
+  top: 5px;
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 15px;
+  color: var(--text);
+}
+.aws-mapa-time .dot {
+  width: 13px;
+  height: 13px;
+  border-radius: 99px;
+  background: var(--bg-elev);
+  border: 3px solid var(--tone);
+  align-self: center;
+  position: relative;
+}
+.aws-mapa-time .d {
+  font-family: var(--font-mono);
+  font-size: 12.5px;
+  color: var(--text-2);
+}
+.aws-mapa-time .x {
+  color: var(--text);
+  line-height: 1.45;
+}
+.aws-mapa-time .c {
+  font-size: 11.5px;
+  font-weight: 600;
+  color: var(--tone);
+  white-space: nowrap;
+  margin-left: 4px;
+}
+@media (max-width: 640px) {
+  .aws-mapa-time {
+    padding-left: 0;
+  }
+  .aws-mapa-time::before {
+    left: 5px;
+  }
+  .aws-mapa-time li {
+    grid-template-columns: 13px minmax(0, 1fr);
+  }
+  .aws-mapa-time .y {
+    position: static;
+    grid-column: 2;
+    margin-top: 6px;
+  }
+  .aws-mapa-time .dot {
+    grid-column: 1;
+    grid-row: span 2;
+    align-self: start;
+    margin-top: 4px;
+  }
+  .aws-mapa-time .d,
+  .aws-mapa-time .x {
+    grid-column: 2;
+  }
+}
+
+/* ------------------------------------------------------------------ */
+/* Lab 5 · equivalencias                                               */
+/* ------------------------------------------------------------------ */
+.aws-mapa-eq {
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  background: var(--bg-elev);
+  overflow: hidden;
+}
+.aws-mapa-eq-head,
+.aws-mapa-eq-row {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) 190px;
+  gap: 14px;
+  padding: 9px 14px;
+  align-items: center;
+}
+.aws-mapa-eq-head {
+  font-size: 12.5px;
+  font-weight: 600;
+  color: var(--text-3);
+  border-bottom: 1px solid var(--border);
+}
+.aws-mapa-eq-item + .aws-mapa-eq-item {
+  border-top: 1px solid var(--border);
+}
+.aws-mapa-eq-row {
+  font: inherit;
+  width: 100%;
+  border: 0;
+  background: transparent;
+  color: var(--text-2);
+  text-align: left;
+  cursor: pointer;
+  font-size: 14px;
+  line-height: 1.35;
+}
+.aws-mapa-eq-row:hover {
+  background: var(--bg-sunken);
+}
+.aws-mapa-eq-item.is-open {
+  background: color-mix(in srgb, var(--tone) 8%, var(--bg-elev));
+}
+.aws-mapa-eq-item.is-open .aws-mapa-eq-row {
+  background: transparent;
+  color: var(--text);
+}
+.aws-mapa-eq-row .a {
+  font-weight: 600;
+  color: var(--text);
+}
+.aws-mapa-eq-row .is-none {
+  font-weight: 500;
+  font-style: italic;
+  color: var(--text-3);
+}
+.aws-mapa-eq-row .m {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12.5px;
+  font-weight: 600;
+  color: var(--text-2);
+}
+.aws-mapa-eq-note {
+  padding: 0 14px 12px;
+  display: grid;
+  gap: 6px;
+  font-size: 13.5px;
+  line-height: 1.5;
+  color: var(--text-2);
+  max-width: 760px;
+}
+@media (max-width: 720px) {
+  .aws-mapa-eq-head {
+    display: none;
+  }
+  .aws-mapa-eq-row {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 3px;
+  }
+  .aws-mapa-eq-row .a::before {
+    content: 'AWS · ';
+    color: var(--text-3);
+    font-weight: 500;
+    font-style: normal;
+  }
+  .aws-mapa-eq-row .g::before {
+    content: 'Google · ';
+    color: var(--text-3);
+    font-style: normal;
+  }
+}
+
+/* ------------------------------------------------------------------ */
+/* Lab 6 · capas en el código + próximas paradas                       */
+/* ------------------------------------------------------------------ */
+.aws-mapa-code {
+  display: grid;
+  grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr);
+  gap: 16px;
+  align-items: start;
+}
+@media (max-width: 960px) {
+  .aws-mapa-code {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+.aws-mapa-code-side {
+  display: grid;
+  gap: 8px;
+}
+.aws-mapa-codelayer {
+  font: inherit;
+  text-align: left;
+  display: grid;
+  gap: 4px;
+  padding: 10px 12px;
+  border-radius: 12px;
+  border: 1px solid color-mix(in srgb, var(--tone) 30%, var(--border));
+  background: var(--bg-elev);
+  color: var(--text);
+  cursor: pointer;
+  transition: transform 0.12s;
+}
+.aws-mapa-codelayer:active {
+  transform: scale(0.98);
+}
+.aws-mapa-codelayer.is-active {
+  border-color: var(--tone);
+  background: color-mix(in srgb, var(--tone) 10%, var(--bg-elev));
+}
+.aws-mapa-codelayer .k {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  font-weight: 700;
+  font-size: 14px;
+}
+.aws-mapa-codelayer .k .c {
+  margin-left: auto;
+  font-family: var(--font-mono);
+  font-weight: 500;
+  font-size: 11.5px;
+  color: var(--text-3);
+}
+.aws-mapa-codelayer .d {
+  font-size: 13px;
+  line-height: 1.45;
+  color: var(--text-2);
+}
+.aws-mapa-next {
+  list-style: none;
+  margin: 18px 0 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 8px;
+  max-width: 800px;
+}
+@media (max-width: 640px) {
+  .aws-mapa-next {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+.aws-mapa-next li {
+  display: flex;
+  gap: 10px;
+  align-items: flex-start;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  background: var(--bg-elev);
+  padding: 10px 12px;
+  font-size: 14px;
+}
+.aws-mapa-next .i {
+  flex: none;
+  width: 22px;
+  height: 22px;
+  border-radius: 99px;
+  border: 2px solid var(--line, var(--border-strong));
+  display: grid;
+  place-items: center;
+  font-family: var(--font-mono);
+  font-size: 11.5px;
+  font-weight: 600;
+  color: var(--text-2);
+}
+.aws-mapa-next a {
+  font-weight: 600;
+}
+.aws-mapa-next .w {
+  display: block;
+  font-size: 13px;
+  color: var(--text-2);
+  line-height: 1.4;
+}
+
+.aws-mapa-renames table {
+  min-width: 680px;
+}

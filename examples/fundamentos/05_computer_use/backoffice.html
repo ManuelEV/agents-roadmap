@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<title>Andes Market · Backoffice</title>
+<style>
+  * { box-sizing: border-box; }
+  body { margin: 0; font: 16px/1.4 system-ui, sans-serif; background: #f3f4f6; color: #111827; }
+  header { background: #14532d; color: #fff; padding: 14px 32px; font-size: 20px; font-weight: 600; }
+  main { max-width: 900px; margin: 28px auto; padding: 0 32px; }
+  .fila { display: flex; gap: 12px; align-items: center; }
+  input, textarea, select, button { font: inherit; padding: 10px 12px; border: 1px solid #9ca3af; border-radius: 6px; }
+  input#buscar { width: 260px; }
+  button { background: #166534; color: #fff; border: 0; cursor: pointer; padding: 10px 22px; }
+  button.secundario { background: #e5e7eb; color: #111827; }
+  section { background: #fff; border: 1px solid #d1d5db; border-radius: 8px; padding: 22px; margin-top: 22px; }
+  dl { display: grid; grid-template-columns: 170px 1fr; gap: 8px 16px; margin: 0 0 18px; }
+  dt { color: #6b7280; } dd { margin: 0; font-weight: 500; }
+  label { display: block; margin: 14px 0 6px; font-weight: 600; }
+  textarea { width: 100%; height: 90px; }
+  #aviso { margin-top: 16px; padding: 10px 14px; border-radius: 6px; display: none; }
+  #aviso.ok { display: block; background: #dcfce7; color: #14532d; }
+  #aviso.error { display: block; background: #fee2e2; color: #7f1d1d; }
+</style>
+</head>
+<body>
+<header>Andes Market · Backoffice de pedidos</header>
+<main>
+  <div class="fila">
+    <input id="buscar" placeholder="N.º de pedido" aria-label="Número de pedido">
+    <button id="btn-buscar">Buscar</button>
+  </div>
+  <div id="aviso"></div>
+  <section id="ficha" hidden>
+    <h2 id="titulo"></h2>
+    <dl>
+      <dt>Cliente</dt><dd id="cliente"></dd>
+      <dt>Productos</dt><dd id="productos"></dd>
+      <dt>Estado</dt><dd id="estado"></dd>
+      <dt>Dirección</dt><dd id="direccion"></dd>
+    </dl>
+    <label for="prioridad">Prioridad de atención</label>
+    <select id="prioridad"><option>normal</option><option>alta</option><option>urgente</option></select>
+    <label for="nota">Nota interna</label>
+    <textarea id="nota" placeholder="Visible solo para el equipo"></textarea>
+    <div class="fila" style="margin-top:16px">
+      <button id="btn-guardar">Guardar cambios</button>
+      <button id="btn-descartar" class="secundario">Descartar</button>
+    </div>
+  </section>
+</main>
+<script>
+  // Estado en memoria: el script de Python lo lee al final para verificar qué hizo el agente.
+  window.__estado = {
+    guardados: 0,
+    pedidos: {
+      "4821": { cliente: "Camila Rojas", productos: "Zapatillas Trail Andes 40, Calcetines técnicos x3", estado: "en_ruta", direccion: "Av. Providencia 1234, Providencia", nota: "", prioridad: "normal" },
+      "5102": { cliente: "Camila Rojas", productos: "Chaqueta Cortaviento M", estado: "preparando", direccion: "Av. Providencia 1234, Providencia", nota: "", prioridad: "normal" },
+      "5230": { cliente: "Camila Rojas", productos: "Parka Andes Pro L", estado: "en_ruta", direccion: "Av. Providencia 1234, Providencia", nota: "", prioridad: "normal" },
+      "4790": { cliente: "Camila Rojas", productos: "Mochila Urbana 22L", estado: "entregado", direccion: "Av. Providencia 1234, Providencia", nota: "", prioridad: "normal" },
+    },
+  };
+  const $ = (id) => document.getElementById(id);
+  let actual = null;
+  function aviso(texto, tipo) { $("aviso").textContent = texto; $("aviso").className = tipo; }
+  function buscar() {
+    const id = $("buscar").value.trim();
+    const p = window.__estado.pedidos[id];
+    if (!p) { $("ficha").hidden = true; actual = null; return aviso(`No existe el pedido ${id || "(vacío)"}`, "error"); }
+    actual = id;
+    $("aviso").className = "";
+    $("titulo").textContent = `Pedido ${id}`;
+    for (const campo of ["cliente", "productos", "estado", "direccion"]) $(campo).textContent = p[campo];
+    $("nota").value = p.nota;
+    $("prioridad").value = p.prioridad;
+    $("ficha").hidden = false;
+  }
+  $("btn-buscar").onclick = buscar;
+  $("buscar").onkeydown = (e) => { if (e.key === "Enter") buscar(); };
+  $("btn-guardar").onclick = () => {
+    const p = window.__estado.pedidos[actual];
+    p.nota = $("nota").value; p.prioridad = $("prioridad").value;
+    window.__estado.guardados += 1;
+    aviso(`Pedido ${actual} guardado`, "ok");
+  };
+  $("btn-descartar").onclick = buscar;
+</script>
+</body>
+</html>

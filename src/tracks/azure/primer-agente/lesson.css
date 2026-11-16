@@ -1,0 +1,156 @@
+/* Lab 1 · anatomía */
+.az-pa-anatomy {
+  display: grid;
+  grid-template-columns: minmax(0, 1.45fr) minmax(0, 1fr);
+  gap: 16px;
+  align-items: start;
+}
+@media (max-width: 960px) {
+  .az-pa-anatomy {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .az-pa-parts {
+    order: -1;
+  }
+}
+.az-pa-parts {
+  display: grid;
+  gap: 6px;
+}
+.az-pa-part {
+  text-align: left;
+  font: inherit;
+  color: inherit;
+  border: 1px solid color-mix(in srgb, var(--tone) 30%, var(--border));
+  border-radius: 12px;
+  background: var(--bg-elev);
+  padding: 8px 12px;
+  cursor: pointer;
+  display: grid;
+  gap: 4px;
+  min-width: 0;
+  transition: transform 0.12s ease;
+}
+.az-pa-part:active {
+  transform: scale(0.98);
+}
+.az-pa-part.is-active {
+  background: color-mix(in srgb, var(--tone) 9%, var(--bg-elev));
+  border-color: var(--tone);
+}
+.az-pa-part .k {
+  font-family: var(--font-mono);
+  font-weight: 600;
+  font-size: 12.5px;
+  color: var(--tone);
+  overflow-wrap: anywhere;
+}
+.az-pa-part .d {
+  font-size: 13px;
+  color: var(--text-2);
+  line-height: 1.45;
+}
+
+/* Lab 2 · esquema */
+.az-pa-toggles {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px 20px;
+  align-items: center;
+  margin-bottom: 14px;
+}
+.az-pa-hint {
+  gap: 8px;
+}
+.az-pa-schema {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 12px;
+}
+.az-pa-nowrap {
+  white-space: nowrap;
+}
+.az-pa-knows {
+  margin-top: 12px;
+  gap: 8px;
+}
+.az-pa-verdict {
+  margin-top: 12px;
+  border: 1px solid color-mix(in srgb, var(--tone) 34%, var(--border));
+  background: color-mix(in srgb, var(--tone) 8%, var(--bg-elev));
+  border-radius: 12px;
+  padding: 10px 14px;
+  font-size: 14px;
+  line-height: 1.5;
+  color: var(--text);
+}
+
+/* Lab 3 · run */
+.az-pa-run-flow {
+  margin: 12px 0 4px;
+}
+.az-pa-run-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: 16px;
+  align-items: start;
+  margin-top: 14px;
+}
+@media (max-width: 960px) {
+  .az-pa-run-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+.az-pa-empty {
+  border: 1px dashed var(--border-strong);
+  border-radius: 10px;
+  padding: 14px;
+  font-size: 13px;
+  color: var(--text-3);
+  text-align: center;
+}
+.az-pa-gap {
+  margin-top: 8px;
+}
+.az-pa-attr {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--text-3);
+  background: var(--bg-inset);
+  border-radius: 4px;
+  padding: 0 5px;
+  margin-right: 4px;
+}
+.az-pa-attr-empty {
+  display: inline-block;
+  margin-top: 5px;
+}
+.az-pa-chat {
+  min-height: 118px;
+}
+
+/* Lab 4 · sesión */
+.az-pa-controls {
+  margin-bottom: 12px;
+}
+.az-pa-ses-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
+  gap: 16px;
+  align-items: start;
+  margin-top: 14px;
+}
+@media (max-width: 960px) {
+  .az-pa-ses-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+.az-pa-mono {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  word-break: break-all;
+  color: var(--text-2);
+}
+.az-pa-from-session {
+  border-style: dashed;
+}
