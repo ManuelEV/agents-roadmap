@@ -1,7 +1,7 @@
 import { useMemo, useState } from 'react'
 import { Link } from 'react-router'
 import { Bot, Brain, Database, Eye, KeyRound, Server, ShieldCheck, User, Wrench, Zap } from 'lucide-react'
-import { DocLink, Lab, Pill, Segmented } from '@/components/ui'
+import { DocLink, Lab, Pill, Segmented, DetailDock } from '@/components/ui'
 import { Code, linesOf } from '@/components/Code'
 import { FlowDiagram, type FlowEdge, type FlowNode } from '@/components/Flow'
 import { Narration, PlayerBar } from '@/components/Player'
@@ -65,33 +65,35 @@ export function PieceMap() {
             </div>
           ))}
         </div>
-        <div className="aws-mapa-detail anim-fade" key={piece.id} data-tone={piece.tone}>
-          <div className="aws-mapa-detail-layer">{LAYERS.find((l) => l.id === piece.layer)!.title}</div>
-          <h4>{piece.name}</h4>
-          <div className="row" style={{ gap: 6 }}>
-            <Pill tone={STATUS[piece.status].tone}>{STATUS[piece.status].label}</Pill>
+        <DetailDock k={piece.id} sticky>
+          <div className="aws-mapa-detail anim-fade" key={piece.id} data-tone={piece.tone}>
+            <div className="aws-mapa-detail-layer">{LAYERS.find((l) => l.id === piece.layer)!.title}</div>
+            <h4>{piece.name}</h4>
+            <div className="row" style={{ gap: 6 }}>
+              <Pill tone={STATUS[piece.status].tone}>{STATUS[piece.status].label}</Pill>
+            </div>
+            <p className="what">{piece.what}</p>
+            <p>{piece.detail}</p>
+            <dl>
+              <dt>Estado</dt>
+              <dd>{piece.when}</dd>
+              {piece.formerly && (
+                <>
+                  <dt>Nombre</dt>
+                  <dd>{piece.formerly}</dd>
+                </>
+              )}
+            </dl>
+            <div className="aws-mapa-detail-links">
+              <DocLink href={piece.doc}>Documentación oficial</DocLink>
+              {piece.lesson ? (
+                <Link to={`/aws/${piece.lesson}`}>Se trabaja en «{LESSON_TITLES[piece.lesson]}» →</Link>
+              ) : (
+                <span className="muted">Esta línea no la trabaja en detalle.</span>
+              )}
+            </div>
           </div>
-          <p className="what">{piece.what}</p>
-          <p>{piece.detail}</p>
-          <dl>
-            <dt>Estado</dt>
-            <dd>{piece.when}</dd>
-            {piece.formerly && (
-              <>
-                <dt>Nombre</dt>
-                <dd>{piece.formerly}</dd>
-              </>
-            )}
-          </dl>
-          <div className="aws-mapa-detail-links">
-            <DocLink href={piece.doc}>Documentación oficial</DocLink>
-            {piece.lesson ? (
-              <Link to={`/aws/${piece.lesson}`}>Se trabaja en «{LESSON_TITLES[piece.lesson]}» →</Link>
-            ) : (
-              <span className="muted">Esta línea no la trabaja en detalle.</span>
-            )}
-          </div>
-        </div>
+        </DetailDock>
       </div>
     </Lab>
   )

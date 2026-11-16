@@ -1,12 +1,15 @@
-import type { ReactNode } from 'react'
+import { useRef, type ReactNode } from 'react'
 import { ChevronLeft, ChevronRight, Pause, Play, RotateCcw } from 'lucide-react'
 import type { Player } from '@/lib/hooks'
+import { PlayerDock } from './Reveal'
 
 /** Controles de reproducción + línea de tiempo clicable por pasos. */
 export function PlayerBar({ player, labels, extra }: { player: Player; labels?: string[]; extra?: ReactNode }) {
   const { step, count, playing } = player
+  const ref = useRef<HTMLDivElement>(null)
   return (
-    <div className="player">
+    <div className="player" ref={ref}>
+      <PlayerDock player={player} labels={labels} barRef={ref} />
       <div className="player-btns">
         <button className="icon-btn" onClick={player.reset} aria-label="Reiniciar" title="Reiniciar">
           <RotateCcw size={16} />

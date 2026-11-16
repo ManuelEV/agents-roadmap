@@ -1,5 +1,5 @@
 import { useMemo, useState } from 'react'
-import { Callout, DocLink, KeyIdeas, Lab, Panel, Pill, Section, Segmented, Slider, Sources, Stat, Term, Toggle, type Tone } from '@/components/ui'
+import { Callout, DocLink, KeyIdeas, Lab, Panel, Pill, Section, Segmented, Slider, Sources, Stat, Term, Toggle, type Tone, DetailDock } from '@/components/ui'
 import { Code } from '@/components/Code'
 import { Narration, PlayerBar, type StepInfo } from '@/components/Player'
 import { usePlayer } from '@/lib/hooks'
@@ -44,17 +44,19 @@ function CatalogLab() {
           </button>
         ))}
       </div>
-      <div className="mod-detail anim-fade" key={m.id} data-tone={TIER_TONE[m.tier]}>
-        <div>
-          <strong>{m.name}</strong> · lanzado {dateEs(m.released)}
-          {m.retires && <> · retiro {m.retires.replace('≥ ', 'no antes de ')}</>}
-          {!m.retires && <> · "corto plazo": sin fecha de retiro anunciada</>}
+      <DetailDock k={m.id}>
+        <div className="mod-detail anim-fade" key={m.id} data-tone={TIER_TONE[m.tier]}>
+          <div>
+            <strong>{m.name}</strong> · lanzado {dateEs(m.released)}
+            {m.retires && <> · retiro {m.retires.replace('≥ ', 'no antes de ')}</>}
+            {!m.retires && <> · "corto plazo": sin fecha de retiro anunciada</>}
+          </div>
+          <div>
+            <strong>Thinking:</strong> {m.thinking}. <strong>Contexto:</strong> {fmtInt(m.context)} tokens (compartidos por entrada y salida).
+          </div>
+          {m.notes && <div>{m.notes}</div>}
         </div>
-        <div>
-          <strong>Thinking:</strong> {m.thinking}. <strong>Contexto:</strong> {fmtInt(m.context)} tokens (compartidos por entrada y salida).
-        </div>
-        {m.notes && <div>{m.notes}</div>}
-      </div>
+      </DetailDock>
     </Lab>
   )
 }

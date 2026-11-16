@@ -12,7 +12,8 @@
     "check:content": "node scripts/check-diagrams.mjs && node scripts/check-mdx.mjs",
     "visual": "node scripts/visual-check.mjs",
     "fuzz": "node scripts/fuzz-check.mjs",
-    "deploy": "pnpm build && wrangler deploy"
+    "deploy": "pnpm build && wrangler deploy",
+    "ux": "node scripts/ux-audit.mjs"
   },
   "pnpm": {
     "onlyBuiltDependencies": [

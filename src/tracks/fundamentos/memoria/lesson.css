@@ -103,7 +103,7 @@
   text-align: right;
 }
 .memoria-strip-kind {
-  font-size: 10.5px;
+  font-size: 11px;
   color: var(--tone);
   white-space: nowrap;
   overflow: hidden;

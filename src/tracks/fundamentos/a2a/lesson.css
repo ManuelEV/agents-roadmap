@@ -256,7 +256,7 @@
 }
 .a2a-sm-cap {
   font-family: var(--font-mono);
-  font-size: 10px;
+  font-size: 11px;
   fill: var(--text-3);
 }
 
@@ -301,7 +301,7 @@
   border-style: dashed;
 }
 .a2a-ev-to {
-  font-size: 10.5px;
+  font-size: 11px;
   color: var(--tone);
 }
 .a2a-hist {

@@ -3,7 +3,7 @@ import { Bot, Check, Database, Fingerprint, KeyRound, Minus, ScrollText, UserRou
 import { Code, linesOf } from '@/components/Code'
 import { FlowDiagram, type FlowEdge, type FlowNode } from '@/components/Flow'
 import { Narration, PlayerBar } from '@/components/Player'
-import { Lab, Pill, Segmented } from '@/components/ui'
+import { Lab, Pill, Segmented, DetailDock } from '@/components/ui'
 import { usePlayer } from '@/lib/hooks'
 import { ACTIONS, AGENT_OBJECT_ID, CODE_IDENTITY, FOUNDRY_AGENT, ID_STEPS, PERSONAS, ROLES, type AuthMode, type Cell } from './data'
 
@@ -159,37 +159,39 @@ export function RolesLab() {
             </button>
           ))}
         </div>
-        <div className="az-gob-card anim-fade" key={p.id} data-tone={p.role === 'azure' ? 'error' : 'guard'}>
-          <div className="az-gob-card-head">
-            <KeyRound size={15} /> {p.role === 'azure' ? 'Rol que tiene (y no alcanza)' : 'Rol de mínimo privilegio'}
-          </div>
-          <div className="az-gob-rolename">{role.name}</div>
-          <div className="az-gob-old">
-            {role.old ? (
-              <>
-                antes <s>{role.old}</s>
-              </>
-            ) : role.guid ? (
-              'rol nuevo: no tiene nombre anterior'
-            ) : (
-              'rol general de Azure, no de Foundry'
+        <DetailDock k={p.id}>
+          <div className="az-gob-card anim-fade" key={p.id} data-tone={p.role === 'azure' ? 'error' : 'guard'}>
+            <div className="az-gob-card-head">
+              <KeyRound size={15} /> {p.role === 'azure' ? 'Rol que tiene (y no alcanza)' : 'Rol de mínimo privilegio'}
+            </div>
+            <div className="az-gob-rolename">{role.name}</div>
+            <div className="az-gob-old">
+              {role.old ? (
+                <>
+                  antes <s>{role.old}</s>
+                </>
+              ) : role.guid ? (
+                'rol nuevo: no tiene nombre anterior'
+              ) : (
+                'rol general de Azure, no de Foundry'
+              )}
+            </div>
+            {role.guid && (
+              <div className="az-gob-guid">
+                <span className="label">ID del rol · no cambió con el renombre</span>
+                <code>{role.guid}</code>
+              </div>
+            )}
+            <p className="small" style={{ margin: '8px 0 0' }}>
+              {p.why}
+            </p>
+            {p.trap && (
+              <p className="small az-gob-trap" style={{ margin: '6px 0 0' }}>
+                {p.trap}
+              </p>
             )}
           </div>
-          {role.guid && (
-            <div className="az-gob-guid">
-              <span className="label">ID del rol · no cambió con el renombre</span>
-              <code>{role.guid}</code>
-            </div>
-          )}
-          <p className="small" style={{ margin: '8px 0 0' }}>
-            {p.why}
-          </p>
-          {p.trap && (
-            <p className="small az-gob-trap" style={{ margin: '6px 0 0' }}>
-              {p.trap}
-            </p>
-          )}
-        </div>
+        </DetailDock>
       </div>
       <div className="table-wrap" style={{ marginTop: 14 }}>
         <table className="tbl az-gob-matrix">

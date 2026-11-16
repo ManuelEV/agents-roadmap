@@ -1,5 +1,5 @@
 import { useMemo, useState, type MouseEvent } from 'react'
-import { Lab, Panel, Pill, Segmented } from '@/components/ui'
+import { Lab, Panel, Pill, Segmented, DetailDock } from '@/components/ui'
 import { Code } from '@/components/Code'
 
 type PartId = 'server' | 'model' | 'decorator' | 'name' | 'params' | 'default' | 'return' | 'doc' | 'body' | 'run'
@@ -222,13 +222,15 @@ export function ServerLab() {
         </div>
         <Code code={json} lang="json" title="result de tools/list (lo que ve el host)" highlight={jsonHl} maxHeight={460} />
       </div>
-      <div style={{ marginTop: 12 }} className="anim-fade" key={part}>
-        <Panel title={PARTS[part].label} tone="tool" right={jsonHl.length ? <Pill tone="ok">aparece en tools/list</Pill> : <Pill>no aparece en tools/list</Pill>}>
-          <div className="small" style={{ color: 'var(--text-2)' }}>
-            {part === 'doc' && !doc ? 'Sin docstring no hay description: el modelo solo ve el nombre y el esquema.' : PARTS[part].explain}
-          </div>
-        </Panel>
-      </div>
+      <DetailDock k={part}>
+        <div style={{ marginTop: 12 }} className="anim-fade" key={part}>
+          <Panel title={PARTS[part].label} tone="tool" right={jsonHl.length ? <Pill tone="ok">aparece en tools/list</Pill> : <Pill>no aparece en tools/list</Pill>}>
+            <div className="small" style={{ color: 'var(--text-2)' }}>
+              {part === 'doc' && !doc ? 'Sin docstring no hay description: el modelo solo ve el nombre y el esquema.' : PARTS[part].explain}
+            </div>
+          </Panel>
+        </div>
+      </DetailDock>
     </Lab>
   )
 }

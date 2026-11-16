@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { ArrowRight, Bot, Check, Code2, X } from 'lucide-react'
-import { Lab, Pill, Segmented, type Tone } from '@/components/ui'
+import { Lab, Pill, Segmented, type Tone, DetailDock } from '@/components/ui'
 
 /* -------------------------------------------------------------------------- */
 /* ¿Quién hace qué? (intuición)                                                */
@@ -134,12 +134,14 @@ export function ReactLab() {
           </div>
         </div>
       </div>
-      <div className="loop-agente-react-how anim-fade" key={hl} data-tone={KIND_TONE[r.kind]}>
-        <Pill tone={KIND_TONE[r.kind]} mono>
-          {r.kind === 'thought' ? 'Thought' : r.kind === 'action' ? 'Action' : r.kind === 'obs' ? 'Observation' : 'Final Answer'}
-        </Pill>{' '}
-        {how[r.kind]}
-      </div>
+      <DetailDock k={hl}>
+        <div className="loop-agente-react-how anim-fade" key={hl} data-tone={KIND_TONE[r.kind]}>
+          <Pill tone={KIND_TONE[r.kind]} mono>
+            {r.kind === 'thought' ? 'Thought' : r.kind === 'action' ? 'Action' : r.kind === 'obs' ? 'Observation' : 'Final Answer'}
+          </Pill>{' '}
+          {how[r.kind]}
+        </div>
+      </DetailDock>
     </Lab>
   )
 }

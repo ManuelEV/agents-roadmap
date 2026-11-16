@@ -29,7 +29,7 @@
 }
 .multiagente-packet {
   border: 1px solid color-mix(in srgb, var(--ptone) 40%, var(--border));
-  border-left: 4px solid var(--ptone);
+  border-left: 1px solid color-mix(in srgb, var(--ptone) 45%, var(--border));
   border-radius: 10px;
   background: color-mix(in srgb, var(--ptone) 6%, var(--bg-elev));
   padding: 7px 10px;
@@ -158,7 +158,7 @@
     grid-template-columns: 72px minmax(0, 1fr);
   }
   .multiagente-gantt-label {
-    font-size: 10px;
+    font-size: 11px;
   }
 }
 

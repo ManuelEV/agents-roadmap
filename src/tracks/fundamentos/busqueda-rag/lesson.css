@@ -95,7 +95,7 @@
   overflow-y: auto;
 }
 .brag-prompt-part {
-  border-left: 3px solid var(--tone);
+  border-left: 1px solid color-mix(in srgb, var(--tone) 45%, var(--border));
   padding: 4px 0 4px 10px;
   white-space: pre-wrap;
   word-break: break-word;
@@ -106,7 +106,7 @@
   font-weight: 700;
   color: var(--tone);
   text-transform: uppercase;
-  font-size: 10.5px;
+  font-size: 11px;
   letter-spacing: 0.06em;
 }
 .brag-prompt-doc {

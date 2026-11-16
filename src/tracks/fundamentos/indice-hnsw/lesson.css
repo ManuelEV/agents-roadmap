@@ -205,7 +205,7 @@
 }
 .indice-hnsw-cmp .fill {
   height: 100%;
-  border-radius: 0 4px 4px 0;
+  border-radius: 4px;
   background: var(--tone);
   transition: width 0.45s;
 }

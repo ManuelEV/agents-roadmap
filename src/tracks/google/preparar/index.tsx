@@ -1,6 +1,6 @@
 import { useMemo, useState } from 'react'
 import { Boxes, KeyRound, Shield, Sparkles } from 'lucide-react'
-import { Callout, Checklist, KeyIdeas, Lab, Panel, Pill, Section, Segmented, Sources } from '@/components/ui'
+import { Callout, Checklist, KeyIdeas, Lab, Panel, Pill, Section, Segmented, Sources, DetailDock } from '@/components/ui'
 import { Code, linesOf } from '@/components/Code'
 import { ConsoleBanner, ConsoleButton, ConsoleCard, ConsoleDisclaimer, ConsoleField, ConsoleStatus, ConsoleTable, GcpConsole, Focus } from '@/components/Console'
 import { Narration, PlayerBar, type StepInfo } from '@/components/Player'
@@ -41,9 +41,11 @@ function AuthLab() {
           </ul>
         </button>
       </div>
-      <div style={{ marginTop: 12 }} className="anim-fade" key={mode}>
-        <Code code={mode === 'key' ? ENV_API_KEY : ENV_VERTEX} lang="bash" title="andes_hello/.env" />
-      </div>
+      <DetailDock k={mode}>
+        <div style={{ marginTop: 12 }} className="anim-fade" key={mode}>
+          <Code code={mode === 'key' ? ENV_API_KEY : ENV_VERTEX} lang="bash" title="andes_hello/.env" />
+        </div>
+      </DetailDock>
     </Lab>
   )
 }

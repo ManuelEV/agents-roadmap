@@ -75,7 +75,7 @@
 }
 .ventana-contexto-axis {
   font-family: var(--font-mono);
-  font-size: 10.5px;
+  font-size: 11px;
   fill: var(--text-3);
 }
 .ventana-contexto-lbl {
@@ -113,7 +113,7 @@
   font-size: 13px;
   border-radius: 8px;
   border: 1px solid color-mix(in srgb, var(--tone) 30%, var(--border));
-  border-left: 4px solid var(--tone);
+  border-left: 1px solid color-mix(in srgb, var(--tone) 45%, var(--border));
   background: color-mix(in srgb, var(--tone) 6%, var(--bg-elev));
   transition:
     opacity 0.4s,
@@ -161,7 +161,7 @@
 }
 .ventana-contexto-answer {
   border: 1px solid color-mix(in srgb, var(--tone) 50%, var(--border));
-  border-left: 4px solid var(--tone);
+  border-left: 1px solid color-mix(in srgb, var(--tone) 45%, var(--border));
   border-radius: 10px;
   background: color-mix(in srgb, var(--tone) 8%, var(--bg-elev));
   padding: 10px 12px;

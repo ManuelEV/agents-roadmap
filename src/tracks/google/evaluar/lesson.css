@@ -155,7 +155,7 @@
 }
 .eval-wf .ms {
   font-family: var(--font-mono);
-  font-size: 10px;
+  font-size: 11px;
   fill: var(--text-3);
 }
 .eval-wf .bar {

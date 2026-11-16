@@ -1,7 +1,7 @@
 /* Lección decision-herramienta · todas las clases con prefijo .decision-herramienta- */
 
 .decision-herramienta-q {
-  border-left: 4px solid var(--c-user);
+  border-left: 1px solid color-mix(in srgb, var(--c-user) 45%, var(--border));
   background: color-mix(in srgb, var(--c-user) 7%, var(--bg-elev));
   border-radius: 8px;
   padding: 7px 11px;
@@ -66,7 +66,7 @@
   overflow: auto;
 }
 .decision-herramienta-seg {
-  border-left: 3px solid var(--tone);
+  border-left: 1px solid color-mix(in srgb, var(--tone) 45%, var(--border));
   padding: 4px 0 4px 10px;
   margin-bottom: 6px;
   white-space: pre-wrap;
@@ -115,7 +115,7 @@
 }
 .decision-herramienta-att .row-lbl {
   font-family: var(--font-mono);
-  font-size: 10.5px;
+  font-size: 11px;
   fill: var(--text-3);
   text-transform: uppercase;
   letter-spacing: 0.04em;

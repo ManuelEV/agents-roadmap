@@ -3,7 +3,7 @@
 /* ---------- centerpiece: ejecución ---------- */
 .loop-agente-user {
   border: 1px solid color-mix(in srgb, var(--c-user) 35%, var(--border));
-  border-left: 4px solid var(--c-user);
+  border-left: 1px solid color-mix(in srgb, var(--c-user) 45%, var(--border));
   background: color-mix(in srgb, var(--c-user) 7%, var(--bg-elev));
   border-radius: 10px;
   padding: 8px 12px;
@@ -97,7 +97,7 @@
 }
 .loop-agente-ring-exit-lbl {
   font-family: var(--font-mono);
-  font-size: 10.5px;
+  font-size: 11px;
   fill: var(--text-3);
 }
 .loop-agente-ring-pulse {
@@ -129,7 +129,7 @@
 }
 .loop-agente-ring-node .sub {
   font-family: var(--font-mono);
-  font-size: 10px;
+  font-size: 11px;
   fill: var(--text-3);
 }
 .loop-agente-ring-node.is-active .disc {
@@ -153,7 +153,7 @@
 }
 .loop-agente-ring-center .sub {
   font-family: var(--font-mono);
-  font-size: 9.5px;
+  font-size: 10.5px;
   fill: var(--text-3);
 }
 .loop-agente-ring-center.is-done .disc {
@@ -214,7 +214,7 @@
 }
 .loop-agente-iter-n {
   font-family: var(--font-mono);
-  font-size: 10.5px;
+  font-size: 11px;
   text-transform: uppercase;
   color: var(--tone);
   font-weight: 600;
@@ -225,7 +225,7 @@
   word-break: break-all;
 }
 .loop-agente-iter-tok {
-  font-size: 10.5px;
+  font-size: 11px;
   color: var(--text-3);
   margin-top: 2px;
 }
@@ -251,7 +251,7 @@
 }
 .loop-agente-chart .ax {
   font-family: var(--font-mono);
-  font-size: 10px;
+  font-size: 11px;
   fill: var(--text-3);
 }
 .loop-agente-chart .ax-cost {
@@ -406,7 +406,7 @@
 .loop-agente-native {
   text-align: left;
   border: 1px solid var(--border);
-  border-left: 3px solid var(--tone);
+  border-left: 1px solid color-mix(in srgb, var(--tone) 45%, var(--border));
   border-radius: 8px;
   background: var(--bg-elev);
   padding: 6px 9px;
@@ -424,7 +424,7 @@
   font-size: 12.5px;
 }
 .loop-agente-native-role {
-  font-size: 10.5px;
+  font-size: 11px;
   color: var(--tone);
   font-weight: 600;
   text-transform: uppercase;
@@ -451,7 +451,7 @@
 /* ---------- workflow vs agente ---------- */
 .loop-agente-wf-msg {
   margin: 12px 0;
-  border-left: 4px solid var(--tone);
+  border-left: 1px solid color-mix(in srgb, var(--tone) 45%, var(--border));
   background: color-mix(in srgb, var(--tone) 7%, var(--bg-elev));
   border-radius: 8px;
   padding: 7px 11px;

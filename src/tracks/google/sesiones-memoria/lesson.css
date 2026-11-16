@@ -100,7 +100,7 @@
 }
 .sm-mem .nm {
   font-family: var(--font-mono);
-  font-size: 10.5px;
+  font-size: 11px;
   color: var(--text-3);
   word-break: break-all;
 }

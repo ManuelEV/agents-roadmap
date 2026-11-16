@@ -1,7 +1,7 @@
 import { useMemo, useState } from 'react'
 import { Link } from 'react-router'
 import { Activity, Bot, Brain, Database, Fingerprint, Globe, MessagesSquare, Server, ShieldCheck, User, Wrench } from 'lucide-react'
-import { DocLink, Lab, Pill, Segmented } from '@/components/ui'
+import { DocLink, Lab, Pill, Segmented, DetailDock } from '@/components/ui'
 import { Code, linesOf } from '@/components/Code'
 import { FlowDiagram, type FlowEdge, type FlowNode } from '@/components/Flow'
 import { Narration, PlayerBar, type StepInfo } from '@/components/Player'
@@ -46,35 +46,37 @@ export function PieceMap() {
         ))}
       </div>
 
-      <div className="az-mapa-detail anim-fade" key={p.id} data-tone={p.tone}>
-        <div className="az-mapa-detail-head">
-          <h4>{p.name}</h4>
-          <Pill tone={layer.tone}>{layer.title}</Pill>
-        </div>
-        <p className="az-mapa-detail-what">{p.what}</p>
-        <dl className="az-mapa-facts">
-          <div>
-            <dt>Estado</dt>
-            <dd>
-              <span className="az-mapa-st" data-st={p.kind} /> {p.status}
-            </dd>
+      <DetailDock k={p.id}>
+        <div className="az-mapa-detail anim-fade" key={p.id} data-tone={p.tone}>
+          <div className="az-mapa-detail-head">
+            <h4>{p.name}</h4>
+            <Pill tone={layer.tone}>{layer.title}</Pill>
           </div>
-          {p.formerly && (
+          <p className="az-mapa-detail-what">{p.what}</p>
+          <dl className="az-mapa-facts">
             <div>
-              <dt>Antes se llamaba</dt>
-              <dd className="mono">{p.formerly}</dd>
+              <dt>Estado</dt>
+              <dd>
+                <span className="az-mapa-st" data-st={p.kind} /> {p.status}
+              </dd>
             </div>
-          )}
-          <div>
-            <dt>Lo que conviene saber</dt>
-            <dd>{p.detail}</dd>
+            {p.formerly && (
+              <div>
+                <dt>Antes se llamaba</dt>
+                <dd className="mono">{p.formerly}</dd>
+              </div>
+            )}
+            <div>
+              <dt>Lo que conviene saber</dt>
+              <dd>{p.detail}</dd>
+            </div>
+          </dl>
+          <div className="az-mapa-detail-links">
+            <DocLink href={p.docs}>Documentación oficial</DocLink>
+            {p.lesson ? <Link to={`/azure/${p.lesson}`}>Se trabaja en «{LESSON_LABEL[p.lesson]}» →</Link> : <span className="muted">Esta línea solo la ubica; no tiene parada propia.</span>}
           </div>
-        </dl>
-        <div className="az-mapa-detail-links">
-          <DocLink href={p.docs}>Documentación oficial</DocLink>
-          {p.lesson ? <Link to={`/azure/${p.lesson}`}>Se trabaja en «{LESSON_LABEL[p.lesson]}» →</Link> : <span className="muted">Esta línea solo la ubica; no tiene parada propia.</span>}
         </div>
-      </div>
+      </DetailDock>
     </Lab>
   )
 }

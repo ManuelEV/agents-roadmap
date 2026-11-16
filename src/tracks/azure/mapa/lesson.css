@@ -567,7 +567,7 @@
 }
 .az-mapa-bar-pick {
   font-family: var(--font-sans);
-  font-size: 10.5px;
+  font-size: 11px;
   font-weight: 650;
   color: var(--c-model);
   border: 1px solid color-mix(in srgb, var(--c-model) 45%, transparent);

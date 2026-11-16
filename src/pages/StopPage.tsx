@@ -1,7 +1,7 @@
 import { Component, lazy, Suspense, useEffect, useLayoutEffect, useRef, useState, type ComponentType, type CSSProperties, type LazyExoticComponent, type ReactNode } from 'react'
 import { Link, useParams } from 'react-router'
 import { MDXProvider } from '@mdx-js/react'
-import { ArrowLeft, ArrowRight, BookOpen, Clock, ExternalLink, FlaskConical, Gauge } from 'lucide-react'
+import { ArrowLeft, ArrowRight, BookOpen, Clock, ExternalLink, FlaskConical, Gauge, List } from 'lucide-react'
 import { TOPICS, adjacentStops, getStop, getTrack, lessonComponent, relatedStops, stopKey, stopsOf, type Stop, type Track } from '@/catalog'
 import { mdxComponents } from '@/guide/components/mdx'
 import { getPost, loadPostContent, type Reference } from '@/guide/lib/content'
@@ -41,10 +41,12 @@ function StopHeader({ stop, track }: { stop: Stop; track: Track }) {
         <span className="stop-badge" aria-label={`Parada ${stop.n} de ${stopsOf(track.id).length}`}>
           {String(stop.n).padStart(2, '0')}
         </span>
-        <Link to={`/${track.id}`} className="eyebrow-link">
-          {track.title}
-        </Link>
-        {mod && <span className="eyebrow-mod">· {mod.title}</span>}
+        <span className="eyebrow-text">
+          <Link to={`/${track.id}`} className="eyebrow-link">
+            {track.title}
+          </Link>
+          {mod && <span className="eyebrow-mod"> · {mod.title}</span>}
+        </span>
       </div>
       <h1>{stop.title}</h1>
       <p className="lead">{stop.summary}</p>
@@ -195,6 +197,29 @@ function Toc({ headings }: { headings: Heading[] }) {
   )
 }
 
+/** Índice plegable para pantallas sin columna lateral (teléfono, tableta, portátil angosto). */
+function TocInline({ headings }: { headings: Heading[] }) {
+  const ref = useRef<HTMLDetailsElement>(null)
+  const top = headings.filter((h) => h.level === 2)
+  if (top.length < 3) return null
+  return (
+    <details className="toc-inline" ref={ref}>
+      <summary>
+        <List size={16} /> En esta página <span className="toc-inline-n">{top.length} secciones</span>
+      </summary>
+      <ol>
+        {top.map((h) => (
+          <li key={h.id}>
+            <a href={`#${h.id}`} onClick={() => ref.current?.removeAttribute('open')}>
+              {h.text}
+            </a>
+          </li>
+        ))}
+      </ol>
+    </details>
+  )
+}
+
 export function ReferenceList({ refs }: { refs: Reference[] }) {
   return (
     <ol className="refs">
@@ -222,6 +247,7 @@ function GuideView({ stop, track }: { stop: Stop; track: Track }) {
     <div className="post-layout">
       <article className="lesson guide-scope" key={stop.slug}>
         <StopHeader stop={stop} track={track} />
+        <TocInline headings={headings} />
         <StopBoundary>
           <Suspense
             fallback={

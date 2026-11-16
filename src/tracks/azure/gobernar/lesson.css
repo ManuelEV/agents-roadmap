@@ -257,7 +257,7 @@
 }
 .az-gob-stage .verdict {
   justify-self: start;
-  font-size: 10px;
+  font-size: 11px;
   font-weight: 700;
   line-height: 1.5;
   border-radius: 99px;
@@ -273,7 +273,7 @@
 }
 .az-gob-stage .sub {
   font-family: var(--font-mono);
-  font-size: 10px;
+  font-size: 11px;
   color: var(--text-3);
   overflow-wrap: anywhere;
 }
@@ -394,7 +394,7 @@
   display: block;
   font-family: var(--font-mono);
   font-weight: 400;
-  font-size: 10.5px;
+  font-size: 11px;
   color: var(--text-3);
 }
 .az-gob-evals td:first-child {
@@ -514,7 +514,7 @@
 }
 .az-gob-wf .ms {
   font-family: var(--font-mono);
-  font-size: 10.5px;
+  font-size: 11px;
   fill: var(--text-3);
 }
 .az-gob-wf .grid {

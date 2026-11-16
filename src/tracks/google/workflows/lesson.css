@@ -47,7 +47,7 @@
 }
 .wf-node text.sub {
   fill: var(--text-3);
-  font-size: 9.5px;
+  font-size: 10.5px;
 }
 .wf-edge {
   fill: none;
@@ -62,7 +62,7 @@
 }
 .wf-edge-label {
   font-family: var(--font-mono);
-  font-size: 9.5px;
+  font-size: 10.5px;
   fill: var(--text-3);
 }
 .wf-edge-label.is-on {

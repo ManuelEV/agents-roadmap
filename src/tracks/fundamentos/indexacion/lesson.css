@@ -27,7 +27,7 @@
   background: color-mix(in srgb, var(--c-error) 8%, transparent);
 }
 .indexacion-raw .why {
-  font-size: 10.5px;
+  font-size: 11px;
   color: var(--c-error);
   margin-left: 8px;
   text-decoration: none;
@@ -65,7 +65,7 @@
 }
 .indexacion-cmark {
   font-family: var(--font-mono);
-  font-size: 10px;
+  font-size: 11px;
   font-weight: 700;
   color: var(--tone);
   border: 1px solid var(--tone);
@@ -84,7 +84,7 @@
   align-items: center;
   padding: 7px 10px;
   border: 1px solid var(--border);
-  border-left: 4px solid var(--tone);
+  border-left: 1px solid color-mix(in srgb, var(--tone) 45%, var(--border));
   border-radius: 10px;
   background: var(--bg-elev);
   font-size: 13px;

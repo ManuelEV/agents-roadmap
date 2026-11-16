@@ -1318,7 +1318,7 @@ span.term:focus .term-tip {
 .code-head .lang {
   margin-left: auto;
   text-transform: uppercase;
-  font-size: 10.5px;
+  font-size: 11px;
   letter-spacing: 0.06em;
 }
 .code-copy {
@@ -1585,7 +1585,7 @@ span.term:focus .term-tip {
   color: var(--text);
 }
 .token .tid {
-  font-size: 9.5px;
+  font-size: 10.5px;
   color: var(--text-3);
   margin-top: 3px;
 }
@@ -1679,7 +1679,7 @@ span.term:focus .term-tip {
 .flow-node text.sub {
   fill: var(--text-3);
   font-family: var(--font-mono);
-  font-size: 10.5px;
+  font-size: 11.5px;
 }
 .flow-node.is-active rect.box {
   stroke: var(--tone);
@@ -1723,7 +1723,7 @@ span.term:focus .term-tip {
 }
 .flow-edge text {
   font-family: var(--font-mono);
-  font-size: 10.5px;
+  font-size: 11.5px;
   fill: var(--text-3);
 }
 .flow-edge.is-active text {
@@ -2230,6 +2230,6 @@ table.tbl {
 }
 @media (max-width: 640px) {
   .flow-min {
-    min-width: 540px;
+    min-width: var(--flow-min, 640px);
   }
 }

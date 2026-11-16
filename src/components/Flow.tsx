@@ -1,4 +1,5 @@
-import type { LucideIcon } from 'lucide-react'
+import { useEffect, useRef, useState } from 'react'
+import { Crosshair, type LucideIcon } from 'lucide-react'
 import { toneVar, type Tone } from './ui'
 
 /* ==========================================================================
@@ -102,14 +103,78 @@ export function FlowDiagram({
   const activeNodes = new Set([...active, ...flowPairs.flat()])
   const flowKey = flows.join('|')
 
+  /* Seguimiento: cuando el diagrama no cabe (móvil) y cambia lo activo, la vista se
+     desplaza sola hasta las piezas activas. Si el lector arrastra el diagrama, el
+     seguimiento se suelta; el botón lo vuelve a activar. */
+  const scrollRef = useRef<HTMLDivElement>(null)
+  const [follow, setFollow] = useState(true)
+  const [scrollable, setScrollable] = useState(false)
+  const [edge, setEdge] = useState({ left: false, right: false })
+  const focusKey = [...activeNodes].sort().join('|')
+  const programmatic = useRef(0)
+
+  const measure = () => {
+    const el = scrollRef.current
+    if (!el) return
+    const can = el.scrollWidth - el.clientWidth > 4
+    setScrollable(can)
+    setEdge({ left: el.scrollLeft > 4, right: el.scrollLeft < el.scrollWidth - el.clientWidth - 4 })
+  }
+  useEffect(() => {
+    const el = scrollRef.current
+    if (!el) return
+    measure()
+    const ro = new ResizeObserver(measure)
+    ro.observe(el)
+    return () => ro.disconnect()
+  }, [])
+
+  useEffect(() => {
+    const el = scrollRef.current
+    if (!el || !follow || activeNodes.size === 0) return
+    if (el.scrollWidth - el.clientWidth <= 4) return
+    const act = nodes.filter((n) => activeNodes.has(n.id))
+    if (act.length === 0) return
+    const x0 = Math.min(...act.map((n) => n.x - (n.w ?? 150) / 2))
+    const x1 = Math.max(...act.map((n) => n.x + (n.w ?? 150) / 2))
+    const k = el.scrollWidth / width
+    const span = (x1 - x0) * k
+    // si todo lo activo cabe, se centra; si no, se muestra desde su borde izquierdo
+    const left = span <= el.clientWidth - 24 ? ((x0 + x1) / 2) * k - el.clientWidth / 2 : x0 * k - 12
+    const target = Math.max(0, Math.min(el.scrollWidth - el.clientWidth, left))
+    if (Math.abs(target - el.scrollLeft) < 6) return
+    programmatic.current = Date.now()
+    el.scrollTo({ left: target, behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth' })
+    // solo debe reaccionar a un cambio de lo activo, no a cada render
+  }, [focusKey, follow, width]) // eslint-disable-line react-hooks/exhaustive-deps
+
+  const release = () => {
+    // un gesto del lector suelta el seguimiento (no el desplazamiento que hacemos nosotros)
+    if (Date.now() - programmatic.current > 700) setFollow(false)
+  }
+
   const isFlow = (e: FlowEdge) => flowPairs.find(([a, b]) => (a === e.from && b === e.to) || (a === e.to && b === e.from))
   const tempEdges: FlowEdge[] = flowPairs
     .filter(([a, b]) => !edges.some((e) => (e.from === a && e.to === b) || (e.from === b && e.to === a)))
     .map(([a, b]) => ({ from: a, to: b, curve: -50, dashed: true }))
 
   return (
-    <div className="flow-scroll">
-    <svg className="flow flow-min" viewBox={`0 0 ${width} ${height}`} role="img" aria-label={ariaLabel}>
+    <div className={`flow-wrap${scrollable ? ' is-scrollable' : ''}${edge.left ? ' fade-left' : ''}${edge.right ? ' fade-right' : ''}`}>
+    {scrollable && (
+      <button
+        type="button"
+        className={`flow-follow${follow ? ' is-on' : ''}`}
+        onClick={() => setFollow((f) => !f)}
+        aria-pressed={follow}
+        aria-label={follow ? 'Seguir el paso: activado' : 'Seguir el paso: desactivado'}
+        title={follow ? 'La vista sigue las piezas activas. Arrastra el diagrama para moverlo libremente.' : 'Toca para que la vista vuelva a seguir las piezas activas.'}
+      >
+        <Crosshair size={14} />
+        <span>{follow ? 'Siguiendo' : 'Seguir'}</span>
+      </button>
+    )}
+    <div className="flow-scroll" ref={scrollRef} onScroll={measure} onTouchStart={release} onWheel={release} onPointerDown={(e) => e.pointerType !== 'touch' && release()}>
+    <svg className="flow flow-min" viewBox={`0 0 ${width} ${height}`} role="img" aria-label={ariaLabel} style={{ ['--flow-min' as string]: `${Math.round(width * 0.86)}px` }}>
       {[...edges, ...tempEdges].map((e, i) => {
         const a = byId.get(e.from)
         const b = byId.get(e.to)
@@ -118,7 +183,7 @@ export function FlowDiagram({
         const f = isFlow(e)
         const reverse = f && f[0] === e.to
         const etone = toneVar(e.tone ?? b.tone ?? 'accent')
-        const labelW = (e.label?.length ?? 0) * 6.4 + 10
+        const labelW = (e.label?.length ?? 0) * 7 + 10
         return (
           <g key={`${e.from}-${e.to}-${i}`} className={`flow-edge${f ? ' is-active' : ''}${e.dashed ? ' is-dashed' : ''}`} style={{ ['--etone' as string]: etone }}>
             <path className="line" d={d} />
@@ -185,6 +250,7 @@ export function FlowDiagram({
         )
       })}
     </svg>
+    </div>
     </div>
   )
 }

@@ -1,6 +1,6 @@
 import { useMemo, useState } from 'react'
 import { Link } from 'react-router'
-import { Callout, KeyIdeas, Lab, Section, Segmented, Sources, Term } from '@/components/ui'
+import { Callout, KeyIdeas, Lab, Section, Segmented, Sources, Term, DetailDock } from '@/components/ui'
 import { Code, linesOf } from '@/components/Code'
 import { CloudConsole, ConsoleBanner, ConsoleButton, ConsoleCard, ConsoleCheck, ConsoleDisclaimer, ConsoleStatus } from '@/components/Console'
 import { Narration, PlayerBar } from '@/components/Player'
@@ -114,9 +114,11 @@ function FinalCodeLab() {
         <Segmented options={CODE_PARTS.map((p) => ({ value: p.id, label: p.label }))} value={sel} onChange={setSel} />
       </div>
       <Code code={FINAL_CODE} lang="python" title="app/agent/main.py (recortado)" highlight={hl} dim />
-      <div className="aws-hm-note anim-fade" key={sel} data-tone={part.tone}>
-        {part.note}
-      </div>
+      <DetailDock k={sel}>
+        <div className="aws-hm-note anim-fade" key={sel} data-tone={part.tone}>
+          {part.note}
+        </div>
+      </DetailDock>
     </Lab>
   )
 }

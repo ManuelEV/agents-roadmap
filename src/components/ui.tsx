@@ -1,6 +1,10 @@
-import { useState, type CSSProperties, type ReactNode } from 'react'
+import { useRef, useState, type CSSProperties, type ReactNode } from 'react'
 import { cellColor } from '@/sim/workshop/embed'
 import { AlertTriangle, CheckCircle2, ExternalLink, FlaskConical, Info, Lightbulb, MousePointerClick, ShieldAlert, Sparkles } from 'lucide-react'
+
+import { ChangeHint, useChangeHint } from './Reveal'
+
+export { DetailDock } from './Reveal'
 
 export type Tone = 'user' | 'model' | 'tool' | 'data' | 'memory' | 'guard' | 'system' | 'error' | 'ok' | 'accent'
 
@@ -40,8 +44,12 @@ export function Lab({
   footer?: ReactNode
   bodyStyle?: CSSProperties
 }) {
+  // si un toque cambia algo que quedó fuera de pantalla, avisa (no mueve la página sola)
+  const ref = useRef<HTMLDivElement>(null)
+  const change = useChangeHint(ref)
   return (
-    <div className="lab">
+    <div className="lab" ref={ref}>
+      <ChangeHint {...change} />
       <div className="lab-head">
         <span className="lab-badge">
           <FlaskConical size={11} style={{ verticalAlign: '-1px', marginRight: 4 }} />

@@ -1,6 +1,6 @@
 import { useMemo, useState } from 'react'
 import { Bot, Brain, Cloud, Cog, User, Wrench } from 'lucide-react'
-import { Callout, KeyIdeas, Lab, Panel, Pill, Section, Segmented, Sources, Term } from '@/components/ui'
+import { Callout, KeyIdeas, Lab, Panel, Pill, Section, Segmented, Sources, Term, DetailDock } from '@/components/ui'
 import { Code, linesOf } from '@/components/Code'
 import { ChatBubbles, EventList, StateView } from '@/components/Events'
 import { FlowDiagram, type FlowEdge, type FlowNode } from '@/components/Flow'
@@ -56,10 +56,12 @@ function DeclarationLab() {
         <Code code={FUNC_CODE} lang="python" title="tu función Python" highlight={linesOf(FUNC_CODE, ...row.pyNeedles)} dim />
         <Code code={json} lang="json" title="FunctionDeclaration enviada a Gemini (tools[])" highlight={row.jsonNeedles.length ? linesOf(json, ...row.jsonNeedles) : []} dim={row.jsonNeedles.length > 0} />
       </div>
-      <div className="callout anim-fade" data-tone="tool" key={sel} style={{ marginBottom: 0, maxWidth: 'none' }}>
-        <span />
-        <div className="callout-body">{row.note}</div>
-      </div>
+      <DetailDock k={sel}>
+        <div className="callout anim-fade" data-tone="tool" key={sel} style={{ marginBottom: 0, maxWidth: 'none' }}>
+          <span />
+          <div className="callout-body">{row.note}</div>
+        </div>
+      </DetailDock>
     </Lab>
   )
 }

@@ -1,7 +1,7 @@
 import { useMemo, useState } from 'react'
 import { Link } from 'react-router'
 import { Bot, Brain, Cloud, Database, Eye, Layers, ShieldCheck, User, Wrench } from 'lucide-react'
-import { Callout, DocLink, KeyIdeas, Lab, Pill, Section, Sources, Term } from '@/components/ui'
+import { Callout, DetailDock, DocLink, KeyIdeas, Lab, Pill, Section, Sources, Term } from '@/components/ui'
 import { FlowDiagram, type FlowEdge, type FlowNode } from '@/components/Flow'
 import { Narration, PlayerBar, type StepInfo } from '@/components/Player'
 import { usePlayer } from '@/lib/hooks'
@@ -30,7 +30,9 @@ function PillarMap() {
           </div>
         ))}
       </div>
-      <Detail c={c} />
+      <DetailDock k={sel}>
+        <Detail c={c} />
+      </DetailDock>
     </Lab>
   )
 }
@@ -198,7 +200,9 @@ function DecideLab() {
             </button>
           ))}
         </div>
-        <Detail c={c} />
+        <DetailDock k={c.id}>
+          <Detail c={c} />
+        </DetailDock>
       </div>
     </Lab>
   )

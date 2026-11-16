@@ -82,7 +82,7 @@
 }
 .embeddings-rows .hd {
   font-family: var(--font-mono);
-  font-size: 10px;
+  font-size: 11px;
   color: var(--text-3);
   text-align: center;
   writing-mode: vertical-rl;
@@ -104,7 +104,7 @@
   align-items: center;
   justify-content: center;
   font-family: var(--font-mono);
-  font-size: 9.5px;
+  font-size: 10.5px;
   color: var(--text);
   transition: background 0.35s;
   font-variant-numeric: tabular-nums;
@@ -150,9 +150,9 @@
   font-size: 22px;
   line-height: 1.35;
   padding: 14px 18px;
-  border-left: 4px solid var(--c-user);
+  border-left: 1px solid color-mix(in srgb, var(--c-user) 45%, var(--border));
   background: color-mix(in srgb, var(--c-user) 7%, var(--bg-elev));
-  border-radius: 0 12px 12px 0;
+  border-radius: 12px;
 }
 .embeddings-stage {
   min-height: 240px;
@@ -219,7 +219,7 @@
   min-width: 0;
 }
 .embeddings-cellbox .k {
-  font-size: 10.5px;
+  font-size: 11px;
   color: var(--text-3);
   font-family: var(--font-mono);
   white-space: nowrap;

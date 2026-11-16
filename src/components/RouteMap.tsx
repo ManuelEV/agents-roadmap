@@ -1,4 +1,4 @@
-import { useMemo, useState, type CSSProperties } from 'react'
+import { useEffect, useMemo, useState, type CSSProperties } from 'react'
 import { Link } from 'react-router'
 import { ArrowRight } from 'lucide-react'
 import { STOPS, TOPICS, TRACKS, getTrack, relatedStops, stopKey, stopsOf, trackMinutes, type Stop } from '@/catalog'
@@ -15,6 +15,16 @@ const hours = (min: number) => {
 export function RouteMap() {
   const visited = useVisited()
   const [hover, setHover] = useState<Stop | null>(null)
+  // sin cursor (teléfono, tableta): tocar una estación la selecciona; la ficha trae el botón para abrirla
+  const [touch, setTouch] = useState(false)
+  const [picked, setPicked] = useState<string | null>(null)
+  useEffect(() => {
+    const mq = matchMedia('(hover: none)')
+    const fn = () => setTouch(mq.matches)
+    fn()
+    mq.addEventListener('change', fn)
+    return () => mq.removeEventListener('change', fn)
+  }, [])
   const lit = useMemo(() => {
     if (!hover) return null
     const set = new Set<string>([stopKey(hover)])
@@ -24,7 +34,7 @@ export function RouteMap() {
   const transfers = hover ? relatedStops(hover, 4) : []
 
   return (
-    <div className={`netmap${lit ? ' has-focus' : ''}`} onMouseLeave={() => setHover(null)}>
+    <div className={`netmap${lit ? ' has-focus' : ''}${touch ? ' is-touch' : ''}`} onMouseLeave={() => !touch && setHover(null)}>
       <div className="netmap-lines">
         {TRACKS.map((t) => {
           const stops = stopsOf(t.id)
@@ -59,9 +69,17 @@ export function RouteMap() {
                       to={s.path}
                       role="listitem"
                       className={cls}
-                      onMouseEnter={() => setHover(s)}
+                      onMouseEnter={() => !touch && setHover(s)}
                       onFocus={() => setHover(s)}
-                      onBlur={() => setHover(null)}
+                      onBlur={() => !touch && setHover(null)}
+                      onClick={(e) => {
+                        // el foco llega antes que el clic: se compara con lo ya elegido, no con lo enfocado
+                        if (touch && picked !== key) {
+                          e.preventDefault()
+                          setPicked(key)
+                          setHover(s)
+                        }
+                      }}
                       aria-label={`${t.title}, parada ${s.n}: ${s.title}`}
                     >
                       <i />
@@ -89,22 +107,27 @@ export function RouteMap() {
                 ))}
               </div>
               <div className="netmap-info-title">{hover.title}</div>
+              {touch && (
+                <Link to={hover.path} className="btn btn-primary btn-sm netmap-open">
+                  Abrir parada <ArrowRight size={14} />
+                </Link>
+              )}
             </div>
             {transfers.length > 0 && (
               <div className="netmap-info-transfers">
                 <span className="netmap-info-label">Transbordos</span>
                 {transfers.map((r) => (
-                  <span key={stopKey(r)} className="netmap-transfer" style={{ '--line': `var(--line-${r.track})` } as CSSProperties}>
+                  <Link key={stopKey(r)} to={r.path} className="netmap-transfer" style={{ '--line': `var(--line-${r.track})` } as CSSProperties}>
                     <span className="line-dot" />
                     {r.short}
-                  </span>
+                  </Link>
                 ))}
               </div>
             )}
           </div>
         ) : (
           <div className="netmap-hint">
-            Cada punto es una parada. Pasa el cursor por cualquiera para ver de qué trata y en qué otras líneas se cruza con el mismo tema.
+            Cada punto es una parada. {touch ? 'Toca' : 'Pasa el cursor por'} cualquiera para ver de qué trata y en qué otras líneas se cruza con el mismo tema.
             <Link to="/fundamentos" className="netmap-hint-link">
               Empezar por Fundamentos <ArrowRight size={14} />
             </Link>

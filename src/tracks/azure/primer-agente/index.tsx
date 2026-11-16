@@ -1,6 +1,6 @@
 import { useMemo, useState } from 'react'
 import { Link } from 'react-router'
-import { Callout, KeyIdeas, Lab, Pill, Section, Segmented, Sources, Tabs, Term, Toggle } from '@/components/ui'
+import { Callout, KeyIdeas, Lab, Pill, Section, Segmented, Sources, Tabs, Term, Toggle, DetailDock } from '@/components/ui'
 import { Code, linesOf } from '@/components/Code'
 import { Terminal, useTerminalPlayer } from '@/components/Terminal'
 import {
@@ -102,9 +102,11 @@ function SchemaLab() {
         </Pill>
         <Pill tone="system">{o.ctx ? 'ctx oculto' : 'sin datos ocultos'}</Pill>
       </div>
-      <div className="az-pa-verdict anim-fade" data-tone={jsonHl.length || !['doc', 'field'].includes(last) ? 'tool' : 'error'} key={`${last}-${String(isOn)}`}>
-        {isOn ? note.on : note.off}
-      </div>
+      <DetailDock>
+        <div className="az-pa-verdict anim-fade" data-tone={jsonHl.length || !['doc', 'field'].includes(last) ? 'tool' : 'error'} key={`${last}-${String(isOn)}`}>
+          {isOn ? note.on : note.off}
+        </div>
+      </DetailDock>
     </Lab>
   )
 }

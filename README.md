@@ -40,6 +40,7 @@ pnpm visual                    # captura todas las páginas (claro/oscuro, 1280 
 pnpm visual aws                # una línea
 pnpm visual aws/desplegar      # una parada
 pnpm fuzz                      # avanza todos los players y pulsa todos los botones; reporta errores
+pnpm ux                        # auditoría de UX en teléfono: respuestas fuera de pantalla, objetivos táctiles, texto diminuto (--desktop para escritorio)
 pnpm check:content             # valida los diagramas y el MDX de la guía
 ```
 

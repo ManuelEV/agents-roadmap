@@ -42,7 +42,7 @@
 .mcp-lane-sub {
   fill: var(--text-3);
   font-family: var(--font-mono);
-  font-size: 10.5px;
+  font-size: 11px;
 }
 .mcp-arrow {
   cursor: pointer;
@@ -253,7 +253,7 @@
   margin: 0;
   font-size: 14px;
   color: var(--text-2);
-  border-left: 3px solid var(--border-strong);
+  border-left: 1px solid color-mix(in srgb, var(--border-strong) 45%, var(--border));
   padding-left: 10px;
 }
 @media (max-width: 640px) {

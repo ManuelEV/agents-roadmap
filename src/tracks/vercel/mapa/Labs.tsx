@@ -1,7 +1,7 @@
 import { useMemo, useState } from 'react'
 import { Link } from 'react-router'
 import { ArrowRight, Check, Hammer, Minus } from 'lucide-react'
-import { DocLink, Lab, Pill, Segmented, Slider, Stat } from '@/components/ui'
+import { DocLink, Lab, Pill, Segmented, Slider, Stat, DetailDock } from '@/components/ui'
 import { Code, linesOf } from '@/components/Code'
 import { LAYERS, MODELS, NEEDS, NEW_CODE, OLD_CODE, OTHER_RENAMES, PIECES, PRICE_DATE, RENAMES, ROLE_NOTE, TIMELINE, type Have, type ModelRow } from './data'
 
@@ -38,40 +38,42 @@ export function MapLab() {
         ))}
       </div>
 
-      <div className="vc-mapa-detail anim-fade" key={p.id} data-tone={p.tone}>
-        <div className="vc-mapa-detail-main">
-          <div className="vc-mapa-detail-layer">{layer.title}</div>
-          <h4>{p.name}</h4>
-          <p>
-            <strong>{p.what}</strong>
-          </p>
-          <p>{p.detail}</p>
-          <div className="row small" style={{ gap: 14 }}>
-            <DocLink href={p.docs}>Documentación oficial</DocLink>
-            {p.lesson && (
-              <Link to={`/vercel/${p.lesson}`}>
-                Se trabaja en «{LESSON_LABEL[p.lesson]}» <ArrowRight size={12} style={{ verticalAlign: '-1px' }} />
-              </Link>
-            )}
-          </div>
-        </div>
-        <dl className="vc-mapa-facts">
-          <div>
-            <dt>Estado</dt>
-            <dd>{p.status}</dd>
-          </div>
-          <div>
-            <dt>Desde</dt>
-            <dd>{p.since}</dd>
-          </div>
-          {p.pkg && (
-            <div>
-              <dt>Paquete (npm, 15-nov-2026)</dt>
-              <dd className="mono">{p.pkg}</dd>
+      <DetailDock k={p.id}>
+        <div className="vc-mapa-detail anim-fade" key={p.id} data-tone={p.tone}>
+          <div className="vc-mapa-detail-main">
+            <div className="vc-mapa-detail-layer">{layer.title}</div>
+            <h4>{p.name}</h4>
+            <p>
+              <strong>{p.what}</strong>
+            </p>
+            <p>{p.detail}</p>
+            <div className="row small" style={{ gap: 14 }}>
+              <DocLink href={p.docs}>Documentación oficial</DocLink>
+              {p.lesson && (
+                <Link to={`/vercel/${p.lesson}`}>
+                  Se trabaja en «{LESSON_LABEL[p.lesson]}» <ArrowRight size={12} style={{ verticalAlign: '-1px' }} />
+                </Link>
+              )}
             </div>
-          )}
-        </dl>
-      </div>
+          </div>
+          <dl className="vc-mapa-facts">
+            <div>
+              <dt>Estado</dt>
+              <dd>{p.status}</dd>
+            </div>
+            <div>
+              <dt>Desde</dt>
+              <dd>{p.since}</dd>
+            </div>
+            {p.pkg && (
+              <div>
+                <dt>Paquete (npm, 15-nov-2026)</dt>
+                <dd className="mono">{p.pkg}</dd>
+              </div>
+            )}
+          </dl>
+        </div>
+      </DetailDock>
     </Lab>
   )
 }

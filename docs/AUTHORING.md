@@ -89,7 +89,7 @@ Mínimo **3 labs** por lección, al menos **uno animado paso a paso** y, cuando 
 ## Componentes compartidos
 
 ```tsx
-import { Section, Lab, Callout, KeyIdeas, Term, Pill, Panel, Segmented, Slider, Tabs, Toggle, BarRow, Stat, Checklist, DocLink, Sources, toneVar, type Tone } from '@/components/ui'
+import { Section, Lab, Callout, KeyIdeas, Term, Pill, Panel, Segmented, Slider, Tabs, Toggle, BarRow, Stat, Checklist, DetailDock, DocLink, Sources, toneVar, type Tone } from '@/components/ui'
 import { Code, Json, linesOf } from '@/components/Code'
 import { PlayerBar, Narration, type StepInfo } from '@/components/Player'
 import { FlowDiagram, type FlowNode, type FlowEdge } from '@/components/Flow'
@@ -141,6 +141,17 @@ Dos skills guiaron el diseño: `apple-design` de dickwu (HIG: materiales, Liquid
 - Los tonos del tema claro cumplen ≥ 4.5:1 como texto. Si agregas un color, mídelo.
 - `.term` es el terminal (`div.term`) **y** el glosario (`span.term`): no reutilices ese nombre de clase. Tampoco `.callout`, `.badge`, `.card`, `.prose`, `.steps`.
 
+## Que lo que cambia quede a la vista (teléfono primero)
+
+En un teléfono un lab suele ser más alto que la pantalla: el lector toca arriba y la respuesta aparece abajo, fuera de vista. La plataforma ya lo resuelve en los componentes compartidos (`src/components/Reveal.tsx`); tu parte es usarlos bien:
+
+- **Patrón "elige un ítem → mira su ficha"** (mapas de piezas, anatomía de un archivo, selector de modelo): envuelve la ficha en `<DetailDock k={idSeleccionado}>…</DetailDock>`. En su lugar no cambia nada; cuando la ficha no está a la vista, sube como hoja inferior arrastrable en teléfono y como tarjeta flotante en escritorio. Sin `k` detecta sola el cambio de contenido. Con `sticky` (solo si la ficha vive en una columna al lado de la lista) acompaña el desplazamiento en escritorio. El contenido debe ser de solo lectura: se dibuja dos veces.
+- **Paso a paso:** usa siempre `PlayerBar`. Cuando su barra sale de vista, los controles quedan flotando abajo con el título del paso (por eso conviene pasar `labels`). No escribas controles de reproducción propios.
+- **Diagramas:** `FlowDiagram` sigue solo a las piezas activas cuando no cabe en pantalla; si el lector lo arrastra, el seguimiento se suelta y el botón «Seguir» lo reactiva. Para que funcione, marca lo activo con `active` / `flows` en cada paso.
+- **Red de seguridad:** si un toque cambia algo fuera de pantalla y nada visible, `Lab` muestra el aviso «Ver lo que cambió». Es el último recurso: si tu lab lo dispara en casi todos sus controles, reordénalo (resultado junto al control) o usa `DetailDock`.
+- **Da respuesta junto al control**: el botón elegido cambia de estado, y lo más importante del resultado aparece cerca. Evita que el único efecto de un toque sea un panel varias pantallas más abajo.
+- **Táctil:** objetivos de al menos 28 px (44 px en lo principal), nada que dependa solo de `hover`, texto de 11 px o más (también dentro de SVG, medido en pantalla).
+
 ## Calidad
 
 - Animaciones con propósito: cada paso muestra **qué cambia y dónde** (resalta el elemento activo, atenúa el resto). En la consola simulada, un `focus` por paso.
@@ -155,6 +166,7 @@ pnpm typecheck                    # 0 errores
 pnpm dev                          # http://localhost:5200/<línea>/<slug>
 pnpm visual <línea>/<slug>        # capturas en scripts/shots/ (claro/oscuro, 1280 y 390 px); reporta desbordes y errores
 pnpm fuzz <línea>/<slug>          # avanza todos los players y pulsa todos los botones; reporta errores
+pnpm ux <línea>/<slug>            # en teléfono (390×844): respuestas fuera de pantalla, objetivos táctiles pequeños, texto diminuto; --desktop para 1280×800
 pnpm check:content                # valida diagramas y MDX de la guía
 ```
 
