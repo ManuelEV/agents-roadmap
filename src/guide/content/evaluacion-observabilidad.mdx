@@ -52,17 +52,17 @@ Antes de confiar en un juez, etiqueta a mano 30–50 transcripts y mide cuánto 
 
 Cuando una tarea de capacidad pasa consistentemente, se "gradúa" a la suite de regresión. Cuando una suite completa llega al 100% (saturación), deja de dar señal para mejorar: hay que agregar tareas más difíciles.
 
-### pass@k vs. pass^k: la métrica que cambia la conversación
+### pass@k vs. pass<sup>k</sup>: la métrica que cambia la conversación
 
 Como cada trial es aleatorio, hay dos maneras de resumir *k* intentos:
 
 - **pass@k**: probabilidad de que **al menos uno** de *k* trials tenga éxito. Sube con *k*. Sirve cuando basta con un éxito (por ejemplo, generar candidatos que luego filtra un humano).
-- **pass^k**: probabilidad de que **todos** los *k* trials tengan éxito. Baja con *k*. Es la que importa para agentes de cara al cliente, donde cada usuario es "un trial".
+- **pass<sup>k</sup>**: probabilidad de que **todos** los *k* trials tengan éxito. Baja con *k*. Es la que importa para agentes de cara al cliente, donde cada usuario es "un trial".
 
 El ejemplo del artículo de Anthropic lo deja claro: un agente con **75% de éxito por intento** tiene una probabilidad de pasar 3 de 3 de 0,75³ ≈ **42%**. Un "75%" en el dashboard puede significar que casi 6 de cada 10 clientes recurrentes verán al menos un fallo.
 
 <Callout type="tip" title="Reporta las dos">
-Muestra pass@1 (tasa media) y pass^k para k = 3 o 5 en cada reporte. Una brecha grande entre ambas indica **inconsistencia**: el agente sabe resolver la tarea, pero no siempre lo hace. Eso suele arreglarse con mejores descripciones de herramientas o instrucciones más precisas, no con un modelo más grande.
+Muestra pass@1 (tasa media) y pass<sup>k</sup> para k = 3 o 5 en cada reporte. Una brecha grande entre ambas indica **inconsistencia**: el agente sabe resolver la tarea, pero no siempre lo hace. Eso suele arreglarse con mejores descripciones de herramientas o instrucciones más precisas, no con un modelo más grande.
 </Callout>
 
 ## Cómo construir tu primera suite
@@ -73,7 +73,7 @@ Muestra pass@1 (tasa media) y pass^k para k = 3 o 5 en cada reporte. Una brecha 
 2. **Escribe criterios de éxito verificables.** "El ticket queda con prioridad alta y la categoría `logistica`" es evaluable; "responde bien" no lo es.
 3. **Balancea casos positivos y negativos.** Incluye tareas donde el agente **no** debe actuar (pedir un reembolso fuera de plazo, una pregunta fuera de alcance). Si solo pruebas que actúe, optimizarás un agente que actúa de más.
 4. **Evalúa el resultado, no el camino.** Comprueba el outcome y deja libertad en la trayectoria. Usa crédito parcial en tareas de varios pasos.
-5. **Corre varios trials por tarea** y calcula pass@k y pass^k.
+5. **Corre varios trials por tarea** y calcula pass@k y pass<sup>k</sup>.
 6. **Lee transcripts.** Es la única forma de saber si un fallo es del agente o del grader que rechazó una solución válida.
 
 </Steps>
@@ -82,7 +82,7 @@ Anthropic cuenta que su sistema multiagente de investigación arrancó con unas 
 
 ### Un harness mínimo con pytest y juez LLM
 
-El siguiente ejemplo evalúa un agente de soporte con dos graders por trial —uno de código sobre el outcome y uno LLM con rúbrica— y exige pass^3 para considerar la tarea aprobada. `run_agent` representa tu punto de entrada (ADK, Strands o el que uses) y debe devolver la respuesta y el estado final del entorno de prueba.
+El siguiente ejemplo evalúa un agente de soporte con dos graders por trial —uno de código sobre el outcome y uno LLM con rúbrica— y exige pass<sup>3</sup> para considerar la tarea aprobada. `run_agent` representa tu punto de entrada (ADK, Strands o el que uses) y debe devolver la respuesta y el estado final del entorno de prueba.
 
 ```python title="tests/test_soporte_evals.py"
 import json, pathlib
@@ -186,7 +186,7 @@ Una suite que no corre automáticamente se deja de mantener. El patrón habitual
 | Producción (continuo) | Evals online sobre muestra de trazas | Alertas, no bloqueo |
 
 <Callout type="info" title="Compara contra la versión actual, no contra un umbral fijo">
-Un gate del tipo "regresión ≥ 98%" es frágil con muestras pequeñas: un solo caso mueve el porcentaje. Es más robusto comparar tarea por tarea contra la versión desplegada y bloquear si alguna que pasaba de forma consistente (pass^k) empieza a fallar.
+Un gate del tipo "regresión ≥ 98%" es frágil con muestras pequeñas: un solo caso mueve el porcentaje. Es más robusto comparar tarea por tarea contra la versión desplegada y bloquear si alguna que pasaba de forma consistente (pass<sup>k</sup>) empieza a fallar.
 </Callout>
 
 ## Evals online: producción como fuente de casos
@@ -298,7 +298,7 @@ Prompts y respuestas suelen incluir PII, datos de clientes y a veces secretos qu
 
 <Callout type="warning" title="Antipatrones frecuentes">
 - **Evaluar solo el camino**: exigir la secuencia exacta de tools rompe con cada mejora legítima.
-- **Un solo trial**: con un intento por tarea confundes suerte con capacidad. Mide pass^k.
+- **Un solo trial**: con un intento por tarea confundes suerte con capacidad. Mide pass<sup>k</sup>.
 - **Juez sin calibrar**: si nadie comparó al juez con humanos, no sabes qué mide.
 - **Dataset sintético puro**: los casos inventados por el equipo no se parecen a lo que piden los usuarios; empieza por fallos reales.
 - **No leer transcripts**: los números agregados esconden graders rotos y tareas ambiguas.
@@ -310,7 +310,7 @@ Prompts y respuestas suelen incluir PII, datos de clientes y a veces secretos qu
 - Adopta el vocabulario: **task, trial, transcript, outcome, grader, harness, suite**.
 - Grader de **código** para el outcome; **LLM juez calibrado** para lo subjetivo; **humanos** para calibrar.
 - Separa evals de **capacidad** (empiezan bajas) y de **regresión** (≈100%, bloquean el despliegue).
-- Reporta **pass@k y pass^k**: 75% por intento es solo ~42% de pasar 3 de 3.
+- Reporta **pass@k y pass<sup>k</sup>**: 75% por intento es solo ~42% de pasar 3 de 3.
 - Empieza con **20–50 tareas de fallos reales** y evalúa el resultado, no el camino.
 - Instrumenta con **OpenTelemetry GenAI** (aún *Development*), propaga `traceparent` a MCP y alimenta evals online con muestras de producción.
 

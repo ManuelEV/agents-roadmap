@@ -451,7 +451,7 @@ Profundizamos en chunking, contextual retrieval y evaluación de retrieval en [R
 2. **PR**: prompts, herramientas, políticas Cedar, `agentcore.json` y la versión de dependencias cambian juntos. Un cambio de prompt se revisa como código.
 3. **CI**: tests de herramientas y de políticas, verificación de dependencias y `agentcore build`, que valida la spec del proyecto y genera artefactos.
 4. **Staging**: `agentcore deploy` (CDK por debajo) publica el Runtime en la cuenta de staging definida en `aws-targets.json`.
-5. **Gate de evals**: el set dorado se ejecuta varias veces por caso. Se bloquea la promoción si cae la tasa de éxito (mide **pass^k**, no solo pass@1), sube el costo por tarea o empeora la latencia.
+5. **Gate de evals**: el set dorado se ejecuta varias veces por caso. Se bloquea la promoción si cae la tasa de éxito (mide **pass<sup>k</sup>**, no solo pass@1), sube el costo por tarea o empeora la latencia.
 6. **Producción**: promoción con la versión anterior disponible para rollback; evals online y alarmas cierran el ciclo y alimentan el set dorado con fallos nuevos.
 
 </Steps>
@@ -493,5 +493,5 @@ El sample mínimo crea `InMemorySessionService` y `Runner` por llamada: sirve pa
   <Card title="AWS Bedrock y AgentCore" href="/guia/aws-bedrock-agentcore">Cada componente de AgentCore en detalle, con estados y límites.</Card>
   <Card title="Gateways" href="/guia/gateways">LLM gateways vs. gateways MCP, y cómo elegir entre LiteLLM, Kong, Cloudflare y otros.</Card>
   <Card title="Google ADK" href="/guia/google-adk">Agentes, callbacks, sesiones y workflows en grafo de ADK 2.x.</Card>
-  <Card title="Evaluación y observabilidad" href="/guia/evaluacion-observabilidad">Sets dorados, pass^k, LLM-as-judge y trazas OTel GenAI.</Card>
+  <Card title="Evaluación y observabilidad" href="/guia/evaluacion-observabilidad">Sets dorados, pass<sup>k</sup>, LLM-as-judge y trazas OTel GenAI.</Card>
 </Cards>

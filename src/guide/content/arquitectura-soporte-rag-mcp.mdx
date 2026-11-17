@@ -10,7 +10,7 @@ El asistente debe: responder dudas con la **política vigente y citada**, consul
   <Card title="RAG de políticas" tag="conocimiento">Búsqueda híbrida, reranking, citas y **filtro por permisos** derivado de la sesión.</Card>
   <Card title="Servidores MCP" tag="acción">Pedidos (OMS), CRM y mesa de ayuda, detrás de un gateway MCP con OAuth y políticas.</Card>
   <Card title="Controles" tag="seguridad">Guardrails de entrada/salida, política determinista para escrituras, aprobación humana de reembolsos.</Card>
-  <Card title="Evaluación" tag="calidad">Set dorado de conversaciones reales, faithfulness de las respuestas y **pass^k** por escenario.</Card>
+  <Card title="Evaluación" tag="calidad">Set dorado de conversaciones reales, faithfulness de las respuestas y **pass<sup>k</sup>** por escenario.</Card>
 </Cards>
 
 <Callout type="tip" title="Un agente, no un enjambre">
@@ -253,7 +253,7 @@ Un asistente de soporte tiene **dos superficies de inyección**: lo que escribe 
 
 Bedrock Guardrails cubre buena parte con un solo recurso: filtros de contenido con **prompt attack**, PII por tipo o regex (bloquear o enmascarar), temas denegados y **contextual grounding** sobre la respuesta y sus fuentes. Con `ApplyGuardrail` se aplica sin importar qué modelo o framework uses. Recuerda que el MCP 2026-07-28 también considera **no confiables** las descripciones de herramientas: incorpora servidores MCP solo desde un catálogo aprobado.
 
-## Evaluación: set dorado, faithfulness y pass^k
+## Evaluación: set dorado, faithfulness y pass<sup>k</sup>
 
 Un asistente de soporte se evalúa en tres niveles:
 
@@ -270,7 +270,7 @@ Un asistente de soporte se evalúa en tres niveles:
               "no_debe": ["prometer reembolso inmediato"]}}
 ```
 
-Empieza con **20–50 casos tomados de conversaciones reales** (especialmente las que salieron mal) y crece desde ahí. Ejecuta cada caso varias veces: un agente que acierta el 75 % de las veces por intento solo pasa **3 de 3** intentos alrededor del 42 % (**pass^3**). En soporte, donde el mismo tipo de caso se repite miles de veces al mes, la consistencia importa más que el mejor intento. Profundizamos en [evaluación y observabilidad](/guia/evaluacion-observabilidad).
+Empieza con **20–50 casos tomados de conversaciones reales** (especialmente las que salieron mal) y crece desde ahí. Ejecuta cada caso varias veces: un agente que acierta el 75 % de las veces por intento solo pasa **3 de 3** intentos alrededor del 42 % (**pass<sup>3</sup>**). En soporte, donde el mismo tipo de caso se repite miles de veces al mes, la consistencia importa más que el mejor intento. Profundizamos en [evaluación y observabilidad](/guia/evaluacion-observabilidad).
 
 <KeyPoints title="En resumen">
 
@@ -279,7 +279,7 @@ Empieza con **20–50 casos tomados de conversaciones reales** (especialmente la
 - RAG de soporte = **híbrido + rerank + citas + filtro de ACL**, con permisos conservados desde la ingesta.
 - Separa herramientas de **lectura** y **escritura**; las escrituras con dinero llevan política determinista, aprobación humana sobre umbral e idempotencia.
 - El escalamiento es una función de primera clase, con disparadores explícitos y resumen estructurado.
-- Evalúa retrieval, faithfulness y resultado del caso, con **pass^k** sobre un set dorado de casos reales.
+- Evalúa retrieval, faithfulness y resultado del caso, con **pass<sup>k</sup>** sobre un set dorado de casos reales.
 
 </KeyPoints>
 

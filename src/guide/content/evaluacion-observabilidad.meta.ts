@@ -5,7 +5,7 @@ export const meta: PostMeta = {
   title: 'Evaluación y observabilidad de agentes',
 
   short: 'Evaluación y observabilidad',
-  description: 'Cómo medir si un agente funciona: tareas, trials y graders, pass@k vs. pass^k, evals en CI/CD y en producción, y trazas OpenTelemetry de cada paso.',
+  description: 'Cómo medir si un agente funciona: tareas, trials y graders, cuánto acierta frente a qué tan consistente es, evals en CI/CD y en producción, y trazas OpenTelemetry de cada paso.',
   section: 'produccion',
   order: 1,
   readingMinutes: 17,

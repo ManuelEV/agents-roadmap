@@ -146,7 +146,24 @@ function contentFor(slug: string) {
   return c
 }
 
-type Heading = { id: string; text: string; level: number }
+/** Texto de un título en trozos, para que el índice conserve los superíndices (pass<sup>k</sup>). */
+type Heading = { id: string; parts: { t: string; sup: boolean }[]; level: number }
+
+function headingParts(h: HTMLElement): Heading['parts'] {
+  const parts: Heading['parts'] = []
+  const walker = document.createTreeWalker(h, NodeFilter.SHOW_TEXT)
+  for (let n = walker.nextNode(); n; n = walker.nextNode()) {
+    const sup = !!n.parentElement?.closest('sup')
+    const last = parts[parts.length - 1]
+    if (last && last.sup === sup) last.t += n.textContent ?? ''
+    else parts.push({ t: n.textContent ?? '', sup })
+  }
+  return parts
+}
+
+function HeadingText({ parts }: { parts: Heading['parts'] }) {
+  return <>{parts.map((p, i) => (p.sup ? <sup key={i}>{p.t}</sup> : p.t))}</>
+}
 
 function Article({ slug, onHeadings }: { slug: string; onHeadings: (h: Heading[]) => void }) {
   const Content = contentFor(slug)
@@ -154,7 +171,7 @@ function Article({ slug, onHeadings }: { slug: string; onHeadings: (h: Heading[]
   useLayoutEffect(() => {
     const el = ref.current
     if (!el) return
-    const hs = [...el.querySelectorAll<HTMLHeadingElement>('h2[id], h3[id]')].map((h) => ({ id: h.id, text: h.textContent ?? '', level: h.tagName === 'H2' ? 2 : 3 }))
+    const hs = [...el.querySelectorAll<HTMLHeadingElement>('h2[id], h3[id]')].map((h) => ({ id: h.id, parts: headingParts(h), level: h.tagName === 'H2' ? 2 : 3 }))
     onHeadings(hs)
     if (location.hash) document.getElementById(decodeURIComponent(location.hash.slice(1)))?.scrollIntoView()
   }, [slug, onHeadings])
@@ -188,7 +205,9 @@ function Toc({ headings }: { headings: Heading[] }) {
       <ul>
         {headings.map((h) => (
           <li key={h.id} className={`toc-l${h.level}${active === h.id ? ' is-active' : ''}`}>
-            <a href={`#${h.id}`}>{h.text}</a>
+            <a href={`#${h.id}`}>
+              <HeadingText parts={h.parts} />
+            </a>
           </li>
         ))}
       </ul>
@@ -210,7 +229,7 @@ function TocInline({ headings }: { headings: Heading[] }) {
         {top.map((h) => (
           <li key={h.id}>
             <a href={`#${h.id}`} onClick={() => ref.current?.removeAttribute('open')}>
-              {h.text}
+              <HeadingText parts={h.parts} />
             </a>
           </li>
         ))}

@@ -85,7 +85,7 @@ Leer documentación no alcanza: los problemas aparecen al integrar herramientas 
 2. **Días 3-5 · Agente mínimo en cada framework.** Mismo modelo (p. ej. `global.anthropic.claude-sonnet-5-5` en Bedrock), mismas 3-4 herramientas **expuestas por MCP** para que la integración sea idéntica. Mide cuánto código y cuántas horas tomó.
 3. **Días 6-7 · Lo difícil.** Agrega una acción que requiera **aprobación humana** y reanudación tras reiniciar el proceso. Agrega un segundo agente (especialista o remoto por A2A). Aquí se separan los frameworks.
 4. **Días 8-9 · Producción simulada.** Despliega en tu runtime objetivo (AgentCore, Agent Runtime, Foundry o contenedor). Conecta trazas OpenTelemetry a tu backend (Langfuse, CloudWatch, LangSmith). Prueba sesiones concurrentes y un fallo de herramienta.
-5. **Día 10 · Evals y decisión.** Corre los evals varias veces por tarea (los agentes son no deterministas: mira **pass^k**, no solo un intento). Compara resultados, costo y la experiencia de depuración. Documenta la decisión como ADR.
+5. **Día 10 · Evals y decisión.** Corre los evals varias veces por tarea (los agentes son no deterministas: mira **pass<sup>k</sup>**, no solo un intento). Compara resultados, costo y la experiencia de depuración. Documenta la decisión como ADR.
 
 </Steps>
 
