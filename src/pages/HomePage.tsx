@@ -212,7 +212,7 @@ export function HomePage() {
             </Link>
           </div>
           <p className="graph-hint">
-            Cada punto es una lección; cada enlace, un tema compartido. Pasa por una sección para ver sus conexiones.
+            Cada punto es una lección; cada enlace, un tema compartido.<span className="hint-hover"> Pasa por una sección para ver sus conexiones.</span><span className="hint-touch"> Toca un punto para ver cuál es.</span>
           </p>
         </section>
         {tracks.map((t) => (

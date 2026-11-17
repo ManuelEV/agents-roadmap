@@ -24,11 +24,11 @@
   --plight: 40 60 120;
 }
 
+/* pegado al contenido: lo ubica GuideGraph sobre el tablero, a todo el ancho */
 .graph-canvas {
-  position: fixed;
-  inset: 0;
-  width: 100vw;
-  height: 100vh;
+  position: absolute;
+  left: 0;
+  top: 0;
   z-index: -1;
   pointer-events: none;
 }
@@ -375,4 +375,17 @@
 }
 .home-graph .about-grid {
   gap: 16px;
+}
+
+/* la pista cambia según se use mouse o dedo */
+.hint-touch {
+  display: none;
+}
+@media (hover: none) {
+  .hint-hover {
+    display: none;
+  }
+  .hint-touch {
+    display: inline;
+  }
 }

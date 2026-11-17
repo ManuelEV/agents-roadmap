@@ -55,7 +55,14 @@ type World = {
   root: Rect
   core: number
   byPath: Map<string, number>
+  /** zona del documento que cubre el canvas */
+  area: Rect
+  /** pantalla angosta: menos puntos y sin aristas largas */
+  compact: boolean
 }
+
+/** En pantallas angostas, como mucho estos puntos por sección (más los de la selección). */
+const COMPACT_DOTS = 7
 
 /** Enlaces entre secciones vecinas (además de los que salen de la portada). */
 const TRUNK: [TrackId, TrackId][] = [
@@ -157,7 +164,7 @@ const bez = (e: GEdge, t: number) => {
 
 /* ---------------------------------------------------------- construcción */
 
-function build(root: HTMLElement, colors: Record<string, RGB>): World {
+function build(root: HTMLElement, colors: Record<string, RGB>, keep: string[]): World {
   const nodes: GNode[] = []
   const edges: GEdge[] = []
   const byPath = new Map<string, number>()
@@ -174,6 +181,7 @@ function build(root: HTMLElement, colors: Record<string, RGB>): World {
   const gapY = cs ? parseFloat(cs.rowGap) || 0 : 0
   const oneCol = cardRects.every((r) => Math.abs(r.x - cardRects[0].x) < 2)
   const gap = oneCol ? gapY : Math.min(gapX || gapY, gapY || gapX)
+  const compact = oneCol || vw < 700
   const dmax = Math.max(14, Math.min(58, gap / 2 - 9))
   const d1 = Math.max(12, dmax * 0.42)
 
@@ -206,8 +214,11 @@ function build(root: HTMLElement, colors: Record<string, RGB>): World {
   for (const t of TRACKS) {
     const r = cards.get(t.id)
     if (!r) continue
-    const list = STOPS.filter((s) => s.track === t.id)
-    if (list.length === 0) continue
+    const all = STOPS.filter((s) => s.track === t.id)
+    if (all.length === 0) continue
+    // en el teléfono, una muestra pareja de la sección (y siempre las lecciones de la selección)
+    const sample = new Set(Array.from({ length: COMPACT_DOTS }, (_, k) => Math.floor(((k + 0.5) * all.length) / COMPACT_DOTS)))
+    const list = compact && all.length > COMPACT_DOTS ? all.filter((s, i) => sample.has(i) || keep.includes(s.path)) : all
     const others = cardRects.filter((o) => o !== r).map((o) => inflate(o, 9))
     const valid = (x: number, y: number) =>
       x > 10 && x < vw - 10 && !others.some((o) => inside(o, x, y)) && !obstacles.some((o) => inside(o, x, y))
@@ -216,7 +227,7 @@ function build(root: HTMLElement, colors: Record<string, RGB>): World {
     list.forEach((s, i) => {
       const p = base[Math.min(base.length - 1, Math.floor(((i + 0.5) * base.length) / list.length))]
       const h = hash(s.path)
-      const out = (dmax - d1) * (i % 2 ? 0.55 + 0.45 * h : 0.15 * h)
+      const out = compact ? 0 : (dmax - d1) * (i % 2 ? 0.55 + 0.45 * h : 0.15 * h)
       let x = p.x + p.nx * out
       let y = p.y + p.ny * out
       if (!valid(x, y)) {
@@ -287,7 +298,7 @@ function build(root: HTMLElement, colors: Record<string, RGB>): World {
   // temas compartidos entre secciones: una conexión por lección, la más cercana
   const seen = new Set<string>()
   const cardsIn = blockers.map((r) => inflate(r, 2))
-  for (const [path, k] of byPath) {
+  for (const [path, k] of compact ? [] : byPath) {
     const A = nodes[k]
     const best = STOPS.filter((s) => s.track !== A.track && s.topics.some((x) => A.stop!.topics.includes(x)))
       .map((s) => ({ s, k: byPath.get(s.path) }))
@@ -306,7 +317,10 @@ function build(root: HTMLElement, colors: Record<string, RGB>): World {
   }
 
   const glows = [...root.querySelectorAll<HTMLElement>('[data-glow]')].map((el) => ({ el, r: docRect(el), last: '' }))
-  return { nodes, edges, glows, root: docRect(root), core, byPath }
+  // el canvas cubre el tablero (más un margen para el brillo) a todo el ancho de la ventana
+  const b = board ? docRect(board) : docRect(root)
+  const area = { x: 0, y: Math.max(0, b.y - 100), w: vw, h: b.h + 200 }
+  return { nodes, edges, glows, root: docRect(root), core, byPath, area, compact }
 }
 
 /* --------------------------------------------------------------- sprites */
@@ -341,11 +355,16 @@ export function GuideGraph({ rootRef, focus, selection }: { rootRef: RefObject<H
   const focusRef = useRef(focus)
   const selRef = useRef(selection)
   const dirty = useRef(true)
+  const rebuildRef = useRef<() => void>(() => {})
   focusRef.current = focus
   selRef.current = selection
   useEffect(() => {
     dirty.current = true
-  }, [focus, selection])
+  }, [focus])
+  useEffect(() => {
+    dirty.current = true
+    rebuildRef.current() // en el teléfono la selección decide qué puntos se muestran
+  }, [selection])
 
   useEffect(() => {
     const root = rootRef.current
@@ -366,33 +385,55 @@ export function GuideGraph({ rootRef, focus, selection }: { rootRef: RefObject<H
       return sprites.get(k)!
     }
 
-    let world = build(root, colors)
-    worldRef.current = world
+    /* El canvas va pegado al contenido (position: absolute sobre el tablero), no
+       fijo a la ventana: así se desplaza con la página sin redibujar siguiendo el
+       scroll, que en iOS se adelanta al dibujo y hace "flotar" los nodos. */
     let dpr = 1
-    const size = () => {
-      dpr = Math.min(2, devicePixelRatio || 1)
-      canvas.width = Math.round(innerWidth * dpr)
-      canvas.height = Math.round(innerHeight * dpr)
+    const place = (w: World) => {
+      const { area } = w
+      // tope de píxeles: iOS no acepta canvas muy grandes
+      dpr = Math.min(2, devicePixelRatio || 1, Math.sqrt(12e6 / Math.max(1, area.w * area.h)))
+      canvas.style.left = `${area.x - w.root.x}px`
+      canvas.style.top = `${area.y - w.root.y}px`
+      canvas.style.width = `${area.w}px`
+      canvas.style.height = `${area.h}px`
+      const cw = Math.round(area.w * dpr)
+      const ch = Math.round(area.h * dpr)
+      if (canvas.width !== cw) canvas.width = cw
+      if (canvas.height !== ch) canvas.height = ch
       dirty.current = true
     }
-    size()
+    let world = build(root, colors, selRef.current)
+    worldRef.current = world
+    place(world)
 
     let raf = 0
     let measureTimer = 0
+    const rebuild = () => {
+      // conserva el brillo de cada punto para que nada parpadee al volver a medir
+      const prev = new Map(world.nodes.filter((n) => n.stop).map((n) => [n.stop!.path, n.glow]))
+      world = build(root, colors, selRef.current)
+      for (const n of world.nodes) if (n.stop && prev.has(n.stop.path)) n.glow = prev.get(n.stop.path)!
+      worldRef.current = world
+      pulses.length = 0
+      place(world)
+    }
     const remeasure = () => {
       clearTimeout(measureTimer)
-      measureTimer = window.setTimeout(() => {
-        world = build(root, colors)
-        worldRef.current = world
-        pulses.length = 0
-        dirty.current = true
-      }, 60)
+      measureTimer = window.setTimeout(rebuild, 80)
+    }
+    rebuildRef.current = () => {
+      if (world.compact) remeasure()
     }
     const ro = new ResizeObserver(remeasure)
     ro.observe(root)
     root.querySelectorAll('[data-node],[data-glow]').forEach((el) => ro.observe(el))
+    // en el teléfono la barra del navegador cambia el alto de la ventana al hacer scroll: solo importa el ancho
+    let lastW = document.documentElement.clientWidth
     const onResize = () => {
-      size()
+      const w = document.documentElement.clientWidth
+      if (w === lastW) return
+      lastW = w
       remeasure()
     }
     addEventListener('resize', onResize)
@@ -422,13 +463,14 @@ export function GuideGraph({ rootRef, focus, selection }: { rootRef: RefObject<H
     }
     const onMove = (e: PointerEvent) => {
       ptr.touch = e.pointerType === 'touch'
+      // con el dedo no hay puntero: arrastrar es hacer scroll, no iluminar
+      if (ptr.touch) return
       ptr.cx = e.clientX
       ptr.cy = e.clientY
       ptr.x = e.clientX + scrollX
       ptr.y = e.clientY + scrollY
       ptr.active = performance.now()
       dirty.current = true
-      if (ptr.touch) return
       const h = interactive(e.target) ? -1 : hit(ptr.x, ptr.y, 16)
       if (h !== hover) {
         hover = h
@@ -457,6 +499,7 @@ export function GuideGraph({ rootRef, focus, selection }: { rootRef: RefObject<H
       } else navigate(s.path)
     }
     const onScroll = () => {
+      if (ptr.touch) return
       ptr.x = ptr.cx + scrollX
       ptr.y = ptr.cy + scrollY
       dirty.current = true
@@ -620,11 +663,11 @@ export function GuideGraph({ rootRef, focus, selection }: { rootRef: RefObject<H
       }
 
       // dibujo
-      const vy0 = scrollY - 120
-      const vy1 = scrollY + innerHeight + 120
+      const vy0 = scrollY - 160
+      const vy1 = scrollY + innerHeight + 160
       ctx.setTransform(1, 0, 0, 1, 0, 0)
       ctx.clearRect(0, 0, canvas.width, canvas.height)
-      ctx.setTransform(dpr, 0, 0, dpr, -scrollX * dpr, -scrollY * dpr)
+      ctx.setTransform(dpr, 0, 0, dpr, -W.area.x * dpr, -W.area.y * dpr)
       ctx.globalCompositeOperation = dark ? 'lighter' : 'source-over'
       ctx.lineCap = 'round'
       const dim = f || selSet.size ? 0.55 : 1
@@ -654,7 +697,7 @@ export function GuideGraph({ rootRef, focus, selection }: { rootRef: RefObject<H
         if (n.y < vy0 || n.y > vy1) continue
         if (n.kind === 'dot') {
           const g = Math.max(0, n.glow)
-          const s = 7 + 15 * Math.min(2, g)
+          const s = (W.compact ? 6 : 7) + (W.compact ? 10 : 15) * Math.min(2, g)
           ctx.globalAlpha = Math.min(1, 0.2 + 0.55 * g)
           ctx.drawImage(spr(n.color), n.x - s, n.y - s, s * 2, s * 2)
           ctx.globalAlpha = Math.min(1, 0.55 + 0.4 * g)
