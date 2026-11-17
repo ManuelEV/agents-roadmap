@@ -1,0 +1,378 @@
+/* ========================================================================== */
+/* Inicio: la guía como grafo                                                 */
+/*                                                                            */
+/* El canvas (GuideGraph.tsx) dibuja nodos y aristas detrás de la página y    */
+/* escribe en cada [data-glow] la luz que le llega:                           */
+/*   --gx --gy  posición de la luz (px, relativa al elemento)                 */
+/*   --gc       color "r g b"        --ga  intensidad 0..1                     */
+/*   --px --py  posición del puntero  --pa  intensidad del puntero 0..1        */
+/* Con esas variables, .glow pinta un reflejo en el fondo y en el borde, y    */
+/* .glow-text tiñe el texto.                                                  */
+/* ========================================================================== */
+
+[data-glow] {
+  --gx: 50%;
+  --gy: -60px;
+  --gc: 255 255 255;
+  --ga: 0;
+  --px: -999px;
+  --py: -999px;
+  --pa: 0;
+  --plight: 255 255 255;
+}
+:root[data-theme='light'] [data-glow] {
+  --plight: 40 60 120;
+}
+
+.graph-canvas {
+  position: fixed;
+  inset: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: -1;
+  pointer-events: none;
+}
+.home-graph {
+  position: relative;
+  max-width: none;
+}
+/* el grafo usa todo el ancho; lo que viene debajo vuelve a la columna de lectura */
+.home-graph > .planner,
+.home-graph > .home-about {
+  max-width: 1144px;
+  margin-inline: auto;
+}
+
+/* superficies iluminadas */
+.glow {
+  position: relative;
+  isolation: isolate;
+}
+.glow::before,
+.glow::after {
+  content: '';
+  position: absolute;
+  border-radius: inherit;
+  pointer-events: none;
+}
+/* reflejo en el fondo */
+.glow::before {
+  inset: 0;
+  z-index: -1;
+  background:
+    radial-gradient(420px circle at var(--gx) var(--gy), rgb(var(--gc) / calc(var(--ga) * 0.2)), transparent 70%),
+    radial-gradient(320px circle at var(--px) var(--py), rgb(var(--plight) / calc(var(--pa) * 0.06)), transparent 70%);
+}
+/* reflejo en el borde: un anillo de 1px que se enciende del lado de la luz */
+.glow::after {
+  inset: -1px;
+  padding: 1px;
+  background:
+    radial-gradient(280px circle at var(--gx) var(--gy), rgb(var(--gc) / var(--ga)), transparent 72%),
+    radial-gradient(220px circle at var(--px) var(--py), rgb(var(--plight) / calc(var(--pa) * 0.45)), transparent 70%);
+  -webkit-mask:
+    linear-gradient(#000 0 0) content-box,
+    linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+}
+
+/* texto que recibe la luz */
+.glow-text,
+.gcard-title {
+  background-image:
+    radial-gradient(440px circle at var(--gx) var(--gy), rgb(var(--gc) / calc(var(--ga) * 0.9)), transparent 72%),
+    radial-gradient(260px circle at var(--px) var(--py), rgb(var(--plight) / calc(var(--pa) * 0.55)), transparent 70%),
+    linear-gradient(var(--text), var(--text));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+:root[data-theme='light'] .glow-text,
+:root[data-theme='light'] .gcard-title {
+  background-image:
+    radial-gradient(440px circle at var(--gx) var(--gy), rgb(var(--gc) / calc(var(--ga) * 0.75)), transparent 72%),
+    linear-gradient(var(--text), var(--text));
+}
+
+/* --- tablero: la portada al centro, las seis secciones alrededor --- */
+.graph-board {
+  display: grid;
+  grid-template-columns: minmax(236px, 272px) minmax(0, 1fr) minmax(236px, 272px);
+  max-width: 1400px;
+  margin-inline: auto;
+  grid-template-areas:
+    'fundamentos hero guia'
+    'google hero aws'
+    'azure hero vercel';
+  column-gap: clamp(84px, 7vw, 112px);
+  row-gap: 92px;
+  margin-top: 34px;
+  margin-bottom: 104px;
+}
+.graph-board .home-hero {
+  grid-area: hero;
+  align-self: center;
+  justify-self: center;
+  max-width: 620px;
+  margin: 0;
+  text-align: center;
+}
+.graph-board .home-hero h1 {
+  max-width: none;
+  font-size: clamp(36px, 3.6vw, 56px);
+  line-height: 1.06;
+}
+.graph-board .home-hero h1 em {
+  white-space: normal;
+}
+.graph-board .home-hero .lead {
+  margin-inline: auto;
+  font-size: 17px;
+}
+.graph-board .home-cta {
+  justify-content: center;
+}
+.graph-hint {
+  margin: 22px auto 0;
+  max-width: 400px;
+  color: var(--text-3);
+  font-size: 13.5px;
+  line-height: 1.5;
+  text-wrap: balance;
+}
+@media (max-width: 1220px) {
+  .graph-board {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-template-areas:
+      'hero hero'
+      'fundamentos guia'
+      'google aws'
+      'azure vercel';
+    column-gap: 96px;
+    row-gap: 108px;
+  }
+  .graph-board .home-hero {
+    max-width: 680px;
+    margin-bottom: 8px;
+  }
+  .graph-board .home-hero h1 {
+    font-size: clamp(34px, 5vw, 52px);
+  }
+}
+@media (max-width: 700px) {
+  .graph-board {
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-areas: 'hero' 'fundamentos' 'guia' 'google' 'aws' 'azure' 'vercel';
+    row-gap: 84px;
+    margin-top: 8px;
+  }
+  .graph-board .home-hero {
+    text-align: left;
+  }
+  .graph-board .home-cta {
+    justify-content: flex-start;
+  }
+  .graph-hint {
+    margin-left: 0;
+  }
+}
+
+.gcard {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  min-height: 212px;
+  padding: 20px 22px 16px;
+  border-radius: 22px;
+  color: var(--text);
+  text-decoration: none;
+  background: color-mix(in srgb, var(--bg-elev) 84%, transparent);
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow);
+  -webkit-backdrop-filter: blur(14px) saturate(1.3);
+  backdrop-filter: blur(14px) saturate(1.3);
+  transition:
+    border-color 0.2s,
+    background 0.2s;
+}
+.gcard:hover {
+  background: color-mix(in srgb, var(--bg-elev) 94%, var(--line));
+}
+.gcard:focus-visible {
+  outline: 2px solid var(--line);
+  outline-offset: 3px;
+}
+.gcard-kind {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--line);
+}
+.gcard-title {
+  margin-top: 4px;
+  font-family: var(--font-display);
+  font-variation-settings: 'ROND' 60;
+  font-size: 25px;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  line-height: 1.15;
+}
+.gcard-tag {
+  color: var(--text-2);
+  font-size: 14.5px;
+  line-height: 1.45;
+  text-wrap: pretty;
+}
+.gcard-aud {
+  margin-top: auto;
+  padding-top: 10px;
+  color: var(--text-3);
+  font-size: 13.5px;
+  line-height: 1.45;
+  text-wrap: pretty;
+}
+.gcard-meta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 12px;
+  padding-top: 12px;
+  border-top: 1px solid var(--border);
+  font-family: var(--font-mono);
+  font-size: 12.5px;
+  color: var(--text-3);
+}
+.gcard-meta svg {
+  transition: transform 0.18s;
+}
+.gcard:hover .gcard-meta svg {
+  transform: translateX(3px);
+  color: var(--text);
+}
+@media (max-width: 700px) {
+  .gcard {
+    min-height: 0;
+  }
+  .gcard-title {
+    font-size: 22px;
+  }
+}
+
+/* --- ficha de una lección al apuntar un punto --- */
+.gtip {
+  position: absolute;
+  z-index: 20;
+  display: grid;
+  gap: 3px;
+  width: max-content;
+  max-width: 280px;
+  padding: 10px 13px 11px;
+  border-radius: 14px;
+  background: var(--glass-fill-thick);
+  -webkit-backdrop-filter: var(--glass-filter);
+  backdrop-filter: var(--glass-filter);
+  box-shadow: var(--glass-shadow);
+  transform: translate(16px, -50%);
+  pointer-events: none;
+  animation: gtip-in 0.16s ease-out;
+}
+.gtip.is-flip {
+  transform: translate(calc(-100% - 16px), -50%);
+}
+.gtip.is-pinned {
+  pointer-events: auto;
+}
+@keyframes gtip-in {
+  from {
+    opacity: 0;
+  }
+}
+.gtip-line {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--line);
+}
+.gtip strong {
+  font-size: 14.5px;
+  font-weight: 560;
+  line-height: 1.3;
+}
+.gtip-hint {
+  font-size: 12px;
+  color: var(--text-3);
+}
+.gtip-open {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 4px;
+  font-size: 13.5px;
+  font-weight: 600;
+}
+
+/* --- por dónde empezar --- */
+.home-graph .planner {
+  margin-bottom: 0;
+  padding: 30px 32px 26px;
+  border-radius: 28px;
+  background: color-mix(in srgb, var(--bg-elev) 72%, transparent);
+  border: 1px solid var(--border);
+  -webkit-backdrop-filter: blur(16px) saturate(1.3);
+  backdrop-filter: blur(16px) saturate(1.3);
+}
+@media (max-width: 640px) {
+  .home-graph .planner {
+    padding: 22px 16px 18px;
+    margin-inline: -4px;
+  }
+}
+/* la selección es un camino del grafo: nodos numerados unidos por una arista */
+.trip-leg::before {
+  left: 15.5px;
+  width: 2px;
+  opacity: 0.35;
+}
+.trip-leg .stop {
+  display: grid;
+  place-items: center;
+  left: 5.5px;
+  width: 22px;
+  height: 22px;
+  margin-top: -11px;
+  border-width: 1.5px;
+  background: var(--bg-elev);
+  color: var(--line);
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 600;
+  box-shadow: 0 0 14px -3px var(--line);
+  transition:
+    background 0.18s,
+    color 0.18s,
+    box-shadow 0.18s;
+}
+.trip-leg a:hover .stop {
+  background: var(--line);
+  color: var(--bg);
+  box-shadow: 0 0 20px 0 var(--line);
+}
+
+/* --- cómo está hecha --- */
+.home-graph .home-about {
+  border-top: 0;
+}
+.about-card {
+  padding: 20px 22px;
+  border-radius: 20px;
+  background: color-mix(in srgb, var(--bg-elev) 70%, transparent);
+  border: 1px solid var(--border);
+}
+.home-graph .about-grid {
+  gap: 16px;
+}

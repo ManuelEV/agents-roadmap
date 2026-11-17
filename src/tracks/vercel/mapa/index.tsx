@@ -47,7 +47,7 @@ export default function Lesson() {
         <Callout tone="info" title="Tres clases de agente, tres momentos">
           <code>ToolLoopAgent</code> para un loop dentro de una app, en memoria. <code>WorkflowAgent</code> cuando el agente tiene que sobrevivir a un
           reinicio o esperar días una aprobación. <code>HarnessAgent</code> (experimental) cuando quieres manejar un harness completo como Claude Code
-          desde la misma API. Esta línea trabaja las dos primeras.
+          desde la misma API. Esta sección trabaja las dos primeras.
         </Callout>
       </Section>
 
@@ -120,7 +120,7 @@ export default function Lesson() {
           las instrucciones, el historial y los resultados de las tools. Ajusta el tráfico de Andi y compara.
         </p>
         <CostLab />
-        <Callout tone="tip" title="La combinación que usa esta línea">
+        <Callout tone="tip" title="La combinación que usa esta sección">
           Es una recomendación nuestra, no de Vercel: <code>anthropic/claude-sonnet-5.5</code> como orquestador (es también el modelo de casi todos los
           ejemplos de la documentación del AI SDK), <code>openai/gpt-6.1-terra</code> o <code>google/gemini-3.8-flash</code> para sub-agentes y{' '}
           <code>anthropic/claude-haiku-5.5</code> u <code>openai/gpt-6-luna</code> para clasificar. Para trabajo no interactivo, muchas variantes{' '}
@@ -146,9 +146,9 @@ export default function Lesson() {
         </Callout>
       </Section>
 
-      <Section n={6} title="Las próximas paradas">
+      <Section n={6} title="Las próximas lecciones">
         <p>
-          Esta parada es el mapa. Las tres siguientes construyen a Andi en el mismo orden en que lo harías en un proyecto real: primero el loop,
+          Esta lección es el mapa. Las tres siguientes construyen a Andi en el mismo orden en que lo harías en un proyecto real: primero el loop,
           después la interfaz, al final lo que hace falta para dejarlo corriendo.
         </p>
         <div className="vc-mapa-next">
@@ -161,7 +161,7 @@ export default function Lesson() {
           ))}
         </div>
         <p>
-          Si vienes de otra línea, el concepto del loop está en <Link to="/fundamentos/loop-agente">Fundamentos</Link> y el mismo recorrido sobre
+          Si vienes de otra sección, el concepto del loop está en <Link to="/fundamentos/loop-agente">Fundamentos</Link> y el mismo panorama sobre
           Google Cloud en <Link to="/google/ecosistema">El ecosistema de Google</Link>.
         </p>
       </Section>

@@ -2,10 +2,9 @@ import { Component, lazy, Suspense, useEffect, useLayoutEffect, useRef, useState
 import { Link, useParams } from 'react-router'
 import { MDXProvider } from '@mdx-js/react'
 import { ArrowLeft, ArrowRight, BookOpen, Clock, ExternalLink, FlaskConical, Gauge, List } from 'lucide-react'
-import { TOPICS, adjacentStops, getStop, getTrack, lessonComponent, relatedStops, stopKey, stopsOf, type Stop, type Track } from '@/catalog'
+import { TOPICS, adjacentStops, getStop, getTrack, lessonComponent, relatedStops, stopKey, stopsOf, unitName, type Stop, type Track } from '@/catalog'
 import { mdxComponents } from '@/guide/components/mdx'
 import { getPost, loadPostContent, type Reference } from '@/guide/lib/content'
-import { markVisited } from '@/lib/hooks'
 import { Pill } from '@/components/ui'
 import { NotFoundPage } from './NotFoundPage'
 
@@ -30,7 +29,7 @@ class StopBoundary extends Component<{ children: ReactNode }, { error: Error | n
 }
 
 /* -------------------------------------------------------------------------- */
-/* Cabecera, transbordos y navegación: iguales para labs y artículos           */
+/* Cabecera, conexiones y navegación: iguales para labs y artículos           */
 /* -------------------------------------------------------------------------- */
 
 function StopHeader({ stop, track }: { stop: Stop; track: Track }) {
@@ -38,7 +37,7 @@ function StopHeader({ stop, track }: { stop: Stop; track: Track }) {
   return (
     <header className="lesson-hero">
       <div className="eyebrow">
-        <span className="stop-badge" aria-label={`Parada ${stop.n} de ${stopsOf(track.id).length}`}>
+        <span className="stop-badge" aria-label={`${unitName(stop)} ${stop.n} de ${stopsOf(track.id).length}`}>
           {String(stop.n).padStart(2, '0')}
         </span>
         <span className="eyebrow-text">
@@ -55,7 +54,7 @@ function StopHeader({ stop, track }: { stop: Stop; track: Track }) {
           <Clock size={13} /> {stop.minutes} min
         </span>
         <span className="minutes">
-          {stop.kind === 'guia' ? <BookOpen size={13} /> : <FlaskConical size={13} />} {stop.kind === 'guia' ? 'Lectura con diagramas' : 'Laboratorio interactivo'}
+          {stop.kind === 'guia' ? <BookOpen size={13} /> : <FlaskConical size={13} />} {stop.kind === 'guia' ? 'Artículo con diagramas' : 'Laboratorio interactivo'}
         </span>
         {stop.level && (
           <span className="minutes">
@@ -72,15 +71,15 @@ function StopHeader({ stop, track }: { stop: Stop; track: Track }) {
   )
 }
 
-/** Transbordos: el mismo tema en otras líneas. */
+/** Conexiones: el mismo tema en otras secciones. */
 function Transfers({ stop }: { stop: Stop }) {
   const related = relatedStops(stop)
   if (related.length === 0) return null
   return (
     <section className="transfers" aria-labelledby="transfers-title">
-      <h2 id="transfers-title">Transbordos</h2>
+      <h2 id="transfers-title">Conexiones</h2>
       <p className="transfers-sub">
-        El mismo tema ({stop.topics.map((t) => TOPICS[t].toLowerCase()).join(', ')}) en otras líneas.
+        El mismo tema ({stop.topics.map((t) => TOPICS[t].toLowerCase()).join(', ')}) visto desde otras secciones.
       </p>
       <div className="transfers-list">
         {related.map((r) => (
@@ -89,7 +88,7 @@ function Transfers({ stop }: { stop: Stop }) {
               <span className="line-dot" />
               {getTrack(r.track)?.title} · {String(r.n).padStart(2, '0')}
               <span className="transfer-kind">
-                {r.kind === 'guia' ? <BookOpen size={12} /> : <FlaskConical size={12} />} {r.kind === 'guia' ? 'lectura' : 'laboratorio'}
+                {r.kind === 'guia' ? <BookOpen size={12} /> : <FlaskConical size={12} />} {r.kind === 'guia' ? 'artículo' : 'laboratorio'}
               </span>
             </span>
             <span className="transfer-title">{r.title}</span>
@@ -103,7 +102,7 @@ function Transfers({ stop }: { stop: Stop }) {
 function StopNav({ stop, track }: { stop: Stop; track: Track }) {
   const { prev, next } = adjacentStops(stop)
   return (
-    <nav className="lesson-nav" aria-label="Navegación entre paradas">
+    <nav className="lesson-nav" aria-label="Navegación entre lecciones">
       {prev ? (
         <Link to={prev.path}>
           <span className="dir">
@@ -124,7 +123,7 @@ function StopNav({ stop, track }: { stop: Stop; track: Track }) {
       ) : (
         <Link to={`/${track.id}`} className="next">
           <span className="dir">
-            Fin de la línea <ArrowRight size={13} />
+            Fin de la sección <ArrowRight size={13} />
           </span>
           <span className="t">Volver a {track.title}</span>
         </Link>
@@ -309,7 +308,6 @@ export function StopPage() {
 
   useEffect(() => {
     if (stop && track) {
-      markVisited(stopKey(stop))
       document.title = `${stop.title} · ${track.title} · Agents Roadmap`
       document.querySelector('meta[name="description"]')?.setAttribute('content', stop.summary)
     }

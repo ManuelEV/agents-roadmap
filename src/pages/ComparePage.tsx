@@ -94,7 +94,7 @@ export function ComparePage() {
                       <div className="cmp-cell-links">
                         {cell.lesson && (
                           <Link to={cell.lesson}>
-                            Verlo en la línea <ArrowRight size={13} />
+                            Verlo en su sección <ArrowRight size={13} />
                           </Link>
                         )}
                         {cell.docs && (

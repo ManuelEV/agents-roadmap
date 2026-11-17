@@ -129,7 +129,7 @@ from agent_framework.foundry import FoundryChatClient
 from agent_framework_foundry_hosting import ResponsesHostServer
 from azure.identity import DefaultAzureCredential
 
-# las @tool de Andi que escribiste en las paradas anteriores
+# las @tool de Andi que escribiste en las lecciones anteriores
 from tools import get_order_status, track_shipment, get_stock, request_refund
 
 

@@ -249,7 +249,7 @@ export default function Lesson() {
           En Vercel el agente no se despliega como un recurso aparte: es parte de la app. <code>vercel deploy</code> publica una preview y{' '}
           <code>vercel deploy --prod</code> la versión de producción; el mismo código de workflow corre en local (Local World, datos en{' '}
           <code>.workflow-data/</code>) y en Vercel sin configuración adicional. Lo que en Google es Agent Runtime (
-          <Link to="/google/desplegar">ver esa parada</Link>) aquí son dos piezas: Functions para el loop corto y Workflows para lo durable.
+          <Link to="/google/desplegar">ver esa lección</Link>) aquí son dos piezas: Functions para el loop corto y Workflows para lo durable.
         </p>
         <DeployLab />
         <h3>Cómo se autentica AI Gateway en producción</h3>
@@ -332,7 +332,7 @@ export default function Lesson() {
       <Section n={4} title="Guardrails: lo que hay y lo que escribes tú">
         <p>
           Aquí está la diferencia más grande con un hyperscaler: Vercel no tiene un servicio de guardrails de primera parte. Lo que en Google hace Model Armor
-          (<Link to="/google/seguridad">ver esa parada</Link>) acá es código tuyo. La plataforma sí pone protecciones de borde y de presupuesto; el contenido
+          (<Link to="/google/seguridad">ver esa lección</Link>) acá es código tuyo. La plataforma sí pone protecciones de borde y de presupuesto; el contenido
           lo revisas con middleware del AI SDK. La idea general está en <Link to="/fundamentos/guardrails">fundamentos</Link>.
         </p>
         <div className="table-wrap">
@@ -435,7 +435,7 @@ export default function Lesson() {
           <code>eve eval</code>.
         </Callout>
         <p>
-          Con esto termina la línea de Vercel: un SDK de TypeScript muy cómodo, una interfaz con streaming, acceso a muchos modelos y ejecución durable
+          Con esto termina la sección de Vercel: un SDK de TypeScript muy cómodo, una interfaz con streaming, acceso a muchos modelos y ejecución durable
           simple; y menos piezas administradas de gobierno, que te toca escribir. Para ver cómo resuelven lo mismo Google, AWS y Azure, sigue en{' '}
           <Link to="/comparar">comparar ecosistemas</Link>.
         </p>

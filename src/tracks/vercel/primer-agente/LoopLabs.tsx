@@ -147,7 +147,7 @@ export function RunLab() {
             </div>
           )}
           <p className="small muted" style={{ margin: 0 }}>
-            <code>generate()</code> entrega todo al final: mientras el loop corre, Camila solo ve la espera. Mostrarle cada paso en vivo es el tema de la parada siguiente.
+            <code>generate()</code> entrega todo al final: mientras el loop corre, Camila solo ve la espera. Mostrarle cada paso en vivo es el tema de la lección siguiente.
           </p>
         </div>
       </div>

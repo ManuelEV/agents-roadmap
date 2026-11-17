@@ -122,7 +122,7 @@ export default function Lesson() {
     <>
       <Section n={1} title="Cada agente es una identidad en tu directorio">
         <p>
-          En <Link to="/azure/desplegar">la parada anterior</Link> dejaste a Andi corriendo en Foundry Agent Service. Antes de abrirla a la empresa faltan cuatro
+          En <Link to="/azure/desplegar">la lección anterior</Link> dejaste a Andi corriendo en Foundry Agent Service. Antes de abrirla a la empresa faltan cuatro
           respuestas: quién es Andi para tus sistemas, quién puede tocarla, qué revisa la plataforma en cada turno y cómo te enteras si un cambio la empeoró.
         </p>
         <p>
@@ -334,8 +334,8 @@ export default function Lesson() {
           El equivalente en Google es registrar el agente en Gemini Enterprise: <Link to="/google/gemini-enterprise">Google · Gemini Enterprise</Link>.
         </p>
         <p>
-          Esta es la última parada de la línea Azure. Ya viste el mismo agente construido, desplegado y gobernado en esta nube; en{' '}
-          <Link to="/comparar">Comparar</Link> puedes ponerlo al lado de las otras líneas, pieza por pieza.
+          Esta es la última lección de la sección Azure. Ya viste el mismo agente construido, desplegado y gobernado en esta nube; en{' '}
+          <Link to="/comparar">Comparar</Link> puedes ponerlo al lado de las otras secciones, pieza por pieza.
         </p>
       </Section>
 

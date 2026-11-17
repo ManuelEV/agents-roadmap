@@ -138,7 +138,7 @@ export default function Lesson() {
         </p>
         <p>
           Este archivo es Andi completo: responde por un pedido de Andes Market usando un modelo desplegado en tu proyecto de Microsoft Foundry. Qué es Foundry
-          y qué modelos hay lo cuenta <Link to="/azure/mapa">el mapa de la línea</Link>; aquí solo necesitas un proyecto con un deployment. Si vienes de
+          y qué modelos hay lo cuenta <Link to="/azure/mapa">el mapa de la sección</Link>; aquí solo necesitas un proyecto con un deployment. Si vienes de
           Google, es el equivalente directo de ADK (<Link to="/google/primer-agente">el mismo agente en ADK</Link>).
         </p>
         <AnatomyLab />
@@ -171,7 +171,7 @@ export default function Lesson() {
         <Callout tone="info" title="Más tipos de Content">
           Además de <code>"text"</code>, <code>"function_call"</code> y <code>"function_result"</code> existen, entre otros, <code>"text_reasoning"</code>,{' '}
           <code>"usage"</code>, <code>"error"</code> y <code>"function_approval_request"</code>. Este último aparece cuando una tool exige aprobación: lo
-          trabaja la parada <Link to="/azure/herramientas-workflows">herramientas y workflows</Link>, junto con MCP. Si puedes cortar el stream antes de
+          trabaja la lección <Link to="/azure/herramientas-workflows">herramientas y workflows</Link>, junto con MCP. Si puedes cortar el stream antes de
           tiempo, envuélvelo en <code>async with stream:</code> para cerrar también el stream del proveedor.
         </Callout>
       </Section>

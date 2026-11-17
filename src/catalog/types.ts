@@ -31,7 +31,7 @@ export type TopicId =
 export type LessonMeta = {
   /** igual al nombre de la carpeta en src/tracks/<línea>/ */
   slug: string
-  /** id de un módulo de la línea (ver src/catalog/tracks.ts) */
+  /** id de un módulo de la sección (ver src/catalog/tracks.ts) */
   module: string
   /** orden dentro del módulo */
   order: number
@@ -43,9 +43,9 @@ export type LessonMeta = {
   minutes: number
   /** conceptos que se ven (chips en la cabecera) */
   concepts: string[]
-  /** etapa de la arquitectura que esta lección completa (solo línea Google) */
+  /** etapa de la arquitectura que esta lección completa (solo sección Google) */
   archStage?: number
-  /** temas para los transbordos entre líneas; si falta, se toma de src/catalog/topics.ts */
+  /** temas para conectar lecciones entre secciones; si falta, se toma de src/catalog/topics.ts */
   topics?: TopicId[]
 }
 
@@ -55,7 +55,7 @@ export type TrackKind = 'labs' | 'guia' | 'ecosistema'
 
 export type Track = {
   id: TrackId
-  /** nombre de la línea */
+  /** nombre de la sección */
   title: string
   /** nombre corto para la navegación */
   short: string
@@ -70,14 +70,14 @@ export type Track = {
   verified: string
 }
 
-/** Una parada: lección interactiva (lab) o artículo de la guía. */
+/** Una lección: interactiva (lab) o artículo de referencia (guia). */
 export type Stop = {
   track: TrackId
   slug: string
   kind: 'lab' | 'guia'
   module: string
   order: number
-  /** posición 1..N dentro de la línea */
+  /** posición 1..N dentro de la sección */
   n: number
   title: string
   short: string

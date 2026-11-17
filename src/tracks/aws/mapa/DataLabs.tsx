@@ -226,7 +226,7 @@ export function EquivLab() {
       hint="Haz clic en una fila"
       footer={
         <span className="small muted">
-          Los nombres de Google vienen de la investigación de esa línea (nov-2026). «Sin equivalente» significa que no se verificó uno, no que sea imposible construirlo.
+          Los nombres de Google vienen de la investigación de esa sección (nov-2026). «Sin equivalente» significa que no se verificó uno, no que sea imposible construirlo.
         </span>
       }
     >

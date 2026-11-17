@@ -16,7 +16,7 @@ export default function Lesson() {
           pida y vuelve a llamar, hasta que haya respuesta.
         </p>
         <p>
-          Es el equivalente en concepto de <code>LlmAgent</code> en ADK (<Link to="/google/primer-agente">la misma parada en la línea de Google</Link>), con una
+          Es el equivalente en concepto de <code>LlmAgent</code> en ADK (<Link to="/google/primer-agente">la misma lección en la sección de Google</Link>), con una
           diferencia de estilo: aquí la tool no se deduce de una firma y un docstring, la declaras tú con <code>tool()</code> y un esquema.
         </p>
         <AnatomyLab />
@@ -121,7 +121,7 @@ export default function Lesson() {
       <Section n={4} title="Cuándo se detiene el loop">
         <p>
           El loop termina por cuatro motivos: el modelo responde sin pedir tools, se llama una tool que no tiene <code>execute</code>, una tool call necesita
-          aprobación (eso es de <Link to="/vercel/interfaz">la parada de interfaz</Link>), o se cumple una condición de <code>stopWhen</code>. Esa condición solo
+          aprobación (eso es de <Link to="/vercel/interfaz">la lección de interfaz</Link>), o se cumple una condición de <code>stopWhen</code>. Esa condición solo
           se evalúa cuando el último paso tiene resultados de tools.
         </p>
         <p>
@@ -151,7 +151,7 @@ export default function Lesson() {
         <p>
           El id tiene el formato <code>"proveedor/modelo"</code>. Como AI Gateway es el proveedor por defecto del SDK, ese string basta: no instalas un paquete
           por proveedor ni cambias el resto del agente. Qué es el gateway, cómo se autentica y cómo arma respaldos entre modelos está en{' '}
-          <Link to="/vercel/mapa">el mapa de la línea</Link>.
+          <Link to="/vercel/mapa">el mapa de la sección</Link>.
         </p>
         <ModelLab />
         <p>
@@ -198,11 +198,11 @@ export default function Lesson() {
         <Callout tone="info" title="Las anotaciones de un servidor MCP no son política">
           Las pistas <code>readOnlyHint</code> o <code>destructiveHint</code> llegan en <code>toolCall.toolMetadata.annotations</code>, pero vienen del servidor
           y el SDK no las convierte en reglas. Decidir qué tool necesita aprobación es tuyo: se hace con <code>toolApproval</code>, en{' '}
-          <Link to="/vercel/interfaz">la parada de interfaz</Link>.
+          <Link to="/vercel/interfaz">la lección de interfaz</Link>.
         </Callout>
         <p>
           Andi ya responde, pero corre entero en memoria: si el proceso muere a mitad del loop, el progreso se pierde. Volverlo durable, desplegarlo y ponerle
-          guardrails y trazas es <Link to="/vercel/produccion">la parada de producción</Link>.
+          guardrails y trazas es <Link to="/vercel/produccion">la lección de producción</Link>.
         </p>
       </Section>
 

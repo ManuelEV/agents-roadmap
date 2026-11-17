@@ -1,8 +1,8 @@
 import type { TopicId } from './types'
 
-/* Temas: lo que permite hacer "transbordo" entre líneas. Dos paradas de líneas
-   distintas que comparten tema se enlazan entre sí al final de cada página y se
-   iluminan juntas en el mapa del inicio. */
+/* Temas: lo que conecta lecciones de secciones distintas. Dos lecciones que
+   comparten tema se enlazan al final de cada página y son vecinas en el grafo
+   del inicio. */
 export const TOPICS: Record<TopicId, string> = {
   panorama: 'Panorama',
   llm: 'Modelos y tokens',
@@ -29,7 +29,7 @@ export const TOPICS: Record<TopicId, string> = {
   'eco-vercel': 'Vercel',
 }
 
-/** Temas de las paradas migradas (clave: "<línea>/<slug>"). Las lecciones nuevas los declaran en su meta.ts. */
+/** Temas de las lecciones migradas (clave: "<línea>/<slug>"). Las lecciones nuevas los declaran en su meta.ts. */
 export const STOP_TOPICS: Record<string, TopicId[]> = {
   // Fundamentos
   'fundamentos/tokens': ['llm'],

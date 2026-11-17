@@ -28,7 +28,7 @@ export type Piece = {
   since: string
   pkg?: string
   docs: string
-  /** parada de esta línea donde se trabaja */
+  /** lección de esta sección donde se trabaja */
   lesson?: 'primer-agente' | 'interfaz' | 'produccion'
 }
 

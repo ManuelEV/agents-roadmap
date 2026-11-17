@@ -15,7 +15,7 @@ export type CompareCell = {
   /** 1–3 frases: qué hace y qué lo distingue */
   note: string
   code?: { lang: Lang; title: string; code: string }
-  /** ruta interna a la parada donde se trabaja */
+  /** URL de la lección donde se trabaja */
   lesson?: string
   docs?: string
 }

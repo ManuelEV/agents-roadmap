@@ -89,7 +89,7 @@ export function PieceMap() {
               {piece.lesson ? (
                 <Link to={`/aws/${piece.lesson}`}>Se trabaja en «{LESSON_TITLES[piece.lesson]}» →</Link>
               ) : (
-                <span className="muted">Esta línea no la trabaja en detalle.</span>
+                <span className="muted">Esta sección no la trabaja en detalle.</span>
               )}
             </div>
           </div>

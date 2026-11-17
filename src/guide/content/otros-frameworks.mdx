@@ -100,7 +100,7 @@ async def main():
 asyncio.run(main())
 ```
 
-**Cuándo elegirlo**: organizaciones **.NET** o centradas en **Azure/Microsoft 365**, que necesitan workflows robustos con aprobación humana y quieren publicar en Teams/Copilot vía Foundry. Si vienes de Semantic Kernel o AutoGen, es la ruta de migración oficial. Detalles de la plataforma en [Microsoft Foundry y Cloudflare](/guia/microsoft-foundry-cloudflare); para construirlo paso a paso, sigue la [línea Azure](/azure).
+**Cuándo elegirlo**: organizaciones **.NET** o centradas en **Azure/Microsoft 365**, que necesitan workflows robustos con aprobación humana y quieren publicar en Teams/Copilot vía Foundry. Si vienes de Semantic Kernel o AutoGen, es la ruta de migración oficial. Detalles de la plataforma en [Microsoft Foundry y Cloudflare](/guia/microsoft-foundry-cloudflare); para construirlo paso a paso, sigue la [sección Azure](/azure).
 
 ## CrewAI
 
@@ -233,7 +233,7 @@ const result = await storeAgent.generate({ prompt: "¿Hay stock del SKU 7781 en 
 console.log(result.text);
 ```
 
-**Cuándo elegirlo**: agentes embebidos en **apps web** con UI de chat y streaming, especialmente en Next.js. Para durabilidad ya no hace falta salir del SDK: `WorkflowAgent` (`@ai-sdk/workflow`) corre sobre Vercel Workflows, GA desde abril de 2026; para lógica de negocio compleja, combínalo con un backend de orquestación o con Cloudflare/Mastra. El recorrido práctico está en la [línea Vercel](/vercel).
+**Cuándo elegirlo**: agentes embebidos en **apps web** con UI de chat y streaming, especialmente en Next.js. Para durabilidad ya no hace falta salir del SDK: `WorkflowAgent` (`@ai-sdk/workflow`) corre sobre Vercel Workflows, GA desde abril de 2026; para lógica de negocio compleja, combínalo con un backend de orquestación o con Cloudflare/Mastra. El paso a paso práctico está en la [sección Vercel](/vercel).
 
 ## Cloudflare Agents SDK
 

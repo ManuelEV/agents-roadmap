@@ -1,7 +1,7 @@
 /* ========================================================================== */
 /* Agents Roadmap · capa de plataforma                                         */
-/* Lo que es propio de la plataforma unificada: líneas, mapa de la red,        */
-/* itinerarios, transbordos, buscador y comparador. Se apoya en base.css.      */
+/* Lo que es propio de la plataforma unificada: secciones, selecciones por    */
+/* objetivo, conexiones, buscador y comparador. Se apoya en base.css.         */
 /* ========================================================================== */
 
 :root {
@@ -42,7 +42,7 @@
   background: var(--line);
 }
 
-/* luz ambiente del inicio: las seis líneas */
+/* luz ambiente del inicio: las seis secciones */
 .app.is-home::before {
   background:
     radial-gradient(38vw 40vh at 2% -10%, color-mix(in srgb, var(--line-fundamentos) 20%, transparent), transparent 70%),
@@ -203,21 +203,6 @@
 .side-head-meta {
   font-size: 12px;
   color: var(--text-3);
-}
-.side-head-meter {
-  grid-column: 1 / -1;
-  height: 3px;
-  margin-top: 6px;
-  border-radius: 3px;
-  background: color-mix(in srgb, var(--text) 9%, transparent);
-  overflow: hidden;
-}
-.side-head-meter span {
-  display: block;
-  height: 100%;
-  border-radius: 3px;
-  background: var(--line);
-  transition: width 0.4s;
 }
 
 /* cajón móvil */
@@ -482,270 +467,8 @@
   text-wrap: pretty;
 }
 
-/* --- mapa de la red --- */
-.home-map {
-  margin-bottom: 84px;
-}
-.netmap {
-  border: 1px solid var(--border);
-  border-radius: 28px;
-  background: var(--bg-elev);
-  box-shadow: var(--shadow);
-  overflow: hidden;
-}
-.netmap-lines {
-  padding: 18px 22px 10px;
-  background: radial-gradient(circle, var(--grid) 1px, transparent 1.4px) 0 0 / 20px 20px;
-}
-.netmap-line {
-  display: grid;
-  grid-template-columns: 228px minmax(0, 1fr);
-  align-items: center;
-  gap: 18px;
-  min-height: 54px;
-}
-.netmap-head {
-  display: grid;
-  gap: 0;
-  padding: 6px 10px;
-  margin-left: -10px;
-  border-radius: 12px;
-  text-decoration: none;
-  color: var(--text);
-  line-height: 1.25;
-  background: var(--bg-elev);
-}
-.netmap-head:hover {
-  background: var(--bg-sunken);
-}
-.netmap-name {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  font-family: var(--font-display);
-  font-variation-settings: 'ROND' 60;
-  font-weight: 600;
-  font-size: 16px;
-  letter-spacing: -0.008em;
-}
-.netmap-meta {
-  padding-left: 16px;
-  font-size: 12.5px;
-  color: var(--text-3);
-}
-.netmap-track {
-  position: relative;
-  display: flex;
-  align-items: center;
-  height: 44px;
-  min-width: 0;
-  width: fit-content;
-  max-width: 100%;
-}
-/* la línea */
-.netmap-track::before {
-  content: '';
-  position: absolute;
-  left: 10px;
-  right: 10px;
-  top: 50%;
-  height: 4px;
-  margin-top: -2px;
-  border-radius: 4px;
-  background: var(--line);
-  opacity: 0.4;
-  transition: opacity 0.25s;
-}
-.netmap-stop {
-  position: relative;
-  display: grid;
-  place-items: center;
-  flex: 0 1 26px;
-  min-width: 0;
-  height: 44px;
-}
-.netmap-stop.mod-start {
-  margin-left: clamp(4px, 1.4vw, 16px);
-}
-.netmap-stop i {
-  width: 14px;
-  height: 14px;
-  border-radius: 50%;
-  background: var(--bg-elev);
-  border: 3px solid var(--line);
-  transition:
-    transform 0.18s cubic-bezier(0.3, 0.7, 0.2, 1.3),
-    background 0.18s,
-    opacity 0.25s,
-    box-shadow 0.18s;
-}
-.netmap-stop.is-visited i {
-  background: var(--line);
-}
-.netmap-stop:hover i,
-.netmap-stop.is-hover i,
-.netmap-stop:focus-visible i {
-  transform: scale(1.45);
-  background: var(--line);
-  box-shadow: 0 0 0 5px color-mix(in srgb, var(--line) 22%, transparent);
-}
-.netmap-stop:active i {
-  transform: scale(1.2);
-}
-.netmap.has-focus .netmap-track::before {
-  opacity: 0.16;
-}
-.netmap-stop.is-dim i {
-  opacity: 0.28;
-}
-.netmap-stop.is-lit:not(.is-hover) i {
-  transform: scale(1.22);
-  background: var(--line);
-  box-shadow: 0 0 0 4px color-mix(in srgb, var(--line) 20%, transparent);
-}
-.netmap-soon {
-  position: relative;
-  padding: 2px 10px;
-  border-radius: 99px;
-  background: var(--bg-elev);
-  font-size: 12.5px;
-  color: var(--text-3);
-}
-.netmap-info {
-  min-height: 86px;
-  padding: 14px 22px;
-  border-top: 1px solid var(--border);
-  display: grid;
-  align-items: center;
-}
-.netmap-info-in {
-  display: grid;
-  grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
-  gap: 8px 28px;
-  align-items: center;
-  animation: fade-in 0.16s ease both;
-}
-.netmap-info-kicker {
-  display: flex;
-  align-items: center;
-  flex-wrap: wrap;
-  gap: 6px;
-  font-size: 12.5px;
-  font-weight: 600;
-  color: var(--line);
-}
-.netmap-topic {
-  padding: 1px 8px;
-  border-radius: 99px;
-  background: var(--bg-inset);
-  color: var(--text-2);
-  font-weight: 500;
-}
-.netmap-info-title {
-  font-family: var(--font-display);
-  font-variation-settings: 'ROND' 60;
-  font-size: 19px;
-  font-weight: 600;
-  letter-spacing: -0.012em;
-  line-height: 1.25;
-  margin-top: 2px;
-}
-.netmap-info-transfers {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: 6px;
-}
-.netmap-info-label {
-  font-size: 12px;
-  color: var(--text-3);
-  margin-right: 2px;
-}
-.netmap-transfer {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  max-width: 100%;
-  padding: 3px 10px;
-  border-radius: 99px;
-  background: color-mix(in srgb, var(--line) 11%, transparent);
-  font-size: 12.5px;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-.netmap-transfer .line-dot {
-  width: 6px;
-  height: 6px;
-}
-.netmap-hint {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  justify-content: space-between;
-  gap: 8px 24px;
-  color: var(--text-3);
-  font-size: 14.5px;
-}
-.netmap-hint-link {
-  display: inline-flex;
-  align-items: center;
-  gap: 4px;
-  color: var(--text);
-  font-weight: 500;
-  text-decoration: none;
-}
-.netmap-hint-link:hover {
-  text-decoration: underline;
-}
-@media (max-width: 700px) {
-  .netmap {
-    border-radius: 22px;
-  }
-  .netmap-lines {
-    padding: 12px 14px 6px;
-  }
-  .netmap-line {
-    grid-template-columns: minmax(0, 1fr);
-    gap: 0;
-    padding: 6px 0;
-  }
-  .netmap-head {
-    display: flex;
-    align-items: baseline;
-    justify-content: space-between;
-    gap: 10px;
-    margin: 0;
-    padding: 4px 6px;
-  }
-  .netmap-meta {
-    padding: 0;
-    white-space: nowrap;
-  }
-  .netmap-track {
-    height: 34px;
-  }
-  .netmap-stop {
-    height: 34px;
-    flex-basis: 20px;
-  }
-  .netmap-stop i {
-    width: 10px;
-    height: 10px;
-    border-width: 2.5px;
-  }
-  .netmap-stop.mod-start {
-    margin-left: 3px;
-  }
-  .netmap-info {
-    padding: 12px 14px;
-  }
-  .netmap-info-in {
-    grid-template-columns: minmax(0, 1fr);
-  }
-}
 
-/* --- planificador de viajes --- */
+/* --- por dónde empezar: selecciones por objetivo --- */
 .planner {
   margin-bottom: 84px;
 }
@@ -858,7 +581,7 @@
 .trip-leg {
   position: relative;
 }
-/* tramo de línea entre paradas, del color de la línea de la parada */
+/* arista entre lecciones de la selección, del color de su sección */
 .trip-leg::before {
   content: '';
   position: absolute;
@@ -907,15 +630,7 @@
   border: 3px solid var(--line);
   background: var(--bg);
 }
-.trip-leg.is-visited .stop {
-  background: var(--line);
-}
-/* transbordo: la estación se dibuja doble */
-.trip-leg.is-transfer .stop {
-  box-shadow:
-    0 0 0 3px var(--bg),
-    0 0 0 5px color-mix(in srgb, var(--line) 55%, transparent);
-}
+
 .trip-line {
   display: flex;
   align-items: center;
@@ -948,7 +663,7 @@
   }
 }
 
-/* --- lista de líneas --- */
+/* --- lista de secciones --- */
 .lines {
   margin-bottom: 20px;
 }
@@ -1642,17 +1357,7 @@
 .eyebrow-mod {
   margin-left: 0;
 }
-.netmap-open {
-  margin-top: 10px;
-  width: fit-content;
-}
-/* estaciones más fáciles de tocar: la zona táctil crece aunque el punto no */
-.netmap.is-touch .netmap-stop {
-  height: 44px;
-}
-.netmap.is-touch .netmap-track {
-  height: 44px;
-}
+
 /* pestañas que se desplazan: el borde difuminado avisa que hay más */
 .planner-needs,
 .cmp-concepts {
@@ -1682,14 +1387,6 @@
 .segmented button {
   flex: none;
   white-space: nowrap;
-}
-
-.netmap-transfer {
-  color: var(--text);
-  text-decoration: none;
-}
-.netmap-transfer:active {
-  scale: 0.97;
 }
 
 /* ficha de detalle en su lugar: en escritorio acompaña el desplazamiento de la lista */
@@ -1811,17 +1508,6 @@
   display: none;
 }
 
-@media (max-width: 1000px) and (min-width: 701px) {
-  .netmap-line {
-    grid-template-columns: 190px minmax(0, 1fr);
-  }
-  .netmap-stop {
-    flex-basis: 20px;
-  }
-  .netmap-stop.mod-start {
-    margin-left: 6px;
-  }
-}
 
 /* botones pequeños de algunas lecciones: mínimo táctil */
 .az-gob-ev,

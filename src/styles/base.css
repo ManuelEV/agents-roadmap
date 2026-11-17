@@ -358,10 +358,7 @@ kbd {
     transform 0.15s,
     background 0.2s;
 }
-.route-strip a.is-visited i {
-  background: var(--tone);
-  border-color: var(--tone);
-}
+
 .route-strip a.is-current i {
   width: 21px;
   background: var(--tone);
@@ -510,9 +507,7 @@ kbd {
     box-shadow 0.2s,
     background 0.2s;
 }
-.nav-module a.is-visited .stop {
-  background: var(--tone);
-}
+
 .nav-module a .t {
   flex: 1;
 }
@@ -2095,9 +2090,7 @@ table.tbl {
     transform 0.2s cubic-bezier(0.3, 0.7, 0.2, 1.4),
     background 0.2s;
 }
-.route-stop.is-visited .stop {
-  background: var(--tone);
-}
+
 .route-stop .num {
   font-family: var(--font-mono);
   font-size: 12.5px;

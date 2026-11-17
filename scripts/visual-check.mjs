@@ -1,8 +1,8 @@
 /* Captura páginas con Chrome headless (puppeteer-core) para revisar la UX.
 
    pnpm visual                      → todas las páginas (claro y oscuro, escritorio y móvil)
-   pnpm visual aws                  → la línea AWS completa
-   pnpm visual aws/primer-agente    → una parada
+   pnpm visual aws                  → la sección AWS completa
+   pnpm visual aws/primer-agente    → una lección
    pnpm visual home comparar        → páginas sueltas
    Opciones: --no-mobile · --light (solo tema claro) · --click (pulsa los "play" antes de capturar)
 
@@ -46,7 +46,7 @@ for (const t of targets) {
         }
         const overflow = await page.evaluate(() => document.documentElement.scrollWidth - document.documentElement.clientWidth)
         await page.screenshot({ path: join(outDir, `${t.name}-${theme}-${width}.png`), fullPage: true })
-        const broken = await page.evaluate(() => /Esta parada no existe|falló al renderizar|No se pudo renderizar/.test(document.body.innerText))
+        const broken = await page.evaluate(() => /Esta página no existe|falló al renderizar|No se pudo renderizar/.test(document.body.innerText))
         const status = [overflow > 0 ? `DESBORDE ${overflow}px` : '', broken ? 'NO ENCONTRADA / ERROR DE RENDER' : '', ...errors].filter(Boolean)
         if (status.length) problems++
         console.log(`${status.length ? '✗' : '✓'} ${t.path} ${theme} ${width}px ${status.join(' · ')}`)

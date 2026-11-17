@@ -29,7 +29,7 @@
   gap: 10px;
   align-items: flex-start;
 }
-/* una parada por capa, como en el mapa de líneas */
+/* un punto por capa */
 .vc-mapa-stop {
   flex: none;
   width: 24px;
@@ -546,7 +546,7 @@
   font-weight: 600;
 }
 
-/* ---------- próximas paradas ---------- */
+/* ---------- próximas lecciones ---------- */
 .vc-mapa-next {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));

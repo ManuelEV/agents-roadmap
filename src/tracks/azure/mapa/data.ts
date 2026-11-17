@@ -440,7 +440,7 @@ export const KIND_WHEN: Record<AgentKind, string> = {
   prompt:
     'Elígelo cuando el comportamiento cabe en instrucciones + tools integradas. Foundry guarda el agente como un recurso con versiones inmutables y tú solo lo invocas.',
   hosted:
-    'Elígelo cuando necesitas tu propio bucle: herramientas en código, workflows, aprobación humana. Es donde termina el agente que escribirás con Agent Framework en esta línea.',
+    'Elígelo cuando necesitas tu propio bucle: herramientas en código, workflows, aprobación humana. Es donde termina el agente que escribirás con Agent Framework en esta sección.',
   responses:
     'Elígelo cuando ya tienes una aplicación que orquesta y solo quieres el modelo y las tools de Foundry. No queda ningún agente que versionar, publicar ni gobernar en el portal.',
 }

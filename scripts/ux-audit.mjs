@@ -1,7 +1,7 @@
 /* Auditoría de UX: busca problemas que las capturas no muestran.
 
    pnpm ux                      → todas las páginas, en teléfono (390×844)
-   pnpm ux aws google/datos     → una línea o una parada
+   pnpm ux aws google/datos     → una sección o una lección
    Opciones: --desktop (1280×800) · --json <archivo>
 
    Qué revisa en cada página:

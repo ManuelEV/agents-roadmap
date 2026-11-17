@@ -73,7 +73,7 @@ export function PieceMap() {
           </dl>
           <div className="az-mapa-detail-links">
             <DocLink href={p.docs}>Documentación oficial</DocLink>
-            {p.lesson ? <Link to={`/azure/${p.lesson}`}>Se trabaja en «{LESSON_LABEL[p.lesson]}» →</Link> : <span className="muted">Esta línea solo la ubica; no tiene parada propia.</span>}
+            {p.lesson ? <Link to={`/azure/${p.lesson}`}>Se trabaja en «{LESSON_LABEL[p.lesson]}» →</Link> : <span className="muted">Esta sección solo la ubica; no tiene lección propia.</span>}
           </div>
         </div>
       </DetailDock>

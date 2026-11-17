@@ -1,7 +1,7 @@
-// Fuzz de interactividad: entra a cada parada, pulsa "Paso siguiente" hasta el final en cada PlayerBar,
+// Fuzz de interactividad: entra a cada lección, pulsa "Paso siguiente" hasta el final en cada PlayerBar,
 // luego hace clic una vez en cada botón visible (salvo navegación) y reporta errores de página/consola.
-//   pnpm fuzz              → todas las paradas
-//   pnpm fuzz aws          → una línea
+//   pnpm fuzz              → todas las lecciones
+//   pnpm fuzz aws          → una sección
 //   pnpm fuzz aws/desplegar
 import puppeteer from 'puppeteer-core'
 import { BASE, CHROME, resolveTargets } from './_targets.mjs'
@@ -45,5 +45,5 @@ for (const t of targets) {
   await page.close()
 }
 await browser.close()
-console.log(bad ? `${bad} paradas con errores` : 'Sin errores de interacción')
+console.log(bad ? `${bad} lecciones con errores` : 'Sin errores de interacción')
 process.exit(bad ? 1 : 0)

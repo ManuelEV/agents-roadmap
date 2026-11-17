@@ -125,33 +125,3 @@ export function useCountUp(target: number, ms = 600) {
   }, [target, ms])
   return v
 }
-
-/** Lecciones visitadas (progreso local). */
-const VISITED_KEY = 'roadmap:visited'
-export function readVisited(): string[] {
-  try {
-    return JSON.parse(localStorage.getItem(VISITED_KEY) ?? '[]') as string[]
-  } catch {
-    return []
-  }
-}
-export function markVisited(slug: string) {
-  try {
-    const v = new Set(readVisited())
-    v.delete(slug) // la última visitada queda al final: sirve para "seguir donde quedaste"
-    v.add(slug)
-    localStorage.setItem(VISITED_KEY, JSON.stringify([...v]))
-    window.dispatchEvent(new Event('roadmap:visited'))
-  } catch {
-    /* almacenamiento no disponible */
-  }
-}
-export function useVisited(): string[] {
-  const [v, setV] = useState<string[]>(() => readVisited())
-  useEffect(() => {
-    const on = () => setV(readVisited())
-    window.addEventListener('roadmap:visited', on)
-    return () => window.removeEventListener('roadmap:visited', on)
-  }, [])
-  return v
-}

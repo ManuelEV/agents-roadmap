@@ -1,5 +1,5 @@
 /* Datos y guiones de la lección "Gobernar al agente" (AWS).
-   Los identificadores coinciden con las paradas anteriores de la línea
+   Los identificadores coinciden con las lecciones anteriores de la sección
    (herramientas-memoria y desplegar). Todo lo que parece una respuesta de AWS
    es simulado; los nombres de API, campos y comandos vienen de
    docs/research/aws-2026-11.md. */

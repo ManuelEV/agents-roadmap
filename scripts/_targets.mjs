@@ -1,7 +1,7 @@
 // Resuelve los destinos de los scripts de verificación a partir de los archivos del repo.
 //   (sin argumentos) → todas las páginas
-//   google           → todas las paradas de esa línea
-//   aws/primer-agente → una parada
+//   google           → todas las lecciones de esa sección
+//   aws/primer-agente → una lección
 //   home | comparar | referencias → páginas sueltas
 import { readdirSync } from 'node:fs'
 import { join } from 'node:path'

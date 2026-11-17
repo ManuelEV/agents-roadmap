@@ -21,12 +21,12 @@ export default function Lesson() {
         </p>
         <p>
           En un <strong>prompt agent</strong> la definición (instrucciones, modelo, tools) vive en el servicio y no hay código tuyo. En un <strong>hosted agent</strong> subes tu código y Foundry lo
-          corre en un sandbox por sesión; es lo que en Google se llama Agent Runtime (<Link to="/google/desplegar">ver esa parada</Link>). Con la <strong>Responses API</strong> directa no existe
+          corre en un sandbox por sesión; es lo que en Google se llama Agent Runtime (<Link to="/google/desplegar">ver esa lección</Link>). Con la <strong>Responses API</strong> directa no existe
           recurso de agente: tu aplicación arma cada llamada.
         </p>
         <DecisionLab />
         <Callout tone="info" title="Los protocolos del endpoint">
-          Un agente del servicio se expone por <strong>Responses</strong> (compatible con OpenAI, historial gestionado), que es el que usa esta parada. Existen también Invocations (JSON libre),
+          Un agente del servicio se expone por <strong>Responses</strong> (compatible con OpenAI, historial gestionado), que es el que usa esta lección. Existen también Invocations (JSON libre),
           Activity (se activa al publicar en Teams) y A2A.
         </Callout>
       </Section>
@@ -67,7 +67,7 @@ export default function Lesson() {
         <h3>Si vienes de un tutorial anterior</h3>
         <p>
           Threads, runs y assistants son la generación anterior (Assistants API, retirada el 26-ago-2026). Los paquetes <code>azure-ai-agents</code> y <code>azure-ai-projects</code> 1.x pertenecen
-          a esa etapa: no los mezcles con el código de esta parada.
+          a esa etapa: no los mezcles con el código de esta lección.
         </p>
         <div className="table-wrap">
           <table className="tbl">
@@ -179,7 +179,7 @@ export default function Lesson() {
         </Callout>
         <p>
           Andi ya tiene endpoint. Falta decidir quién puede llamarlo y con qué identidad actúa, ponerle guardrails, evaluarlo y publicarlo en Teams: eso es{' '}
-          <Link to="/azure/gobernar">la próxima parada, gobernar</Link>.
+          <Link to="/azure/gobernar">la próxima lección, gobernar</Link>.
         </p>
       </Section>
 

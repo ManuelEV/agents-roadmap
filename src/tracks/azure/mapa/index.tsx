@@ -47,7 +47,7 @@ export default function Lesson() {
         </p>
         <KindLab />
         <p>
-          En esta línea escribes a Andi con Agent Framework (<Link to="/azure/primer-agente">primer agente</Link>) y lo subes como hosted agent (
+          En esta sección escribes a Andi con Agent Framework (<Link to="/azure/primer-agente">primer agente</Link>) y lo subes como hosted agent (
           <Link to="/azure/desplegar">desplegar</Link>). El prompt agent y la Responses API quedan como alternativas que vas a reconocer cuando las
           veas.
         </p>
@@ -129,15 +129,15 @@ export default function Lesson() {
 
       <Section n={6} title="En Google Cloud se llama…">
         <p>
-          Si vienes de la <Link to="/google/ecosistema">línea de Google</Link>, casi todo tiene una pieza gemela. Casi: hay equivalencias que solo
+          Si vienes de la <Link to="/google/ecosistema">sección de Google</Link>, casi todo tiene una pieza gemela. Casi: hay equivalencias que solo
           son parciales, porque una de las dos está en preview o reparte la función entre varias piezas, y dos casos donde no hay nada verificado
           del otro lado.
         </p>
         <EquivLab />
       </Section>
 
-      <Section n={7} title="La ruta de esta línea">
-        <p>Esta parada solo ubica las piezas. Cada una se trabaja con código en las siguientes:</p>
+      <Section n={7} title="Qué viene en esta sección">
+        <p>Esta lección solo ubica las piezas. Cada una se trabaja con código en las siguientes:</p>
         <ol className="az-mapa-route">
           {ROUTE.map((r, i) => (
             <li key={r.slug}>

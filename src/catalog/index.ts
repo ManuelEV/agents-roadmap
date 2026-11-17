@@ -10,10 +10,10 @@ export type { LessonMeta, ModuleInfo, Stop, TopicId, Track, TrackId } from './ty
 
 /* Catálogo único de la plataforma.
 
-   Una LÍNEA (track) agrupa PARADAS (stops). Hay dos tipos de parada:
+   Una SECCIÓN (track) agrupa LECCIONES (stops). Hay dos tipos:
      · lab   → src/tracks/<línea>/<slug>/{meta.ts,index.tsx}   (se registran solas por glob)
      · guia  → src/guide/content/<slug>.{mdx,meta.ts}
-   La ruta de una parada es siempre /<línea>/<slug>. */
+   La URL de una lección es siempre /<sección>/<slug>. */
 
 const metaFiles = import.meta.glob<{ meta: LessonMeta }>('../tracks/*/*/meta.ts', { eager: true })
 const componentFiles = import.meta.glob<{ default: ComponentType }>('../tracks/*/*/index.tsx')
@@ -89,9 +89,18 @@ export const STOPS: Stop[] = [...labStops, ...guideStops]
 export const stopsOf = (track: TrackId) => STOPS.filter((s) => s.track === track)
 export const stopsByModule = (track: TrackId, moduleId: string) => STOPS.filter((s) => s.track === track && s.module === moduleId)
 export const getStop = (track: string | undefined, slug: string | undefined) => STOPS.find((s) => s.track === track && s.slug === slug)
-/** Clave estable de una parada, usada para el progreso guardado. */
+/** Clave estable de una lección. */
 export const stopKey = (s: Pick<Stop, 'track' | 'slug'>) => `${s.track}/${s.slug}`
 export const trackMinutes = (track: TrackId) => stopsOf(track).reduce((a, s) => a + s.minutes, 0)
+
+/** "17 lecciones" o "31 artículos": la Referencia se lee, el resto se hace. */
+export function unitLabel(track: TrackId | 'mixed', n: number) {
+  const [one, many] = track === 'guia' ? ['artículo', 'artículos'] : ['lección', 'lecciones']
+  return `${n} ${n === 1 ? one : many}`
+}
+
+/** "Lección" o "Artículo", para una lección concreta. */
+export const unitName = (s: Pick<Stop, 'kind'>) => (s.kind === 'guia' ? 'Artículo' : 'Lección')
 
 export function adjacentStops(stop: Stop) {
   const list = stopsOf(stop.track)
@@ -99,14 +108,14 @@ export function adjacentStops(stop: Stop) {
   return { prev: list[i - 1], next: list[i + 1] }
 }
 
-/** Transbordos: paradas de OTRAS líneas que comparten tema, ordenadas por coincidencia. */
+/** Conexiones: lecciones de OTRAS secciones que comparten tema, ordenadas por coincidencia. */
 export function relatedStops(stop: Stop, limit = 6): Stop[] {
   if (stop.topics.length === 0) return []
   const scored = STOPS.filter((s) => s.track !== stop.track)
     .map((s) => ({ s, score: s.topics.filter((t) => stop.topics.includes(t)).length }))
     .filter((x) => x.score > 0)
     .sort((a, b) => b.score - a.score || trackIndex(a.s.track) - trackIndex(b.s.track) || a.s.n - b.s.n)
-  // como mucho dos por línea, para que el transbordo muestre variedad
+  // como mucho dos por sección, para que las conexiones muestren variedad
   const perTrack = new Map<TrackId, number>()
   const out: Stop[] = []
   for (const { s } of scored) {

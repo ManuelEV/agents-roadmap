@@ -139,7 +139,7 @@ const P_STEPS: PStep[] = [
   },
   {
     title: 'Monitor y Publish: lo que sigue',
-    body: 'La pestaña Monitor (preview) muestra las métricas del agente. Publish > Teams and Microsoft Copilot lo saca del proyecto hacia los usuarios: eso, junto con identidad, guardrails y evaluación, es la próxima parada.',
+    body: 'La pestaña Monitor (preview) muestra las métricas del agente. Publish > Teams and Microsoft Copilot lo saca del proyecto hacia los usuarios: eso, junto con identidad, guardrails y evaluación, es la próxima lección.',
     screen: 'monitor',
     focus: 'publish',
   },

@@ -1,7 +1,7 @@
 import type { Track } from './types'
 
-/* Las líneas del mapa. El orden aquí es el orden en toda la interfaz.
-   Cada línea tiene su color en src/styles/base.css (--line-<id>). */
+/* Las secciones de la guía. El orden aquí es el orden en toda la interfaz.
+   Cada sección tiene su color en src/styles/app.css (--line-<id>). */
 export const TRACKS: Track[] = [
   {
     id: 'fundamentos',
@@ -23,8 +23,8 @@ export const TRACKS: Track[] = [
   },
   {
     id: 'guia',
-    title: 'Guía de referencia',
-    short: 'Guía',
+    title: 'Referencia',
+    short: 'Referencia',
     kind: 'guia',
     tagline: 'Conceptos, frameworks, arquitecturas y casos reales, para leer',
     description:
@@ -57,7 +57,7 @@ export const TRACKS: Track[] = [
       { id: 'construir', n: 2, title: 'Construir con ADK', tone: 'model', description: 'Tu primer agente, herramientas, bases de datos dentro y fuera de Google, y workflows multi-agente con humanos en el circuito.' },
       { id: 'escalar', n: 3, title: 'Escalar', tone: 'data', description: 'Sesiones, estado y Memory Bank; despliegue en Agent Runtime y cómo consultar al agente desplegado.' },
       { id: 'gobernar', n: 4, title: 'Gobernar y optimizar', tone: 'guard', description: 'Guardrails con Model Armor, Agent Identity y Agent Gateway; evaluación con adk eval y trazas en Cloud Trace.' },
-      { id: 'publicar', n: 5, title: 'Publicar', tone: 'user', description: 'Registrar el agente en Gemini Enterprise, hablar A2A con agentes de otros equipos y recorrer el proyecto completo.' },
+      { id: 'publicar', n: 5, title: 'Publicar', tone: 'user', description: 'Registrar el agente en Gemini Enterprise, hablar A2A con agentes de otros equipos y revisar el proyecto completo.' },
     ],
   },
   {

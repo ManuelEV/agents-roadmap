@@ -3,8 +3,7 @@ import { Link, NavLink, Outlet, ScrollRestoration, useLocation } from 'react-rou
 import { AnimatePresence, MotionConfig, motion, useDragControls, type PanInfo } from 'motion/react'
 import { ArrowLeftRight, Menu, Moon, Search, Sun, X } from 'lucide-react'
 import { setTheme, useTheme } from '@/lib/theme'
-import { useVisited } from '@/lib/hooks'
-import { TRACKS, getStop, getTrack, stopKey, stopsByModule, stopsOf, type Track } from '@/catalog'
+import { TRACKS, getStop, getTrack, stopsByModule, stopsOf, trackMinutes, unitLabel, type Track } from '@/catalog'
 import { Palette } from './Palette'
 import { toneVar } from './ui'
 
@@ -17,22 +16,25 @@ export const SPRING = { type: 'spring', bounce: 0, duration: 0.4 } as const
 const SPRING_FLICK = { type: 'spring', bounce: 0.18, duration: 0.45 } as const
 
 export function Logo({ size = 26 }: { size?: number }) {
-  // tres líneas que se cruzan en una estación de transbordo
+  // un grafo pequeño: cuatro secciones enlazadas a un mismo centro
   return (
-    <svg viewBox="0 0 64 64" width={size} height={size} aria-hidden>
-      <path d="M6 20h24l14 24h14" fill="none" stroke="var(--line-fundamentos)" strokeWidth="7" strokeLinecap="round" strokeLinejoin="round" />
-      <path d="M6 44h24l14-24h14" fill="none" stroke="var(--line-google)" strokeWidth="7" strokeLinecap="round" strokeLinejoin="round" />
-      <path d="M6 32h52" fill="none" stroke="var(--line-aws)" strokeWidth="7" strokeLinecap="round" />
-      <circle cx="37" cy="32" r="9" fill="var(--bg-elev)" stroke="var(--text)" strokeWidth="5" />
+    <svg viewBox="0 0 64 64" width={size} height={size} aria-hidden className="logo">
+      <g stroke="var(--text-3)" strokeWidth="3.2" strokeLinecap="round" opacity="0.75">
+        <path d="M32 32 14 15M32 32l19-17M32 32l18 18M32 32 13 50M51 15l-1 35" />
+      </g>
+      <circle cx="14" cy="15" r="7" fill="var(--line-fundamentos)" />
+      <circle cx="51" cy="15" r="6" fill="var(--line-google)" />
+      <circle cx="50" cy="50" r="7" fill="var(--line-aws)" />
+      <circle cx="13" cy="50" r="6" fill="var(--line-guia)" />
+      <circle cx="32" cy="32" r="8.5" fill="var(--bg-elev)" stroke="var(--text)" strokeWidth="4.5" />
     </svg>
   )
 }
 
-/** La línea de una pista en vertical: módulos como tramos, paradas como estaciones. */
+/** Índice de una sección: sus módulos y, dentro de cada uno, sus lecciones en orden. */
 export function TrackNav({ track, onNavigate }: { track: Track; onNavigate?: () => void }) {
-  const visited = useVisited()
   return (
-    <nav aria-label={`Paradas de ${track.title}`}>
+    <nav aria-label={`Índice de ${track.title}`}>
       {track.modules.map((m) => {
         const stops = stopsByModule(track.id, m.id)
         if (stops.length === 0) return null
@@ -45,7 +47,7 @@ export function TrackNav({ track, onNavigate }: { track: Track; onNavigate?: () 
             <ul>
               {stops.map((s) => (
                 <li key={s.slug}>
-                  <NavLink to={s.path} onClick={onNavigate} className={({ isActive }) => `${isActive ? 'is-active' : ''}${visited.includes(stopKey(s)) ? ' is-visited' : ''}`}>
+                  <NavLink to={s.path} onClick={onNavigate} className={({ isActive }) => (isActive ? 'is-active' : '')}>
                     <span className="stop" />
                     <span className="t">{s.short}</span>
                     <span className="num">{String(s.n).padStart(2, '0')}</span>
@@ -61,20 +63,16 @@ export function TrackNav({ track, onNavigate }: { track: Track; onNavigate?: () 
 }
 
 function TrackHeader({ track }: { track: Track }) {
-  const visited = useVisited()
   const stops = stopsOf(track.id)
-  const done = stops.filter((s) => visited.includes(stopKey(s))).length
+  const hours = Math.max(1, Math.round(trackMinutes(track.id) / 60))
   return (
     <Link to={`/${track.id}`} className="side-head" style={{ '--line': lineVar(track.id) } as CSSProperties}>
       <span className="side-head-line" />
       <span className="side-head-text">
         <span className="side-head-title">{track.title}</span>
         <span className="side-head-meta">
-          {done} de {stops.length} paradas
+          {unitLabel(track.id, stops.length)} · unas {hours} h
         </span>
-      </span>
-      <span className="side-head-meter" aria-hidden>
-        <span style={{ width: `${(done / Math.max(1, stops.length)) * 100}%` }} />
       </span>
     </Link>
   )
@@ -128,7 +126,7 @@ function Drawer({ track, onClose }: { track?: Track; onClose: () => void }) {
                   {isOpen && (
                     <div className="drawer-line-body">
                       <Link to={`/${t.id}`} className="drawer-line-all" onClick={onClose}>
-                        Ver toda la línea
+                        Ver la sección completa
                       </Link>
                       <TrackNav track={t} onNavigate={onClose} />
                     </div>
@@ -196,7 +194,7 @@ export function Layout() {
                 Agents<span className="brand-dim"> Roadmap</span>
               </span>
             </Link>
-            <nav className="topnav nav-hide-narrow" aria-label="Líneas">
+            <nav className="topnav nav-hide-narrow" aria-label="Secciones">
               {TRACKS.map((t) => {
                 const active = track?.id === t.id
                 return (
@@ -214,7 +212,7 @@ export function Layout() {
               </Link>
             </nav>
             <div className="spacer" />
-            <button className="search-btn" onClick={() => setPalette(true)} aria-label="Buscar en todas las líneas">
+            <button className="search-btn" onClick={() => setPalette(true)} aria-label="Buscar en toda la guía">
               <Search size={16} />
               <span className="search-btn-label">Buscar</span>
               <kbd className="search-btn-kbd">Ctrl K</kbd>
@@ -250,9 +248,9 @@ export function Layout() {
 
         <footer className="footer">
           <p>
-            Agents Roadmap reúne en un solo lugar los laboratorios de fundamentos, la guía de referencia y los recorridos por ecosistema (Google Cloud, AWS,
-            Microsoft Azure y Vercel). Las pantallas de consola, los terminales y las respuestas de los modelos son <strong>simulaciones</strong> con fines
-            didácticos; los nombres de productos, comandos, APIs y formatos vienen de la documentación oficial, verificada en la fecha que indica cada línea.
+            Agents Roadmap es una guía de agentes de IA: laboratorios de fundamentos, artículos de referencia y el mismo agente construido en cada ecosistema
+            (Google Cloud, AWS, Microsoft Azure y Vercel). Las pantallas de consola, los terminales y las respuestas de los modelos son <strong>simulaciones</strong> con fines
+            didácticos; los nombres de productos, comandos, APIs y formatos vienen de la documentación oficial, verificada en la fecha que indica cada sección.
             No es un sitio de Google, AWS, Microsoft ni Vercel.
           </p>
           <p className="footer-links">

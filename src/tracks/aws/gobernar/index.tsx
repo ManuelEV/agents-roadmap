@@ -189,10 +189,10 @@ export default function Lesson() {
         </Callout>
       </Section>
 
-      <Section n={6} title="Fin de la línea AWS">
+      <Section n={6} title="Cierre de la sección AWS">
         <p>
           Con esto Andi está completo en AWS: construido con Strands, conectado por Gateway, con memoria, desplegado en Runtime y gobernado por cuatro piezas que
-          no dependen de que el modelo se porte bien. La misma historia existe en las otras líneas con otros nombres; para ver las piezas lado a lado, sigue en{' '}
+          no dependen de que el modelo se porte bien. La misma historia existe en las otras secciones con otros nombres; para ver las piezas lado a lado, sigue en{' '}
           <Link to="/comparar">Comparar ecosistemas</Link>.
         </p>
       </Section>

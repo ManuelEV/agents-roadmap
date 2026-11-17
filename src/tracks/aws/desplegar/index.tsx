@@ -32,7 +32,7 @@ export default function Lesson() {
             AgentCore Runtime
           </Term>{' '}
           lo hospeda como servicio: escala solo, aísla cada conversación en su propia microVM y lo expone detrás de una API con IAM. Es la pieza
-          que en Google se llama Agent Runtime (<Link to="/google/desplegar">ver esa parada</Link>).
+          que en Google se llama Agent Runtime (<Link to="/google/desplegar">ver esa lección</Link>).
         </p>
         <p>
           Runtime no te pide reescribir el agente ni usar Strands: pide que tu proceso cumpla un contrato HTTP. El paquete{' '}
@@ -179,7 +179,7 @@ export default function Lesson() {
           </p>
           <p>
             <strong>No guarda el historial.</strong> <code>agent.messages</code> vive en la microVM. Para que Andi recuerde después de un timeout,
-            persiste en AgentCore Memory (lo viste en <Link to="/aws/herramientas-memoria">la parada anterior</Link>) o en <em>session storage</em>.
+            persiste en AgentCore Memory (lo viste en <Link to="/aws/herramientas-memoria">la lección anterior</Link>) o en <em>session storage</em>.
           </p>
           <p>
             <strong>Un Agent a nivel de módulo se reutiliza dentro de la sesión.</strong> Si varios usuarios pueden caer en la misma sesión, crea el
@@ -249,7 +249,7 @@ export default function Lesson() {
         </Callout>
         <p>
           Con el agente desplegado falta decidir quién puede invocarlo, qué puede hacer cada herramienta y cómo ver lo que hizo: Identity, Policy,
-          Guardrails y observabilidad, en <Link to="/aws/gobernar">la siguiente parada</Link>. Si quieres volver a ubicar cada pieza, está{' '}
+          Guardrails y observabilidad, en <Link to="/aws/gobernar">la siguiente lección</Link>. Si quieres volver a ubicar cada pieza, está{' '}
           <Link to="/aws/mapa">el mapa</Link>.
         </p>
       </Section>

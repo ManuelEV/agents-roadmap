@@ -11,7 +11,7 @@ export const MODEL = 'anthropic/claude-sonnet-5.5'
 /** Precio visto en la API v1/models de AI Gateway el 2026-11-15 (US$ por 1M tokens). */
 export const MODEL_PRICE = { input: 2, output: 10 }
 
-/* Resultados de negocio: los mismos que en las otras líneas. */
+/* Resultados de negocio: los mismos que en las otras secciones. */
 export const ORDER_RESULT = runTool('get_order_status', { order_id: '4821' })
 export const REFUND_AMOUNT = 69990
 export const REFUND_PENDING = runTool('request_refund', { order_id: '4821', amount_clp: REFUND_AMOUNT, reason: 'Pedido atrasado' })

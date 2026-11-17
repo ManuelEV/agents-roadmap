@@ -1,8 +1,9 @@
 import type { TrackId } from './types'
 
-/* Itinerarios: viajes que cruzan líneas. Cada parada es "<línea>/<slug>".
+/* Selecciones por objetivo: lecciones de varias secciones, en el orden en que
+   conviene leerlas. Cada una es "<sección>/<slug>".
    `{eco}` se reemplaza por el ecosistema elegido por el lector.
-   Las paradas que no existan se omiten al dibujar (ver HomePage). */
+   Las que no existan se omiten al dibujar (ver HomePage). */
 export type Itinerary = {
   id: string
   /** la necesidad, en palabras del lector */
@@ -36,7 +37,7 @@ export const ITINERARIES: Itinerary[] = [
     id: 'construir',
     need: 'Construir en mi nube',
     title: 'Un agente desplegado en tu ecosistema',
-    why: 'Un repaso corto del ciclo y de MCP, y después el recorrido de tu nube: mapa, primer agente, despliegue. Termina comparando con las demás para saber qué elegiste.',
+    why: 'Un repaso corto del ciclo y de MCP, y después la sección de tu nube: mapa, primer agente, despliegue. Termina comparando con las demás para saber qué elegiste.',
     stops: ['fundamentos/loop-agente', 'fundamentos/mcp', '{eco}/@1', '{eco}/@2', '{eco}/@3', '{eco}/@last', 'comparar'],
     usesEco: true,
   },
@@ -51,7 +52,7 @@ export const ITINERARIES: Itinerary[] = [
     id: 'produccion',
     need: 'Llevarlo a producción',
     title: 'Lo que separa una demo de un sistema',
-    why: 'Guardrails, trazas y evaluación en laboratorio; después la versión completa en la guía y cómo lo resuelve una plataforma concreta.',
+    why: 'Guardrails, trazas y evaluación en laboratorio; después la versión completa en los artículos de referencia y cómo lo resuelve una plataforma concreta.',
     stops: [
       'fundamentos/guardrails',
       'fundamentos/observabilidad',
@@ -66,7 +67,7 @@ export const ITINERARIES: Itinerary[] = [
     id: 'rag',
     need: 'Dominar RAG',
     title: 'Que el agente encuentre el párrafo correcto',
-    why: 'Los cinco laboratorios de búsqueda en orden, la guía de RAG empresarial y una arquitectura de soporte que lo combina con MCP.',
+    why: 'Los cinco laboratorios de búsqueda en orden, el artículo de RAG empresarial y una arquitectura de soporte que lo combina con MCP.',
     stops: [
       'fundamentos/embeddings',
       'fundamentos/indexacion',

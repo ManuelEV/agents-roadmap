@@ -183,7 +183,7 @@ export default function Lesson() {
           <code>BedrockModel</code> y un <code>Agent</code> que las une.
         </p>
         <AnatomyLab />
-        <Callout tone="info" title="Si vienes de la línea de Google">
+        <Callout tone="info" title="Si vienes de la sección de Google">
           Strands ocupa el lugar de ADK. Allá la herramienta es una función sin decorador y el agente necesita un Runner; aquí la función lleva <code>@tool</code> y el agente
           se llama directamente. Compara con <Link to="/google/primer-agente">Tu primer agente con ADK</Link>.
         </Callout>
@@ -288,7 +288,7 @@ export default function Lesson() {
           </p>
         </Callout>
         <p>
-          Andi ya responde por un pedido desde tu máquina. Lo que sigue en esta línea: conectarle herramientas por MCP y memoria en{' '}
+          Andi ya responde por un pedido desde tu máquina. Lo que sigue en esta sección: conectarle herramientas por MCP y memoria en{' '}
           <Link to="/aws/herramientas-memoria">Herramientas y memoria</Link>, ponerlo en producción en <Link to="/aws/desplegar">Desplegar en AgentCore Runtime</Link> y
           controlar lo que puede hacer en <Link to="/aws/gobernar">Gobernar</Link>.
         </p>

@@ -2,12 +2,11 @@ import { useEffect, useState, type CSSProperties } from 'react'
 import { Link, useParams } from 'react-router'
 import { ArrowRight, BookOpen, FlaskConical, Pause, Play } from 'lucide-react'
 import { ArchDiagram } from '@/components/Arch'
-import { getTrack, stopKey, stopsByModule, stopsOf, trackMinutes, TRACKS, type Track } from '@/catalog'
-import { useVisited } from '@/lib/hooks'
+import { getTrack, stopsByModule, stopsOf, trackMinutes, TRACKS, unitLabel, type Track } from '@/catalog'
 import { ARCH_STAGES } from '@/sim/google/architecture'
 import { NotFoundPage } from './NotFoundPage'
 
-/** La arquitectura que la línea Google construye etapa a etapa. */
+/** La arquitectura que la sección Google construye etapa a etapa. */
 function GoogleStage() {
   const [stage, setStage] = useState(1)
   const [paused, setPaused] = useState(false)
@@ -56,12 +55,11 @@ function GoogleStage() {
   )
 }
 
-const KIND_LABEL: Record<Track['kind'], string> = { labs: 'Línea troncal · laboratorios', guia: 'Línea troncal · lectura', ecosistema: 'Línea de ecosistema' }
+const KIND_LABEL: Record<Track['kind'], string> = { labs: 'Base común · laboratorios', guia: 'Base común · artículos', ecosistema: 'Ecosistema' }
 
 export function TrackPage() {
   const { track: trackId } = useParams()
   const track = getTrack(trackId)
-  const visited = useVisited()
 
   useEffect(() => {
     if (track) document.title = `${track.title} · Agents Roadmap`
@@ -69,8 +67,7 @@ export function TrackPage() {
 
   if (!track) return <NotFoundPage />
   const stops = stopsOf(track.id)
-  const done = stops.filter((s) => visited.includes(stopKey(s))).length
-  const next = stops.find((s) => !visited.includes(stopKey(s))) ?? stops[0]
+  const first = stops[0]
   const hours = Math.max(1, Math.round(trackMinutes(track.id) / 60))
   const others = TRACKS.filter((t) => t.kind === track.kind && t.id !== track.id)
 
@@ -85,13 +82,13 @@ export function TrackPage() {
           <p className="lead">{track.description}</p>
           <p className="track-aud">{track.audience}</p>
           <div className="home-cta">
-            {next && (
-              <Link className="btn btn-primary btn-lg" to={next.path}>
-                {done > 0 ? `Continuar en la parada ${String(next.n).padStart(2, '0')}` : 'Empezar la línea'} <ArrowRight size={17} />
+            {first && (
+              <Link className="btn btn-primary btn-lg" to={first.path}>
+                Empezar por el principio <ArrowRight size={17} />
               </Link>
             )}
             <span className="track-stats">
-              {stops.length} paradas · unas {hours} h{done > 0 ? ` · ${done} ${done === 1 ? 'vista' : 'vistas'}` : ''}
+              {unitLabel(track.id, stops.length)} · unas {hours} h · entra por la que te interese
             </span>
           </div>
         </div>
@@ -99,31 +96,29 @@ export function TrackPage() {
       </section>
 
       {stops.length === 0 ? (
-        <p className="muted">Esta línea está en construcción.</p>
+        <p className="muted">Esta sección está en construcción.</p>
       ) : (
-        <section className="route" aria-label="Paradas de la línea">
+        <section className="route" aria-label="Índice de la sección">
           {track.modules.map((m) => {
             const list = stopsByModule(track.id, m.id)
             if (list.length === 0) return null
             return (
               <div key={m.id} className="route-module" data-tone={m.tone}>
                 <div className="route-module-info">
-                  <div className="route-module-n">Tramo {m.n}</div>
+                  <div className="route-module-n">Módulo {m.n}</div>
                   <h3>{m.title}</h3>
                   <p>{m.description}</p>
                 </div>
                 <ol className="route-stops">
                   {list.map((s) => {
-                    const seen = visited.includes(stopKey(s))
                     return (
                       <li key={s.slug}>
-                        <Link to={s.path} className={`route-stop${seen ? ' is-visited' : ''}`}>
+                        <Link to={s.path} className="route-stop">
                           <span className="stop" />
                           <span className="num">{String(s.n).padStart(2, '0')}</span>
                           <span>
                             <span className="t">{s.title}</span>
                             <span className="c">
-                              {seen ? 'Vista · ' : ''}
                               {s.concepts.slice(0, 4).join(' · ')}
                             </span>
                           </span>
@@ -144,7 +139,7 @@ export function TrackPage() {
 
       {others.length > 0 && (
         <section className="track-others">
-          <h2>{track.kind === 'ecosistema' ? 'El mismo agente en otras nubes' : 'La otra línea troncal'}</h2>
+          <h2>{track.kind === 'ecosistema' ? 'El mismo agente en otras nubes' : 'La otra base común'}</h2>
           <div className="lines-list">
             {others.map((t) => (
               <Link key={t.id} to={`/${t.id}`} className="line-row" style={{ '--line': `var(--line-${t.id})` } as CSSProperties}>

@@ -25,7 +25,7 @@ function buildIndex(): Item[] {
   })
   return [
     ...TRACKS.map(
-      (t): Item => ({ key: `/${t.id}`, path: `/${t.id}`, title: `Línea ${t.title}`, sub: t.tagline, line: t.id, kind: 'linea', hay: fold(`${t.title} ${t.tagline} linea`) }),
+      (t): Item => ({ key: `/${t.id}`, path: `/${t.id}`, title: `Sección ${t.title}`, sub: t.tagline, line: t.id, kind: 'linea', hay: fold(`${t.title} ${t.tagline} seccion`) }),
     ),
     { key: '/comparar', path: '/comparar', title: 'Comparar ecosistemas', sub: 'La misma pieza en Google, AWS, Azure y Vercel', kind: 'pagina', hay: fold('comparar ecosistemas equivalencias google aws azure vercel') },
     { key: '/referencias', path: '/referencias', title: 'Referencias', sub: 'Todas las fuentes primarias de la guía', kind: 'pagina', hay: fold('referencias fuentes bibliografia') },
@@ -55,7 +55,7 @@ function search(index: Item[], q: string): Item[] {
 
 const ICON = { lab: FlaskConical, guia: BookOpen, linea: null, pagina: ArrowLeftRight }
 
-/** Buscador global (Ctrl/⌘ K): todas las paradas de todas las líneas. */
+/** Buscador global (Ctrl/⌘ K): todas las lecciones de todas las secciones. */
 export function Palette({ onClose }: { onClose: () => void }) {
   const index = useMemo(buildIndex, [])
   const [q, setQ] = useState('')
@@ -109,7 +109,7 @@ export function Palette({ onClose }: { onClose: () => void }) {
           <kbd>Esc</kbd>
         </div>
         <ul className="palette-list" ref={listRef} role="listbox">
-          {results.length === 0 && <li className="palette-empty">Nada con «{q}». Prueba con otra palabra o revisa la lista de líneas.</li>}
+          {results.length === 0 && <li className="palette-empty">Nada con «{q}». Prueba con otra palabra o revisa la lista de secciones.</li>}
           {results.map((r, i) => {
             const Icon = ICON[r.kind]
             return (

@@ -41,7 +41,7 @@ export default function Lesson() {
         <PathLab />
         <Callout tone="info" title="Lo que este recorrido simplifica">
           Es el despliegue completo, con todo encendido. No necesitas todas las piezas para empezar: en{' '}
-          <Link to="/aws/primer-agente">la siguiente parada</Link> la herramienta es una función Python local y no hay Gateway, Memory ni Policy. Tampoco aparece
+          <Link to="/aws/primer-agente">la siguiente lección</Link> la herramienta es una función Python local y no hay Gateway, Memory ni Policy. Tampoco aparece
           la autenticación saliente de Identity ni el <Link to="/fundamentos/mcp">detalle del protocolo MCP</Link>.
         </Callout>
       </Section>
@@ -109,7 +109,7 @@ export default function Lesson() {
 
       <Section n={5} title="Cómo se llama en Google Cloud">
         <p>
-          Si vienes de <Link to="/google/ecosistema">la línea de Google</Link>, casi cada pieza tiene su par. La diferencia de forma es que Google reúne todo
+          Si vienes de <Link to="/google/ecosistema">la sección de Google</Link>, casi cada pieza tiene su par. La diferencia de forma es que Google reúne todo
           en una plataforma y AWS lo reparte entre Bedrock y AgentCore. La diferencia de fondo está en las filas marcadas como aproximadas o sin equivalente:
           ahí es donde un diseño no se traslada tal cual.
         </p>
@@ -119,7 +119,7 @@ export default function Lesson() {
       <Section n={6} title="Las tres capas, en un archivo">
         <p>
           El mapa completo cabe en un archivo de unas treinta líneas: el agente de Andi listo para AgentCore Runtime. Cada capa ocupa unas pocas líneas y se puede
-          cambiar sin tocar las otras. Las paradas siguientes de esta línea toman cada una por separado.
+          cambiar sin tocar las otras. Las lecciones siguientes de esta sección toman cada una por separado.
         </p>
         <LayersCodeLab />
         <ul className="aws-mapa-next">

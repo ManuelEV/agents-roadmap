@@ -40,7 +40,7 @@ export default function Lesson() {
     <>
       <Section n={1} title="El stream es un protocolo, no un chorro de texto">
         <p>
-          En <Link to="/vercel/primer-agente">la parada anterior</Link> Andi quedó como un <code>ToolLoopAgent</code> que corre en el servidor. Falta que Camila lo
+          En <Link to="/vercel/primer-agente">la lección anterior</Link> Andi quedó como un <code>ToolLoopAgent</code> que corre en el servidor. Falta que Camila lo
           vea. Lo que distingue a este ecosistema está justo ahí: el stream del agente no es texto que la interfaz tenga que adivinar, sino una secuencia de{' '}
           <Term tip="Eventos SSE con un campo type: start, text-delta, tool-input-available, tool-output-available, finish… Es el protocolo de AI SDK UI.">partes tipadas</Term>{' '}
           que el hook <code>useChat</code> entiende. Texto, llamada a una tool, resultado y solicitud de aprobación llegan por separado y con forma conocida.
@@ -252,8 +252,8 @@ export default function Lesson() {
         </Callout>
         <p>
           Con esto Andi ya tiene cara. Lo que falta para ponerlo frente a clientes reales (que el run sobreviva a un reinicio, límites de duración, protección
-          del endpoint y telemetría) es la parada siguiente: <Link to="/vercel/produccion">Producción</Link>. Si quieres volver a ubicar cada pieza, está el{' '}
-          <Link to="/vercel/mapa">mapa de la línea</Link>.
+          del endpoint y telemetría) es la lección siguiente: <Link to="/vercel/produccion">Producción</Link>. Si quieres volver a ubicar cada pieza, está el{' '}
+          <Link to="/vercel/mapa">mapa de la sección</Link>.
         </p>
       </Section>
 

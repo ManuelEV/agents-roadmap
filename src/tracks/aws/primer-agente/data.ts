@@ -123,7 +123,7 @@ export const ANATOMY: AnatomyPart[] = [
   {
     id: 'tools',
     label: 'tools=[get_order_status]',
-    desc: 'La lista de herramientas que el modelo puede pedir. Aquí va la función decorada; en la próxima parada, también clientes MCP.',
+    desc: 'La lista de herramientas que el modelo puede pedir. Aquí va la función decorada; en la próxima lección, también clientes MCP.',
     needles: ['tools=[get_order_status]'],
     tone: 'tool',
   },

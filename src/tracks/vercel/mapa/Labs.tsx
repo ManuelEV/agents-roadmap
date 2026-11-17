@@ -203,7 +203,7 @@ export function CostLab() {
           </div>
           <p className="vc-mapa-cost-note">
             <code>{cur.id}</code> · ${cur.input.toFixed(2)} entrada / ${cur.output.toFixed(2)} salida · contexto {cur.context}.{' '}
-            {cur.role ? ROLE_NOTE[cur.role] : 'Sin rol sugerido en esta línea.'}
+            {cur.role ? ROLE_NOTE[cur.role] : 'Sin rol sugerido en esta sección.'}
           </p>
         </div>
         <div className="vc-mapa-models" role="listbox" aria-label="Modelos y costo mensual">
