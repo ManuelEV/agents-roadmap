@@ -3,6 +3,8 @@ import type { PostMeta } from '../lib/content'
 export const meta: PostMeta = {
   slug: 'microsoft-foundry-cloudflare',
   title: 'Microsoft Foundry, Cloudflare y comparativa multinube',
+
+  short: 'Foundry y Cloudflare',
   description: 'Foundry Agent Service (prompt y hosted agents, Toolboxes MCP, Entra Agent ID, A2A, Claude, Teams), Cloudflare (Agents SDK sobre Durable Objects, MCP remoto, AI Gateway, Workers AI, AI Search) y una comparativa AWS/GCP/Azure/Cloudflare para decidir.',
   section: 'plataformas',
   order: 3,

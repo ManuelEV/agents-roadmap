@@ -3,6 +3,8 @@ import type { PostMeta } from '../lib/content'
 export const meta: PostMeta = {
   slug: 'arquitectura-soporte-rag-mcp',
   title: 'Arquitectura de referencia: asistente de soporte con RAG y MCP',
+
+  short: 'Soporte con RAG y MCP',
   description:
     'Asistente de atención al cliente para un retailer: canales, RAG sobre políticas con búsqueda híbrida, reranking, citas y ACL, servidores MCP de pedidos, CRM y tickets, reembolsos con aprobación humana, escalamiento, guardrails y evaluaciones.',
   section: 'arquitecturas',

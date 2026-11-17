@@ -3,6 +3,8 @@ import type { PostMeta } from '../lib/content'
 export const meta: PostMeta = {
   slug: 'caso-atencion-cliente',
   title: 'Caso real: agentes de atención al cliente a gran escala (Klarna, Intercom, DoorDash, Salesforce)',
+
+  short: 'Atención al cliente',
   description:
     'Cuatro despliegues de agentes de soporte con millones de conversaciones: el asistente de Klarna y su giro al modelo híbrido, el pipeline de Intercom Fin con modelos propios y precio por resolución, los guardrails, jueces y simulación de DoorDash (con Bedrock en voz) y Agentforce en Salesforce Help. Cifras fechadas, quién las reporta, retrocesos y lecciones aplicables.',
   section: 'casos',

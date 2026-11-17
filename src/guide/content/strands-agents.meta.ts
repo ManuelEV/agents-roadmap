@@ -3,6 +3,8 @@ import type { PostMeta } from '../lib/content'
 export const meta: PostMeta = {
   slug: 'strands-agents',
   title: 'AWS Strands Agents',
+
+  short: 'Strands Agents',
   description: 'El SDK model-driven de AWS: Agent, @tool, MCPClient, proveedores de modelos, Agents as Tools, Swarm, Graph y A2A, Strands Harness y despliegue en AgentCore Runtime con OpenTelemetry.',
   section: 'frameworks',
   order: 2,

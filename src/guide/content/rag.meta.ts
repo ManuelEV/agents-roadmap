@@ -3,6 +3,8 @@ import type { PostMeta } from '../lib/content'
 export const meta: PostMeta = {
   slug: 'rag',
   title: 'RAG para agentes empresariales',
+
+  short: 'RAG empresarial',
   description: 'De naive a agentic RAG: ingesta, chunking, búsqueda híbrida con RRF, reranking, Contextual Retrieval, GraphRAG, permisos, vector stores y evaluación.',
   section: 'conectar',
   order: 1,

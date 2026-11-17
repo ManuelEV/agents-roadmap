@@ -3,6 +3,8 @@ import type { PostMeta } from '../lib/content'
 export const meta: PostMeta = {
   slug: 'orquestacion-avanzada',
   title: 'Orquestación avanzada',
+
+  short: 'Orquestación avanzada',
   description: 'Topologías multiagente, aislamiento de contexto, ejecución durable, human-in-the-loop, tareas largas, manejo de fallas y agentes dirigidos por eventos.',
   section: 'produccion',
   order: 3,

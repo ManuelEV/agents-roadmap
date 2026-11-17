@@ -3,6 +3,8 @@ import type { PostMeta } from '../lib/content'
 export const meta: PostMeta = {
   slug: 'caso-investigacion-multiagente',
   title: 'Caso real: sistemas multiagente de investigación profunda',
+
+  short: 'Investigación profunda',
   description:
     'Cómo construyeron sus sistemas orquestador-trabajadores Anthropic (Research), LinkedIn (Hiring Assistant), Thomson Reuters (Deep Research en Westlaw) y Exa: roles, paralelismo, presupuesto de tokens, evaluación, manejo de errores, resultados y cuándo no conviene multiagente.',
   section: 'casos',

@@ -3,6 +3,8 @@ import type { PostMeta } from '../lib/content'
 export const meta: PostMeta = {
   slug: 'casos-reales',
   title: 'Casos reales: qué aprendieron las empresas que operan agentes a escala',
+
+  short: 'Qué aprendieron',
   description:
     'Síntesis de más de 30 casos documentados —soporte, migraciones de código, investigación multiagente, datos, finanzas y plataformas internas—: cómo leerlos con criterio, qué patrones se repiten y cómo llevarlos a tu propia arquitectura.',
   section: 'casos',

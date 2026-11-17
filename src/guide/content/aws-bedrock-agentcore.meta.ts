@@ -3,6 +3,8 @@ import type { PostMeta } from '../lib/content'
 export const meta: PostMeta = {
   slug: 'aws-bedrock-agentcore',
   title: 'AWS: Amazon Bedrock y AgentCore',
+
+  short: 'Bedrock y AgentCore',
   description: 'Bedrock como capa de modelos (Converse, perfiles de inferencia, prompt caching, Guardrails, Knowledge Bases) y AgentCore como plataforma para operar agentes: Runtime, Gateway, Memory, Identity, Policy y más.',
   section: 'plataformas',
   order: 1,

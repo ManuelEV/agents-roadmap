@@ -3,6 +3,8 @@ import type { PostMeta } from '../lib/content'
 export const meta: PostMeta = {
   slug: 'que-es-un-agente',
   title: '¿Qué es un agente de IA?',
+
+  short: '¿Qué es un agente?',
   description: 'El loop agéntico por dentro: modelo, herramientas, contexto y harness. Cuándo conviene un agente y cuándo un workflow.',
   section: 'fundamentos',
   order: 1,

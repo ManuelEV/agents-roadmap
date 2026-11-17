@@ -3,6 +3,8 @@ import type { PostMeta } from '../lib/content'
 export const meta: PostMeta = {
   slug: 'evaluacion-observabilidad',
   title: 'Evaluación y observabilidad de agentes',
+
+  short: 'Evaluación y observabilidad',
   description: 'Cómo medir si un agente funciona: tareas, trials y graders, pass@k vs. pass^k, evals en CI/CD y en producción, y trazas OpenTelemetry de cada paso.',
   section: 'produccion',
   order: 1,

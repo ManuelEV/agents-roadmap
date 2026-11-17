@@ -3,6 +3,8 @@ import type { PostMeta } from '../lib/content'
 export const meta: PostMeta = {
   slug: 'caso-plataformas-internas',
   title: 'Caso real: plataformas internas de agentes (Uber, Block, Cloudflare, Deutsche Telekom, LinkedIn)',
+
+  short: 'Plataformas internas',
   description:
     'Cómo cinco empresas grandes habilitan a cientos de equipos para construir y operar agentes: gateway de modelos, registro y gateway MCP, identidad, observabilidad, evaluación, gobierno y adopción. Con cifras fechadas, límites y un blueprint destilado de los casos.',
   section: 'casos',

@@ -3,6 +3,8 @@ import type { PostMeta } from '../lib/content'
 export const meta: PostMeta = {
   slug: 'mcp',
   title: 'Model Context Protocol (MCP)',
+
+  short: 'MCP',
   description: 'Arquitectura host/cliente/servidor, transportes, primitivas, la spec stateless 2026-07-28 (qué cambió), autorización OAuth 2.1, seguridad y cómo consumir MCP desde ADK y Strands.',
   section: 'conectar',
   order: 2,

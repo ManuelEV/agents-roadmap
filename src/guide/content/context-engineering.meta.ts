@@ -3,6 +3,8 @@ import type { PostMeta } from '../lib/content'
 export const meta: PostMeta = {
   slug: 'context-engineering',
   title: 'Context engineering',
+
+  short: 'Context engineering',
   description: 'El contexto como presupuesto de atención finito: system prompts, diseño de herramientas, recuperación just-in-time, compactación, memoria de corto y largo plazo, prompt caching y Agent Skills.',
   section: 'fundamentos',
   order: 3,

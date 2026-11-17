@@ -3,6 +3,8 @@ import type { PostMeta } from '../lib/content'
 export const meta: PostMeta = {
   slug: 'google-adk',
   title: 'Google ADK a fondo',
+
+  short: 'Google ADK',
   description: 'Agent Development Kit 2.x: agentes, herramientas, callbacks, sesiones, grafos Workflow, Claude en Bedrock vía LiteLLM, MCP, A2A, evaluación y despliegue en GCP o AWS.',
   section: 'frameworks',
   order: 1,

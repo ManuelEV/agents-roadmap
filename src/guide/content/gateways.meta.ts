@@ -3,6 +3,8 @@ import type { PostMeta } from '../lib/content'
 export const meta: PostMeta = {
   slug: 'gateways',
   title: 'AI gateways: LLM, herramientas y MCP',
+
+  short: 'AI gateways',
   description: 'Por qué centralizar el acceso a modelos y herramientas: claves virtuales, presupuestos, fallbacks, políticas y auditoría. LiteLLM, Cloudflare, Vercel, Kong, Portkey, Agent Router, AgentCore Gateway y más.',
   section: 'conectar',
   order: 4,

@@ -3,6 +3,8 @@ import type { PostMeta } from '../lib/content'
 export const meta: PostMeta = {
   slug: 'arquitectura-multiagente-a2a',
   title: 'Arquitectura de referencia: respuesta a incidentes multiagente con A2A',
+
+  short: 'Incidentes multiagente',
   description:
     'Orquestador ADK con especialistas de logs, métricas y runbooks, y un agente de remediación en Strands consumido por A2A: descubrimiento con registro, aprobación humana, identidad por agente, trazas distribuidas, presupuestos y manejo de fallos.',
   section: 'arquitecturas',

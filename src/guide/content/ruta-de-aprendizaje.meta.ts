@@ -3,6 +3,8 @@ import type { PostMeta } from '../lib/content'
 export const meta: PostMeta = {
   slug: 'ruta-de-aprendizaje',
   title: 'Ruta de aprendizaje: de fundamentos a orquestación multiagente',
+
+  short: 'Ruta de aprendizaje',
   description:
     'Siete niveles con temas, proyecto hito, criterios de salida y recursos. Un solo proyecto integrador que crece contigo hasta un sistema multiagente en producción.',
   section: 'inicio',

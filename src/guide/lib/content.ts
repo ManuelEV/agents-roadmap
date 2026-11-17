@@ -15,6 +15,8 @@ export interface Reference {
 export interface PostMeta {
   slug: string
   title: string
+  /** Nombre corto para el menú lateral, la búsqueda y las fichas del grafo (2 a 4 palabras). */
+  short: string
   description: string
   section: SectionId
   order: number

@@ -3,6 +3,8 @@ import type { PostMeta } from '../lib/content'
 export const meta: PostMeta = {
   slug: 'caso-servicios-financieros',
   title: 'Caso real: agentes en servicios financieros y seguros',
+
+  short: 'Servicios financieros',
   description:
     "Morgan Stanley, JPMorgan, Moody's, Allianz y Robinhood: qué construyeron, con qué arquitectura publicada y cómo resuelven evaluación antes de producción, trazabilidad, humano en el loop, residencia de datos y gestión de modelos en industrias reguladas.",
   section: 'casos',

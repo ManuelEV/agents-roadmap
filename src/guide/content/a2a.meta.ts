@@ -3,6 +3,8 @@ import type { PostMeta } from '../lib/content'
 export const meta: PostMeta = {
   slug: 'a2a',
   title: 'Agent2Agent (A2A): colaboración entre agentes',
+
+  short: 'A2A',
   description: 'A2A v1.0: Agent Cards firmadas, skills, tareas y estados, mensajes y artefactos, bindings, streaming y push. MCP vs. A2A vs. AG-UI y soporte en ADK, Strands, Foundry y AgentCore.',
   section: 'conectar',
   order: 3,

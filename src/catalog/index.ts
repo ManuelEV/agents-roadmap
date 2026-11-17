@@ -48,13 +48,6 @@ const labStops = Object.entries(metaFiles).flatMap(([file, mod]) => {
 })
 
 /** Título corto de un artículo para la barra lateral: sin prefijo de serie ni subtítulo. */
-function guideShort(title: string) {
-  const t = title.replace(/^(Caso real|Arquitectura de referencia|Casos reales): /, '').replace(/ (.*)$/, '')
-  const head = t.split(':')[0]
-  const s = head.length >= 8 ? head : t
-  return s.charAt(0).toUpperCase() + s.slice(1)
-}
-
 const guideStops = posts.map(
   (p): Omit<Stop, 'n'> => ({
     track: 'guia',
@@ -63,7 +56,7 @@ const guideStops = posts.map(
     module: p.section,
     order: p.order,
     title: p.title,
-    short: guideShort(p.title),
+    short: p.short,
     summary: p.description,
     minutes: p.readingMinutes,
     concepts: p.tags ?? [],

@@ -3,6 +3,8 @@ import type { PostMeta } from '../lib/content'
 export const meta: PostMeta = {
   slug: 'caso-datos-analitica',
   title: 'Caso real: agentes de datos y analítica (Uber, LinkedIn, Pinterest, Meta)',
+
+  short: 'Datos y analítica',
   description:
     'Cómo Uber (QueryGPT, Finch, Genie), LinkedIn (SQL Bot), Pinterest (Analytics Agent) y Meta llevaron agentes de text-to-SQL, analítica y on-call a producción: resolución de esquemas, RAG sobre catálogos, validación de SQL, permisos, evaluación, cifras con fecha y límites reconocidos.',
   section: 'casos',

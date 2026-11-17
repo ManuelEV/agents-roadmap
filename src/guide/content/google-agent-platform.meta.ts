@@ -3,6 +3,8 @@ import type { PostMeta } from '../lib/content'
 export const meta: PostMeta = {
   slug: 'google-agent-platform',
   title: 'Google Cloud: Gemini Enterprise Agent Platform',
+
+  short: 'Google Agent Platform',
   description: 'Lo que antes era Vertex AI: Agent Runtime, Sessions y Memory Bank, Agent Gateway y Agent Registry, Model Armor, RAG Engine y Agent Search, Claude en Model Garden, y cómo desplegar ADK en Agent Runtime, Cloud Run o GKE.',
   section: 'plataformas',
   order: 2,

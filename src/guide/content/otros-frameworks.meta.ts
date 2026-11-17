@@ -3,6 +3,8 @@ import type { PostMeta } from '../lib/content'
 export const meta: PostMeta = {
   slug: 'otros-frameworks',
   title: 'Otros frameworks de agentes',
+
+  short: 'Otros frameworks',
   description: 'OpenAI Agents SDK, Claude Agent SDK, Microsoft Agent Framework, CrewAI, LlamaIndex, Pydantic AI v2, Mastra, Vercel AI SDK y Cloudflare Agents SDK: qué son, conceptos clave y cuándo elegir cada uno.',
   section: 'frameworks',
   order: 4,

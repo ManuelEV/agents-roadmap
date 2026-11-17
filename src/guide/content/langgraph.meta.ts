@@ -3,6 +3,8 @@ import type { PostMeta } from '../lib/content'
 export const meta: PostMeta = {
   slug: 'langgraph',
   title: 'LangGraph y LangChain 1.x',
+
+  short: 'LangGraph y LangChain',
   description: 'Grafos de estado, reducers, checkpointers y thread_id, ejecución durable, interrupts con Command(resume), subgrafos y supervisor, streaming, create_agent con middleware y Bedrock vía langchain-aws.',
   section: 'frameworks',
   order: 3,

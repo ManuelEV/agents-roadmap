@@ -3,6 +3,8 @@ import type { PostMeta } from '../lib/content'
 export const meta: PostMeta = {
   slug: 'seguridad-gobernanza',
   title: 'Seguridad y gobernanza de agentes',
+
+  short: 'Seguridad y gobernanza',
   description: 'Modelo de amenazas, OWASP para LLMs y agentes, prompt injection indirecta, identidad y políticas por tool call, guardrails, seguridad MCP, cadena de suministro y marcos de gobierno.',
   section: 'produccion',
   order: 2,

@@ -3,6 +3,8 @@ import type { PostMeta } from '../lib/content'
 export const meta: PostMeta = {
   slug: 'panorama',
   title: 'Panorama: las opciones para construir agentes en 2026',
+
+  short: 'Panorama 2026',
   description:
     'Un mapa del ecosistema —modelos, frameworks, protocolos, gateways y plataformas— para ubicar cada pieza antes de profundizar. Incluye qué cambió en 2026.',
   section: 'inicio',

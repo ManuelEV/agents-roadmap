@@ -3,6 +3,8 @@ import type { PostMeta } from '../lib/content'
 export const meta: PostMeta = {
   slug: 'arquitectura-de-referencia',
   title: 'Arquitectura de referencia: framework, AI gateway y runtime gestionado',
+
+  short: 'Framework, gateway y runtime',
   description:
     'Una arquitectura empresarial de extremo a extremo, implementada como ejemplo con Google ADK, LiteLLM Proxy como AI gateway, Claude en Bedrock y AgentCore: herramientas MCP gobernadas, RAG, memoria, guardrails, observabilidad y CI/CD con gate de evaluaciones. Cada pieza tiene equivalentes en otras nubes.',
   section: 'arquitecturas',

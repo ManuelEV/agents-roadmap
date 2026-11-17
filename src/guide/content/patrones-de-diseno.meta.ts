@@ -3,6 +3,8 @@ import type { PostMeta } from '../lib/content'
 export const meta: PostMeta = {
   slug: 'patrones-de-diseno',
   title: 'Patrones de diseño de agentes',
+
+  short: 'Patrones de diseño',
   description: 'Chaining, routing, paralelización, orquestador-workers, evaluator-optimizer y agentes autónomos: cuándo usar cada uno, cuánto cuestan y cómo se implementan en ADK y Strands.',
   section: 'fundamentos',
   order: 2,

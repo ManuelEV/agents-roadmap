@@ -3,6 +3,8 @@ import type { PostMeta } from '../lib/content'
 export const meta: PostMeta = {
   slug: 'caso-migraciones-codigo',
   title: 'Caso real: agentes para migraciones de código a gran escala',
+
+  short: 'Migraciones de código',
   description:
     'Cómo Airbnb, Google, Amazon, Spotify y Nubank usan LLMs y agentes para migrar miles de archivos y repos: pipelines por unidad, verificación con compiladores y tests, reintentos, revisión humana, cifras con fuente y fecha, límites y qué puedes replicar con ADK, un AI gateway y Bedrock.',
   section: 'casos',

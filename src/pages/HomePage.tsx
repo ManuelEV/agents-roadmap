@@ -39,7 +39,7 @@ function SectionCard({ track, onFocus }: { track: Track; onFocus: (id: TrackId |
   return (
     <Link
       to={`/${track.id}`}
-      className="gcard glow"
+      className="hcard glow"
       data-node={track.id}
       data-glow
       style={{ '--line': `var(--line-${track.id})`, gridArea: track.id } as CSSProperties}
@@ -48,13 +48,13 @@ function SectionCard({ track, onFocus }: { track: Track; onFocus: (id: TrackId |
       onFocus={() => onFocus(track.id)}
       onBlur={() => onFocus(null)}
     >
-      <span className="gcard-kind">
+      <span className="hcard-kind">
         <span className="line-dot" /> {KIND[track.kind]}
       </span>
-      <strong className="gcard-title">{track.title}</strong>
-      <span className="gcard-tag">{track.tagline}</span>
-      <span className="gcard-aud">{track.audience}</span>
-      <span className="gcard-meta">
+      <strong className="hcard-title">{track.title}</strong>
+      <span className="hcard-tag">{track.tagline}</span>
+      <span className="hcard-aud">{track.audience}</span>
+      <span className="hcard-meta">
         {stops.length > 0 ? `${unitLabel(track.id, stops.length)} · unas ${hours} h` : 'pronto'}
         <ArrowRight size={16} />
       </span>

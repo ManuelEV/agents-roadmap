@@ -79,7 +79,7 @@
 
 /* texto que recibe la luz */
 .glow-text,
-.gcard-title {
+.hcard-title {
   background-image:
     radial-gradient(440px circle at var(--gx) var(--gy), rgb(var(--gc) / calc(var(--ga) * 0.9)), transparent 72%),
     radial-gradient(260px circle at var(--px) var(--py), rgb(var(--plight) / calc(var(--pa) * 0.55)), transparent 70%),
@@ -89,7 +89,7 @@
   color: transparent;
 }
 :root[data-theme='light'] .glow-text,
-:root[data-theme='light'] .gcard-title {
+:root[data-theme='light'] .hcard-title {
   background-image:
     radial-gradient(440px circle at var(--gx) var(--gy), rgb(var(--gc) / calc(var(--ga) * 0.75)), transparent 72%),
     linear-gradient(var(--text), var(--text));
@@ -178,7 +178,7 @@
   }
 }
 
-.gcard {
+.hcard {
   display: flex;
   flex-direction: column;
   gap: 6px;
@@ -196,14 +196,14 @@
     border-color 0.2s,
     background 0.2s;
 }
-.gcard:hover {
+.hcard:hover {
   background: color-mix(in srgb, var(--bg-elev) 94%, var(--line));
 }
-.gcard:focus-visible {
+.hcard:focus-visible {
   outline: 2px solid var(--line);
   outline-offset: 3px;
 }
-.gcard-kind {
+.hcard-kind {
   display: flex;
   align-items: center;
   gap: 7px;
@@ -211,7 +211,7 @@
   font-weight: 600;
   color: var(--line);
 }
-.gcard-title {
+.hcard-title {
   margin-top: 4px;
   font-family: var(--font-display);
   font-variation-settings: 'ROND' 60;
@@ -220,13 +220,13 @@
   letter-spacing: -0.02em;
   line-height: 1.15;
 }
-.gcard-tag {
+.hcard-tag {
   color: var(--text-2);
   font-size: 14.5px;
   line-height: 1.45;
   text-wrap: pretty;
 }
-.gcard-aud {
+.hcard-aud {
   margin-top: auto;
   padding-top: 10px;
   color: var(--text-3);
@@ -234,7 +234,7 @@
   line-height: 1.45;
   text-wrap: pretty;
 }
-.gcard-meta {
+.hcard-meta {
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -245,18 +245,18 @@
   font-size: 12.5px;
   color: var(--text-3);
 }
-.gcard-meta svg {
+.hcard-meta svg {
   transition: transform 0.18s;
 }
-.gcard:hover .gcard-meta svg {
+.hcard:hover .hcard-meta svg {
   transform: translateX(3px);
   color: var(--text);
 }
 @media (max-width: 700px) {
-  .gcard {
+  .hcard {
     min-height: 0;
   }
-  .gcard-title {
+  .hcard-title {
     font-size: 22px;
   }
 }

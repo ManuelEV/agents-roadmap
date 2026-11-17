@@ -3,6 +3,8 @@ import type { PostMeta } from '../lib/content'
 export const meta: PostMeta = {
   slug: 'comparativa-frameworks',
   title: 'Comparativa y guía de decisión',
+
+  short: 'Comparativa y decisión',
   description: 'ADK, Strands, LangGraph y el resto lado a lado: lenguajes, multiagente, durabilidad, MCP, A2A y lock-in; guía por contexto (AWS, GCP, Azure, TS, RAG, HITL), diagrama de decisión y cómo evaluar un framework en 2 semanas.',
   section: 'frameworks',
   order: 5,
